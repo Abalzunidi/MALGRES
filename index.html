@@ -10,6 +10,11 @@
             font-family: 'Cormorant Garamond', Georgia, serif;
             font-weight: 700;
             background-color: #fffa87;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            padding: 0;
         }
         
         .product-card {
@@ -185,7 +190,6 @@
         .py-12 { padding-top: 3rem; padding-bottom: 3rem; }
         .mb-2 { margin-bottom: 0.5rem; }
         .mb-3 { margin-bottom: 0.75rem; }
-        .mb-32 { margin-bottom: 8rem; }
         .mt-4 { margin-top: 1rem; }
         .p-6 { padding: 1.5rem; }
         .p-8 { padding: 2rem; }
@@ -239,6 +243,18 @@
         }
         @media (min-width: 1024px) {
             .lg\:grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+        }
+        
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        footer {
+            padding: 1.5rem 0;
+            text-align: center;
         }
         
         @keyframes slideIn {
@@ -297,7 +313,7 @@
     </header>
 
     <!-- Products Grid -->
-    <main class="container mx-auto px-4 py-12 mb-32">
+    <main class="container mx-auto px-4">
         <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 max-w-xs mx-auto">
             <div class="product-card bg-transparent rounded-xl overflow-hidden" onclick="addToCart()">
                 <div class="relative p-8">
@@ -314,6 +330,13 @@
         </div>
     </main>
 
+    <!-- Footer -->
+    <footer style="background-color: #fffa87;">
+        <div class="container mx-auto px-4">
+            <p class="text-xs px-3 py-1 inline-block rounded" style="color: #fffa87; background-color: #000;">© 2025 All Rights Reserved</p>
+        </div>
+    </footer>
+
     <!-- Cart Summary -->
     <div id="cart-summary" class="fixed bottom-0 left-0 right-0 p-6 shadow-2xl hidden" style="background-color: #fffa87;">
         <div class="container mx-auto flex items-center justify-between">
@@ -326,24 +349,6 @@
             </button>
         </div>
     </div>
-
-    <!-- Footer -->
-    <footer class="fixed bottom-0 left-0 right-0 py-6" style="background-color: #fffa87;">
-        <div class="container mx-auto px-4 text-center">
-            <h3 class="text-xl font-bold mb-3 text-black">Malgré</h3>
-            <div class="flex flex-col items-center justify-center gap-2 mb-3 text-black">
-                <a href="tel:+966552060478" class="flex items-center gap-2 hover:opacity-70 transition-colors">
-                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                    <span id="phone-number">+966 55 206 0478</span>
-                </a>
-                <a href="mailto:customerhelp@magleh.io" class="flex items-center gap-2 hover:opacity-70 transition-colors">
-                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6" fill="none" stroke="#000" stroke-width="2"></polyline></svg>
-                    customerhelp@magleh.io
-                </a>
-            </div>
-            <p class="text-xs mt-4 px-3 py-1 inline-block rounded" style="color: #fffa87; background-color: #000;">© 2025 All Rights Reserved</p>
-        </div>
-    </footer>
 
     <script>
         let currentCountry = 'sa';
@@ -397,12 +402,9 @@
             
             popup.classList.add('show');
             
-            // No need to update buttons - toggle handles itself
-            
             // Update price
             const data = content[country];
             document.getElementById('product-price').textContent = `${data.price} ${data.currency}`;
-            document.getElementById('phone-number').textContent = data.phone;
             
             // Update cart if not empty
             if (cart.length > 0) {
