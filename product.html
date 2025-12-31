@@ -69,6 +69,54 @@
             fill: #fffa87;
         }
         
+        /* Cart Icon Button */
+        .cart-icon-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: #000;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        
+        .cart-icon-button.show {
+            display: flex;
+        }
+        
+        .cart-icon-button:hover {
+            transform: scale(1.1);
+        }
+        
+        .cart-icon-button svg {
+            width: 24px;
+            height: 24px;
+            fill: #fffa87;
+        }
+        
+        .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #fffa87;
+            color: #000;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        
         /* Hamburger Menu Button */
         .menu-button {
             position: fixed;
@@ -120,7 +168,7 @@
             transform: rotate(-45deg) translateY(-7px);
         }
         
-        /* Side Menu - Hidden by default */
+        /* Side Menu */
         .side-menu {
             position: fixed;
             top: 0;
@@ -137,6 +185,26 @@
         
         .side-menu.active {
             left: 0;
+        }
+        
+        /* Cart Panel */
+        .cart-panel {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            max-width: 90%;
+            height: 100vh;
+            background: #fffa87;
+            box-shadow: -5px 0 25px rgba(0,0,0,0.3);
+            z-index: 999;
+            transition: right 0.4s ease;
+            overflow-y: auto;
+            padding: 80px 30px 30px;
+        }
+        
+        .cart-panel.active {
+            right: 0;
         }
         
         .menu-overlay {
@@ -192,6 +260,94 @@
         .menu-item.active {
             background: #000;
             color: #fffa87;
+        }
+        
+        /* Cart Panel Content */
+        .cart-title {
+            font-size: 1.75rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .cart-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(0,0,0,0.05);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+        }
+        
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            background: rgba(255,255,255,0.5);
+            border-radius: 8px;
+            padding: 0.5rem;
+        }
+        
+        .cart-item-details {
+            flex: 1;
+        }
+        
+        .cart-item-name {
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .cart-item-price {
+            font-size: 1rem;
+            color: rgba(0,0,0,0.7);
+        }
+        
+        .cart-summary {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid rgba(0,0,0,0.1);
+        }
+        
+        .cart-summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-size: 1.125rem;
+        }
+        
+        .cart-summary-row.total {
+            font-size: 1.5rem;
+            padding-top: 1rem;
+            border-top: 2px solid rgba(0,0,0,0.2);
+            margin-top: 1rem;
+        }
+        
+        .cart-summary-label {
+            color: rgba(0,0,0,0.7);
+        }
+        
+        .cart-summary-value {
+            font-weight: 700;
+        }
+        
+        .checkout-button {
+            width: 100%;
+            background-color: #000;
+            color: #fffa87;
+            padding: 1rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.25rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            margin-top: 1.5rem;
+        }
+        
+        .checkout-button:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
         }
         
         /* Main content */
@@ -362,6 +518,14 @@
         </svg>
     </div>
 
+    <!-- Cart Icon Button -->
+    <div class="cart-icon-button" id="cartIconButton" onclick="toggleCart()">
+        <svg viewBox="0 0 24 24">
+            <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
+        </svg>
+        <div class="cart-badge" id="cartBadge">0</div>
+    </div>
+
     <!-- Menu Button -->
     <div class="menu-button" id="menuButton" onclick="toggleMenu()">
         <div class="menu-icon">
@@ -372,7 +536,7 @@
     </div>
 
     <!-- Menu Overlay -->
-    <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+    <div class="menu-overlay" id="menuOverlay" onclick="closeAll()"></div>
 
     <!-- Side Menu -->
     <div class="side-menu" id="sideMenu">
@@ -391,13 +555,43 @@
             <div class="menu-item active">
                 Malgré Signature
             </div>
-            <div class="menu-item" onclick="goToSection('magazine')">
+            <div class="menu-item" onclick="window.location.href='magazine.html'">
                 Malgré Magazine
             </div>
             <div class="menu-item" onclick="goToSection('inquiry')">
                 Inquiry
             </div>
         </div>
+    </div>
+
+    <!-- Cart Panel -->
+    <div class="cart-panel" id="cartPanel">
+        <h2 class="cart-title">Shopping Cart</h2>
+        
+        <div id="cartItems">
+            <!-- Cart items will be inserted here -->
+        </div>
+        
+        <div class="cart-summary">
+            <div class="cart-summary-row">
+                <span class="cart-summary-label">Subtotal:</span>
+                <span class="cart-summary-value" id="subtotal">0 SAR</span>
+            </div>
+            <div class="cart-summary-row">
+                <span class="cart-summary-label">Tax (15%):</span>
+                <span class="cart-summary-value" id="tax">0 SAR</span>
+            </div>
+            <div class="cart-summary-row">
+                <span class="cart-summary-label">Delivery:</span>
+                <span class="cart-summary-value" id="delivery">Free</span>
+            </div>
+            <div class="cart-summary-row total">
+                <span class="cart-summary-label">Total:</span>
+                <span class="cart-summary-value" id="total">0 SAR</span>
+            </div>
+        </div>
+        
+        <button class="checkout-button" onclick="checkout()">Checkout</button>
     </div>
 
     <!-- Page Container -->
@@ -452,19 +646,22 @@
     </div>
 
     <script>
-        // Get country from URL or localStorage
+        // Get country from localStorage
         let currentCountry = localStorage.getItem('selectedCountry') || 'sa';
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
         
         const content = {
             sa: {
                 name: 'Saudi Arabia',
                 currency: 'SAR',
-                price: 450
+                price: 450,
+                deliveryFee: 0  // Free delivery
             },
             kw: {
                 name: 'Kuwait',
                 currency: 'KWD',
-                price: 42
+                price: 42,
+                deliveryFee: 0  // Free delivery
             }
         };
         
@@ -485,10 +682,37 @@
             const menuButton = document.getElementById('menuButton');
             const sideMenu = document.getElementById('sideMenu');
             const menuOverlay = document.getElementById('menuOverlay');
+            const cartPanel = document.getElementById('cartPanel');
+            
+            // Close cart if open
+            cartPanel.classList.remove('active');
             
             menuButton.classList.toggle('active');
             sideMenu.classList.toggle('active');
             menuOverlay.classList.toggle('active');
+        }
+
+        // Toggle cart
+        function toggleCart() {
+            const cartPanel = document.getElementById('cartPanel');
+            const menuOverlay = document.getElementById('menuOverlay');
+            const sideMenu = document.getElementById('sideMenu');
+            const menuButton = document.getElementById('menuButton');
+            
+            // Close menu if open
+            sideMenu.classList.remove('active');
+            menuButton.classList.remove('active');
+            
+            cartPanel.classList.toggle('active');
+            menuOverlay.classList.toggle('active');
+        }
+
+        // Close all panels
+        function closeAll() {
+            document.getElementById('sideMenu').classList.remove('active');
+            document.getElementById('cartPanel').classList.remove('active');
+            document.getElementById('menuOverlay').classList.remove('active');
+            document.getElementById('menuButton').classList.remove('active');
         }
 
         // Select country from menu
@@ -509,12 +733,12 @@
             
             // Update price
             updatePrice();
+            updateCartDisplay();
         }
 
         function goToSection(section) {
             console.log('Going to section:', section);
             toggleMenu();
-            // Add navigation logic here
         }
         
         // Update price based on country
@@ -538,18 +762,22 @@
         function addToCart() {
             const data = content[currentCountry];
             
-            // Get existing cart from localStorage
-            let cart = JSON.parse(localStorage.getItem('cart')) || [];
-            
             // Add product to cart
             cart.push({
                 name: 'Malgré Signature',
                 price: data.price,
-                currency: data.currency
+                currency: data.currency,
+                image: 'I1.png'
             });
             
             // Save cart to localStorage
             localStorage.setItem('cart', JSON.stringify(cart));
+            
+            // Show cart icon
+            document.getElementById('cartIconButton').classList.add('show');
+            
+            // Update cart display
+            updateCartDisplay();
             
             // Show success message
             const successMessage = document.getElementById('successMessage');
@@ -560,9 +788,58 @@
             }, 2000);
         }
         
+        // Update cart display
+        function updateCartDisplay() {
+            const data = content[currentCountry];
+            const cartItemsContainer = document.getElementById('cartItems');
+            
+            // Update badge
+            document.getElementById('cartBadge').textContent = cart.length;
+            
+            // Clear cart items
+            cartItemsContainer.innerHTML = '';
+            
+            // Add cart items
+            cart.forEach((item, index) => {
+                const cartItemHTML = `
+                    <div class="cart-item">
+                        <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+                        <div class="cart-item-details">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-price">${item.price} ${item.currency}</div>
+                        </div>
+                    </div>
+                `;
+                cartItemsContainer.innerHTML += cartItemHTML;
+            });
+            
+            // Calculate totals
+            const subtotal = cart.reduce((sum, item) => sum + item.price, 0);
+            const tax = subtotal * 0.15;  // 15% tax
+            const delivery = data.deliveryFee;
+            const total = subtotal + tax + delivery;
+            
+            // Update summary
+            document.getElementById('subtotal').textContent = `${subtotal.toFixed(2)} ${data.currency}`;
+            document.getElementById('tax').textContent = `${tax.toFixed(2)} ${data.currency}`;
+            document.getElementById('delivery').textContent = delivery === 0 ? 'Free' : `${delivery} ${data.currency}`;
+            document.getElementById('total').textContent = `${total.toFixed(2)} ${data.currency}`;
+        }
+        
+        // Checkout
+        function checkout() {
+            alert('Checkout functionality coming soon!');
+        }
+        
         // Initialize
         updatePrice();
         updateMenuActiveState();
+        
+        // Show cart icon if cart has items
+        if (cart.length > 0) {
+            document.getElementById('cartIconButton').classList.add('show');
+            updateCartDisplay();
+        }
     </script>
 </body>
 </html>

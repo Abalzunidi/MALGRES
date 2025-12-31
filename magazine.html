@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malgré Magazine</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-weight: 700;
+            background-color: #fffa87;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Logo at top center */
+        .logo-container {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            cursor: pointer;
+        }
+        
+        .logo-container img {
+            height: 80px;
+            width: auto;
+        }
+        
+        /* Main content */
+        .magazine-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 1rem 100px;
+        }
+        
+        .magazine-image-container {
+            width: 100%;
+            max-width: 600px;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .magazine-image {
+            width: 100%;
+            height: auto;
+            max-height: 70vh;
+            object-fit: contain;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        
+        /* Page indicator */
+        .page-indicator {
+            font-size: 1.25rem;
+            color: rgba(0,0,0,0.5);
+            margin-bottom: 1.5rem;
+            letter-spacing: 2px;
+        }
+        
+        /* Next/Done Button */
+        .action-button {
+            background-color: #000;
+            color: #fffa87;
+            padding: 1rem 3rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.25rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            font-family: 'Cormorant Garamond', Georgia, serif;
+        }
+        
+        .action-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+        }
+        
+        .action-button:active {
+            transform: scale(0.98);
+        }
+        
+        /* Footer */
+        footer {
+            padding: 1.5rem 0;
+            text-align: center;
+            background-color: #fffa87;
+        }
+        
+        .footer-text {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.75rem;
+            display: inline-block;
+            border-radius: 0.25rem;
+            color: #fffa87;
+            background-color: #000;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Logo at Top Center -->
+    <div class="logo-container" onclick="window.location.href='index.html'">
+        <img src="L1.png" alt="Malgré Logo">
+    </div>
+
+    <!-- Magazine Content -->
+    <div class="magazine-container">
+        <div class="magazine-image-container">
+            <img src="I1.png" alt="Magazine Page" class="magazine-image" id="magazineImage">
+        </div>
+        
+        <div class="page-indicator" id="pageIndicator">1 / 5</div>
+        
+        <button class="action-button" id="actionButton" onclick="nextPage()">Next</button>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p class="footer-text">© 2025 All Rights Reserved</p>
+    </footer>
+
+    <script>
+        let currentPage = 1;
+        const totalPages = 5;
+        
+        // Array of magazine images (you can replace with actual image paths)
+        const magazineImages = [
+            'I1.png',  // Page 1
+            'I1.png',  // Page 2 (replace with actual image)
+            'I1.png',  // Page 3 (replace with actual image)
+            'I1.png',  // Page 4 (replace with actual image)
+            'I1.png'   // Page 5 (replace with actual image)
+        ];
+        
+        function nextPage() {
+            if (currentPage < totalPages) {
+                currentPage++;
+                updatePage();
+            } else {
+                // Last page - go back to home
+                window.location.href = 'index.html';
+            }
+        }
+        
+        function updatePage() {
+            // Update image
+            document.getElementById('magazineImage').src = magazineImages[currentPage - 1];
+            
+            // Update page indicator
+            document.getElementById('pageIndicator').textContent = `${currentPage} / ${totalPages}`;
+            
+            // Update button text
+            const actionButton = document.getElementById('actionButton');
+            if (currentPage === totalPages) {
+                actionButton.textContent = 'Done';
+            } else {
+                actionButton.textContent = 'Next';
+            }
+        }
+        
+        // Initialize
+        updatePage();
+    </script>
+</body>
+</html>
