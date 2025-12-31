@@ -6,15 +6,38 @@
     <title>Malgré</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
             font-family: 'Cormorant Garamond', Georgia, serif;
             font-weight: 700;
             background-color: #fffa87;
             min-height: 100vh;
+        }
+        
+        .page-container {
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            margin: 0;
-            padding: 0;
+            padding-top: 100px;
+        }
+        
+        /* Logo at top center */
+        .logo-container {
+            position: absolute;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+        }
+        
+        .logo-container img {
+            height: 80px;
+            width: auto;
         }
         
         .product-card {
@@ -26,72 +49,132 @@
             transform: scale(1.05);
         }
         
-        /* Toggle Switch - Single Slider */
-        .toggle-container {
-            position: relative;
-            width: 180px;
+        /* Hamburger Menu Button */
+        .menu-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 50px;
             height: 50px;
-            background: rgba(0,0,0,0.15);
-            border-radius: 25px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .toggle-container.active {
-            background: #2d8a2d;
-        }
-        
-        .toggle-slider {
-            position: absolute;
-            width: 90px;
-            height: 50px;
-            background: #2d8a2d;
-            border-radius: 25px;
-            top: 0;
-            left: 0;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-        }
-        
-        .toggle-container.kw .toggle-slider {
-            left: 90px;
-        }
-        
-        .toggle-option {
-            position: absolute;
-            width: 90px;
-            height: 50px;
+            background: #000;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            font-size: 24px;
-            font-weight: 700;
+            cursor: pointer;
+            z-index: 1000;
             transition: all 0.3s ease;
-            z-index: 1;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
         
-        .toggle-option.left {
-            left: 0;
+        .menu-button:hover {
+            transform: scale(1.1);
         }
         
-        .toggle-option.right {
+        .menu-icon {
+            width: 24px;
+            height: 18px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .menu-icon span {
+            width: 100%;
+            height: 3px;
+            background: #fffa87;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+        
+        .menu-button.active .menu-icon span:nth-child(1) {
+            transform: rotate(45deg) translateY(7px);
+        }
+        
+        .menu-button.active .menu-icon span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .menu-button.active .menu-icon span:nth-child(3) {
+            transform: rotate(-45deg) translateY(-7px);
+        }
+        
+        /* Side Menu - Hidden by default */
+        .side-menu {
+            position: fixed;
+            top: 0;
+            right: -350px;
+            width: 350px;
+            height: 100vh;
+            background: #fffa87;
+            box-shadow: -5px 0 25px rgba(0,0,0,0.3);
+            z-index: 999;
+            transition: right 0.4s ease;
+            overflow-y: auto;
+            padding: 80px 30px 30px;
+        }
+        
+        .side-menu.active {
             right: 0;
         }
         
-        .toggle-option span {
-            font-size: 13px;
-            color: rgba(0,0,0,0.5);
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
             transition: all 0.3s ease;
         }
         
-        .toggle-container:not(.kw) .toggle-option.left span,
-        .toggle-container.kw .toggle-option.right span {
-            color: #fff;
+        .menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+        
+        .menu-section {
+            margin-bottom: 40px;
+        }
+        
+        .menu-section-title {
+            font-size: 14px;
+            color: rgba(0,0,0,0.5);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
             font-weight: 700;
         }
         
-        /* Black Document Popup */
+        .menu-item {
+            padding: 15px 20px;
+            background: rgba(0,0,0,0.05);
+            border-radius: 12px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            font-size: 18px;
+        }
+        
+        .menu-item:hover {
+            background: rgba(0,0,0,0.1);
+            transform: translateX(-5px);
+        }
+        
+        .menu-item.active {
+            background: #000;
+            color: #fffa87;
+        }
+        
+        /* Country Change Popup */
         .popup-overlay {
             display: none;
             position: fixed;
@@ -111,8 +194,10 @@
         }
         
         .popup-document {
-            width: 500px;
-            height: 600px;
+            width: 350px;
+            max-width: 85%;
+            height: 400px;
+            max-height: 70vh;
             background: rgba(255, 250, 135, 0.95);
             border: 3px solid rgba(0, 0, 0, 0.3);
             box-shadow: 0 30px 80px rgba(0,0,0,0.8);
@@ -124,19 +209,19 @@
         .popup-document::before {
             content: '';
             position: absolute;
-            top: 20px;
-            left: 20px;
-            right: 20px;
-            bottom: 20px;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
             border: 1px solid rgba(0, 0, 0, 0.2);
         }
         
         .popup-logo {
             position: absolute;
-            top: 40px;
-            right: 40px;
-            width: 90px;
-            height: 90px;
+            top: 25px;
+            right: 25px;
+            width: 60px;
+            height: 60px;
             animation: logoStamp 0.5s ease 0.5s backwards;
         }
         
@@ -150,28 +235,28 @@
         }
         
         .popup-flag {
-            font-size: 90px;
-            margin-bottom: 20px;
+            font-size: 60px;
+            margin-bottom: 15px;
         }
         
         .popup-divider {
-            width: 100px;
+            width: 80px;
             height: 2px;
             background: #000;
-            margin: 20px auto;
+            margin: 15px auto;
             opacity: 0.4;
         }
         
         .popup-title {
-            font-size: 32px;
+            font-size: 22px;
             font-weight: 700;
             color: #000;
-            letter-spacing: 3px;
-            margin-bottom: 15px;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
         }
         
         .popup-text {
-            font-size: 20px !important;
+            font-size: 16px !important;
             font-weight: 600 !important;
             color: #000 !important;
             line-height: 1.6 !important;
@@ -181,80 +266,124 @@
             color: #000 !important;
         }
         
-        /* Utility classes */
-        .container { max-width: 1200px; margin: 0 auto; }
-        .mx-auto { margin-left: auto; margin-right: auto; }
-        .px-4 { padding-left: 1rem; padding-right: 1rem; }
-        .py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
-        .py-6 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
-        .py-12 { padding-top: 3rem; padding-bottom: 3rem; }
-        .mb-2 { margin-bottom: 0.5rem; }
-        .mb-3 { margin-bottom: 0.75rem; }
-        .mt-4 { margin-top: 1rem; }
-        .p-6 { padding: 1.5rem; }
-        .p-8 { padding: 2rem; }
-        .gap-2 { gap: 0.5rem; }
-        .gap-3 { gap: 0.75rem; }
-        .gap-4 { gap: 1rem; }
-        .gap-6 { gap: 1.5rem; }
-        .flex { display: flex; }
-        .grid { display: grid; }
-        .hidden { display: none; }
-        .items-center { align-items: center; }
-        .justify-between { justify-content: space-between; }
-        .justify-center { justify-content: center; }
-        .flex-col { flex-direction: column; }
-        .text-center { text-align: center; }
-        .text-sm { font-size: 0.875rem; }
-        .text-xs { font-size: 0.75rem; }
-        .text-base { font-size: 1rem; }
-        .text-xl { font-size: 1.25rem; }
-        .text-3xl { font-size: 1.875rem; }
-        .font-bold { font-weight: 700; }
-        .text-black { color: #000; }
-        .text-white { color: #fff; }
-        .bg-black { background-color: #000; }
-        .rounded-xl { border-radius: 0.75rem; }
-        .rounded-full { border-radius: 9999px; }
-        .shadow-2xl { box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); }
-        .shadow-xl { box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
-        .sticky { position: sticky; }
-        .fixed { position: fixed; }
-        .relative { position: relative; }
-        .top-0 { top: 0; }
-        .bottom-0 { bottom: 0; }
-        .left-0 { left: 0; }
-        .right-0 { right: 0; }
-        .z-50 { z-index: 50; }
-        .w-40 { width: 10rem; }
-        .h-20 { height: 5rem; }
-        .h-48 { height: 12rem; }
-        .w-auto { width: auto; }
-        .max-w-xs { max-width: 20rem; }
-        .overflow-hidden { overflow: hidden; }
-        .hover\:opacity-70:hover { opacity: 0.7; }
-        .hover\:bg-gray-800:hover { background-color: #1f2937; }
-        .hover\:scale-105:hover { transform: scale(1.05); }
-        .transition-colors { transition-property: color, background-color, border-color; transition-duration: 0.15s; }
-        .transition-all { transition-property: all; transition-duration: 0.15s; }
-        .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
-        @media (min-width: 768px) {
-            .md\:grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
-        }
-        @media (min-width: 1024px) {
-            .lg\:grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
-        }
-        
+        /* Main content */
         main {
             flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 2rem 1rem;
         }
         
+        .product-grid {
+            max-width: 20rem;
+            margin: 0 auto;
+        }
+        
+        .product-image-container {
+            padding: 2rem;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        
+        .product-image-container img {
+            height: 12rem;
+            width: auto;
+        }
+        
+        .product-info {
+            text-align: center;
+            padding-bottom: 1rem;
+        }
+        
+        .product-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-price {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #000;
+        }
+        
+        /* Footer */
         footer {
             padding: 1.5rem 0;
             text-align: center;
+            background-color: #fffa87;
+        }
+        
+        .footer-text {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.75rem;
+            display: inline-block;
+            border-radius: 0.25rem;
+            color: #fffa87;
+            background-color: #000;
+        }
+        
+        /* Cart Summary */
+        .cart-summary {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem;
+            background-color: #fffa87;
+            box-shadow: 0 -25px 50px -12px rgba(0,0,0,0.25);
+            z-index: 50;
+            display: none;
+        }
+        
+        .cart-summary.show {
+            display: block;
+        }
+        
+        .cart-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .cart-total-label {
+            font-size: 0.875rem;
+            color: #000;
+            margin-bottom: 0.25rem;
+        }
+        
+        .cart-total-amount {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: #000;
+        }
+        
+        .checkout-button {
+            background-color: #000;
+            color: #fff;
+            padding: 1rem 2rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            font-size: 1.125rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.15s;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+            font-family: 'Cormorant Garamond', Georgia, serif;
+        }
+        
+        .checkout-button:hover {
+            background-color: #1f2937;
+            transform: scale(1.05);
         }
         
         @keyframes slideIn {
@@ -269,6 +398,44 @@
     </style>
 </head>
 <body>
+
+    <!-- Menu Button -->
+    <div class="menu-button" id="menuButton" onclick="toggleMenu()">
+        <div class="menu-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
+    <!-- Menu Overlay -->
+    <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+
+    <!-- Side Menu -->
+    <div class="side-menu" id="sideMenu">
+        <div class="menu-section">
+            <div class="menu-section-title">Country</div>
+            <div class="menu-item" id="menu-sa" onclick="selectCountryFromMenu('sa')">
+                Saudi Arabia
+            </div>
+            <div class="menu-item" id="menu-kw" onclick="selectCountryFromMenu('kw')">
+                Kuwait
+            </div>
+        </div>
+        
+        <div class="menu-section">
+            <div class="menu-section-title">Sections</div>
+            <div class="menu-item" onclick="goToSection('products')">
+                Products
+            </div>
+            <div class="menu-item" onclick="goToSection('about')">
+                About
+            </div>
+            <div class="menu-item" onclick="goToSection('contact')">
+                Contact
+            </div>
+        </div>
+    </div>
 
     <!-- Popup -->
     <div id="popup" class="popup-overlay">
@@ -286,65 +453,43 @@
         </div>
     </div>
 
-    <!-- Header -->
-    <header class="shadow-2xl sticky top-0 z-50" style="background-color: #fffa87;">
-        <div class="container mx-auto px-4 py-2">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center gap-4">
-                    <div class="w-40 h-20 flex items-center justify-center">
-                        <img src="L1.png" alt="Malgré Logo" class="h-20 w-auto">
+    <!-- Page Container -->
+    <div class="page-container">
+        <!-- Logo at Top Center -->
+        <div class="logo-container">
+            <img src="L1.png" alt="Malgré Logo">
+        </div>
+
+        <!-- Main Content -->
+        <main>
+            <div class="product-grid">
+                <div class="product-card" onclick="addToCart()">
+                    <div class="product-image-container">
+                        <img src="I1.png" alt="Malgré Product">
                     </div>
-                </div>
-                
-                <div class="flex items-center gap-6">
-                    <!-- Single Toggle Slider -->
-                    <div id="toggle" class="toggle-container" onclick="toggleCountry()">
-                        <div class="toggle-slider"></div>
-                        <div class="toggle-option left">
-                            🇸🇦
-                        </div>
-                        <div class="toggle-option right">
-                            🇰🇼
-                        </div>
+                    
+                    <div class="product-info">
+                        <h3 class="product-title">Malgré Signature</h3>
+                        <div class="product-price" id="product-price">450 SAR</div>
                     </div>
                 </div>
             </div>
-        </div>
-    </header>
+        </main>
 
-    <!-- Products Grid -->
-    <main class="container mx-auto px-4">
-        <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 max-w-xs mx-auto">
-            <div class="product-card bg-transparent rounded-xl overflow-hidden" onclick="addToCart()">
-                <div class="relative p-8">
-                    <div class="text-8xl text-center mb-4 flex items-center justify-center">
-                        <img src="I1.png" alt="Malgré Product" class="h-48 w-auto">
-                    </div>
-                </div>
-                
-                <div class="text-center pb-4">
-                    <h3 class="text-base font-bold text-black mb-2">Malgré Signature</h3>
-                    <div class="text-xl font-bold text-black" id="product-price">450 SAR</div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <!-- Footer -->
-    <footer style="background-color: #fffa87;">
-        <div class="container mx-auto px-4">
-            <p class="text-xs px-3 py-1 inline-block rounded" style="color: #fffa87; background-color: #000;">© 2025 All Rights Reserved</p>
-        </div>
-    </footer>
+        <!-- Footer -->
+        <footer>
+            <p class="footer-text">© 2025 All Rights Reserved</p>
+        </footer>
+    </div>
 
     <!-- Cart Summary -->
-    <div id="cart-summary" class="fixed bottom-0 left-0 right-0 p-6 shadow-2xl hidden" style="background-color: #fffa87;">
-        <div class="container mx-auto flex items-center justify-between">
+    <div id="cart-summary" class="cart-summary">
+        <div class="cart-content">
             <div>
-                <p class="text-sm text-black mb-1">Total</p>
-                <p class="text-3xl font-bold text-black" id="cart-total">0 SAR</p>
+                <p class="cart-total-label">Total</p>
+                <p class="cart-total-amount" id="cart-total">0 SAR</p>
             </div>
-            <button class="bg-black text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-800 transition-all hover:scale-105 shadow-xl">
+            <button class="checkout-button">
                 Checkout (<span id="cart-count">0</span> items)
             </button>
         </div>
@@ -371,23 +516,44 @@
             }
         };
 
-        function toggleCountry() {
-            const toggle = document.getElementById('toggle');
+        // Update menu active state
+        function updateMenuActiveState() {
+            document.getElementById('menu-sa').classList.remove('active');
+            document.getElementById('menu-kw').classList.remove('active');
             
             if (currentCountry === 'sa') {
-                toggle.classList.add('kw');
-                switchCountry('kw');
+                document.getElementById('menu-sa').classList.add('active');
             } else {
-                toggle.classList.remove('kw');
-                switchCountry('sa');
+                document.getElementById('menu-kw').classList.add('active');
             }
         }
-        
-        function switchCountry(country) {
-            if (currentCountry === country) return;
+
+        // Toggle menu
+        function toggleMenu() {
+            const menuButton = document.getElementById('menuButton');
+            const sideMenu = document.getElementById('sideMenu');
+            const menuOverlay = document.getElementById('menuOverlay');
+            
+            menuButton.classList.toggle('active');
+            sideMenu.classList.toggle('active');
+            menuOverlay.classList.toggle('active');
+        }
+
+        // Select country from menu
+        function selectCountryFromMenu(country) {
+            if (currentCountry === country) {
+                toggleMenu();
+                return;
+            }
             
             const oldCountry = currentCountry;
             currentCountry = country;
+            
+            // Update menu
+            updateMenuActiveState();
+            
+            // Close menu
+            toggleMenu();
             
             // Show popup
             const popup = document.getElementById('popup');
@@ -395,8 +561,6 @@
             const popupText = document.getElementById('popupText');
             
             popupFlag.textContent = content[country].flag;
-            
-            // Force black color
             popupText.innerHTML = '<span style="color: #000 !important;">From ' + content[oldCountry].name + ' to ' + content[country].name + '</span>';
             popupText.style.setProperty('color', '#000', 'important');
             
@@ -417,6 +581,12 @@
             }, 3000);
         }
 
+        function goToSection(section) {
+            console.log('Going to section:', section);
+            toggleMenu();
+            // Add navigation logic here
+        }
+
         function addToCart() {
             const data = content[currentCountry];
             cart.push({
@@ -433,8 +603,11 @@
             
             document.getElementById('cart-count').textContent = cart.length;
             document.getElementById('cart-total').textContent = `${total.toFixed(2)} ${data.currency}`;
-            document.getElementById('cart-summary').classList.remove('hidden');
+            document.getElementById('cart-summary').classList.add('show');
         }
+
+        // Initialize
+        updateMenuActiveState();
     </script>
 </body>
 </html>
