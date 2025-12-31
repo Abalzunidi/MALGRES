@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malgré Signature - Product Details</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-weight: 700;
+            background-color: #fffa87;
+            min-height: 100vh;
+        }
+        
+        .page-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding-top: 100px;
+        }
+        
+        /* Logo at top center */
+        .logo-container {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            cursor: pointer;
+        }
+        
+        .logo-container img {
+            height: 80px;
+            width: auto;
+        }
+        
+        /* Back Button */
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 50px;
+            height: 50px;
+            background: #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        
+        .back-button:hover {
+            transform: scale(1.1);
+        }
+        
+        .back-button svg {
+            width: 24px;
+            height: 24px;
+            fill: #fffa87;
+        }
+        
+        /* Main content */
+        main {
+            flex: 1;
+            padding: 2rem 1rem;
+        }
+        
+        .product-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Image Gallery */
+        .image-gallery {
+            margin-bottom: 2rem;
+        }
+        
+        .main-image {
+            width: 100%;
+            max-height: 500px;
+            object-fit: contain;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .thumbnail-container {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .thumbnail {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+        }
+        
+        .thumbnail:hover {
+            transform: scale(1.1);
+        }
+        
+        .thumbnail.active {
+            border-color: #000;
+        }
+        
+        /* Product Info */
+        .product-info {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .product-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 1rem;
+        }
+        
+        .product-price {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 2rem;
+        }
+        
+        .add-to-cart-btn {
+            background-color: #000;
+            color: #fffa87;
+            padding: 1rem 3rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.25rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            display: inline-block;
+        }
+        
+        .add-to-cart-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+        }
+        
+        .add-to-cart-btn:active {
+            transform: scale(0.98);
+        }
+        
+        /* Product Description */
+        .product-description {
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .description-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .description-text {
+            font-size: 1.125rem;
+            font-weight: 400;
+            color: rgba(0, 0, 0, 0.8);
+            line-height: 1.8;
+            text-align: center;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 1.5rem 0;
+            text-align: center;
+            background-color: #fffa87;
+        }
+        
+        .footer-text {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.75rem;
+            display: inline-block;
+            border-radius: 0.25rem;
+            color: #fffa87;
+            background-color: #000;
+        }
+        
+        /* Success Message */
+        .success-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: #000;
+            color: #fffa87;
+            padding: 2rem 3rem;
+            border-radius: 20px;
+            font-size: 1.25rem;
+            font-weight: 700;
+            z-index: 10000;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
+        }
+        
+        .success-message.show {
+            transform: translate(-50%, -50%) scale(1);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Back Button -->
+    <div class="back-button" onclick="window.location.href='index.html'">
+        <svg viewBox="0 0 24 24">
+            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+        </svg>
+    </div>
+
+    <!-- Page Container -->
+    <div class="page-container">
+        <!-- Logo at Top Center -->
+        <div class="logo-container" onclick="window.location.href='index.html'">
+            <img src="L1.png" alt="Malgré Logo">
+        </div>
+
+        <!-- Main Content -->
+        <main>
+            <div class="product-container">
+                <!-- Image Gallery -->
+                <div class="image-gallery">
+                    <img src="I1.png" alt="Malgré Signature" class="main-image" id="mainImage">
+                    
+                    <div class="thumbnail-container">
+                        <img src="I1.png" alt="Thumbnail 1" class="thumbnail active" onclick="changeImage('I1.png', this)">
+                        <img src="I1.png" alt="Thumbnail 2" class="thumbnail" onclick="changeImage('I1.png', this)">
+                        <img src="I1.png" alt="Thumbnail 3" class="thumbnail" onclick="changeImage('I1.png', this)">
+                    </div>
+                </div>
+                
+                <!-- Product Info -->
+                <div class="product-info">
+                    <h1 class="product-title">Malgré Signature</h1>
+                    <p class="product-price" id="productPrice">450 SAR</p>
+                    <button class="add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
+                </div>
+                
+                <!-- Product Description -->
+                <div class="product-description">
+                    <h2 class="description-title">Product Information</h2>
+                    <p class="description-text">
+                        Malgré Signature is a luxurious fragrance that embodies elegance and sophistication. 
+                        This exquisite perfume features a harmonious blend of rich, captivating notes that create 
+                        a unique and unforgettable scent experience. Perfect for those who appreciate the finer things in life.
+                    </p>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <p class="footer-text">© 2025 All Rights Reserved</p>
+        </footer>
+    </div>
+
+    <!-- Success Message -->
+    <div class="success-message" id="successMessage">
+        ✓ Added to Cart!
+    </div>
+
+    <script>
+        // Get country from URL or localStorage
+        let currentCountry = localStorage.getItem('selectedCountry') || 'sa';
+        
+        const content = {
+            sa: {
+                name: 'Saudi Arabia',
+                currency: 'SAR',
+                price: 450
+            },
+            kw: {
+                name: 'Kuwait',
+                currency: 'KWD',
+                price: 42
+            }
+        };
+        
+        // Update price based on country
+        function updatePrice() {
+            const data = content[currentCountry];
+            document.getElementById('productPrice').textContent = `${data.price} ${data.currency}`;
+        }
+        
+        // Change main image
+        function changeImage(imageSrc, thumbnail) {
+            document.getElementById('mainImage').src = imageSrc;
+            
+            // Remove active class from all thumbnails
+            document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+            
+            // Add active class to clicked thumbnail
+            thumbnail.classList.add('active');
+        }
+        
+        // Add to cart
+        function addToCart() {
+            const data = content[currentCountry];
+            
+            // Get existing cart from localStorage
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            // Add product to cart
+            cart.push({
+                name: 'Malgré Signature',
+                price: data.price,
+                currency: data.currency
+            });
+            
+            // Save cart to localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
+            
+            // Show success message
+            const successMessage = document.getElementById('successMessage');
+            successMessage.classList.add('show');
+            
+            setTimeout(() => {
+                successMessage.classList.remove('show');
+            }, 2000);
+        }
+        
+        // Initialize
+        updatePrice();
+    </script>
+</body>
+</html>
