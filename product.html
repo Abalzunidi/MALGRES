@@ -69,6 +69,131 @@
             fill: #fffa87;
         }
         
+        /* Hamburger Menu Button */
+        .menu-button {
+            position: fixed;
+            top: 90px;
+            left: 20px;
+            width: 50px;
+            height: 50px;
+            background: #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        
+        .menu-button:hover {
+            transform: scale(1.1);
+        }
+        
+        .menu-icon {
+            width: 24px;
+            height: 18px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .menu-icon span {
+            width: 100%;
+            height: 3px;
+            background: #fffa87;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+        
+        .menu-button.active .menu-icon span:nth-child(1) {
+            transform: rotate(45deg) translateY(7px);
+        }
+        
+        .menu-button.active .menu-icon span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .menu-button.active .menu-icon span:nth-child(3) {
+            transform: rotate(-45deg) translateY(-7px);
+        }
+        
+        /* Side Menu - Hidden by default */
+        .side-menu {
+            position: fixed;
+            top: 0;
+            left: -350px;
+            width: 350px;
+            height: 100vh;
+            background: #fffa87;
+            box-shadow: 5px 0 25px rgba(0,0,0,0.3);
+            z-index: 999;
+            transition: left 0.4s ease;
+            overflow-y: auto;
+            padding: 80px 30px 30px;
+        }
+        
+        .side-menu.active {
+            left: 0;
+        }
+        
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+        
+        .menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+        
+        .menu-section {
+            margin-bottom: 40px;
+        }
+        
+        .menu-section-title {
+            font-size: 14px;
+            color: rgba(0,0,0,0.5);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .menu-item {
+            padding: 15px 20px;
+            background: rgba(0,0,0,0.05);
+            border-radius: 12px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            font-size: 18px;
+        }
+        
+        .menu-item:hover {
+            background: rgba(0,0,0,0.1);
+            transform: translateX(-5px);
+        }
+        
+        .menu-item.active {
+            background: #000;
+            color: #fffa87;
+        }
+        
         /* Main content */
         main {
             flex: 1;
@@ -237,6 +362,44 @@
         </svg>
     </div>
 
+    <!-- Menu Button -->
+    <div class="menu-button" id="menuButton" onclick="toggleMenu()">
+        <div class="menu-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
+    <!-- Menu Overlay -->
+    <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+
+    <!-- Side Menu -->
+    <div class="side-menu" id="sideMenu">
+        <div class="menu-section">
+            <div class="menu-section-title">Country</div>
+            <div class="menu-item" id="menu-sa" onclick="selectCountryFromMenu('sa')">
+                Saudi Arabia
+            </div>
+            <div class="menu-item" id="menu-kw" onclick="selectCountryFromMenu('kw')">
+                Kuwait
+            </div>
+        </div>
+        
+        <div class="menu-section">
+            <div class="menu-section-title">Sections</div>
+            <div class="menu-item active">
+                Malgré Signature
+            </div>
+            <div class="menu-item" onclick="goToSection('magazine')">
+                Malgré Magazine
+            </div>
+            <div class="menu-item" onclick="goToSection('inquiry')">
+                Inquiry
+            </div>
+        </div>
+    </div>
+
     <!-- Page Container -->
     <div class="page-container">
         <!-- Logo at Top Center -->
@@ -305,6 +468,55 @@
             }
         };
         
+        // Update menu active state
+        function updateMenuActiveState() {
+            document.getElementById('menu-sa').classList.remove('active');
+            document.getElementById('menu-kw').classList.remove('active');
+            
+            if (currentCountry === 'sa') {
+                document.getElementById('menu-sa').classList.add('active');
+            } else {
+                document.getElementById('menu-kw').classList.add('active');
+            }
+        }
+
+        // Toggle menu
+        function toggleMenu() {
+            const menuButton = document.getElementById('menuButton');
+            const sideMenu = document.getElementById('sideMenu');
+            const menuOverlay = document.getElementById('menuOverlay');
+            
+            menuButton.classList.toggle('active');
+            sideMenu.classList.toggle('active');
+            menuOverlay.classList.toggle('active');
+        }
+
+        // Select country from menu
+        function selectCountryFromMenu(country) {
+            if (currentCountry === country) {
+                toggleMenu();
+                return;
+            }
+            
+            currentCountry = country;
+            localStorage.setItem('selectedCountry', country);
+            
+            // Update menu
+            updateMenuActiveState();
+            
+            // Close menu
+            toggleMenu();
+            
+            // Update price
+            updatePrice();
+        }
+
+        function goToSection(section) {
+            console.log('Going to section:', section);
+            toggleMenu();
+            // Add navigation logic here
+        }
+        
         // Update price based on country
         function updatePrice() {
             const data = content[currentCountry];
@@ -350,6 +562,7 @@
         
         // Initialize
         updatePrice();
+        updateMenuActiveState();
     </script>
 </body>
 </html>

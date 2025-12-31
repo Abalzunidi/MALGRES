@@ -425,14 +425,14 @@
         
         <div class="menu-section">
             <div class="menu-section-title">Sections</div>
-            <div class="menu-item" onclick="goToSection('products')">
-                Products
+            <div class="menu-item" onclick="window.location.href='product.html'">
+                Malgré Signature
             </div>
-            <div class="menu-item" onclick="goToSection('about')">
-                About
+            <div class="menu-item" onclick="goToSection('magazine')">
+                Malgré Magazine
             </div>
-            <div class="menu-item" onclick="goToSection('contact')">
-                Contact
+            <div class="menu-item" onclick="goToSection('inquiry')">
+                Inquiry
             </div>
         </div>
     </div>
@@ -548,6 +548,9 @@
             
             const oldCountry = currentCountry;
             currentCountry = country;
+            
+            // Save to localStorage
+            localStorage.setItem('selectedCountry', country);
             
             // Update menu
             updateMenuActiveState();
