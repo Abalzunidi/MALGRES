@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Malgré</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-weight: 700;
+            background-color: #fffa87;
+            min-height: 100vh;
+        }
+        
+        .page-container {
+            min-height: 100vh;
+            padding-top: 100px;
+            padding-bottom: 3rem;
+        }
+        
+        /* Logo at top center */
+        .logo-container {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            cursor: pointer;
+        }
+        
+        .logo-container img {
+            height: 80px;
+            width: auto;
+        }
+        
+        /* Back Button */
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 50px;
+            height: 50px;
+            background: #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        
+        .back-button:hover {
+            transform: scale(1.1);
+        }
+        
+        .back-button svg {
+            width: 24px;
+            height: 24px;
+            fill: #fffa87;
+        }
+        
+        /* Main Content */
+        .checkout-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 2rem;
+        }
+        
+        @media (max-width: 968px) {
+            .checkout-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Checkout Form */
+        .checkout-form {
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 30px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        
+        .form-section {
+            margin-bottom: 2.5rem;
+        }
+        
+        .section-title {
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            color: #000;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: rgba(0,0,0,0.7);
+        }
+        
+        .form-input,
+        .form-select {
+            width: 100%;
+            padding: 0.875rem;
+            font-size: 1rem;
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-weight: 600;
+            background: rgba(255,255,255,0.5);
+            border: 2px solid transparent;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            color: #000;
+        }
+        
+        .form-input:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: #000;
+            background: rgba(255,255,255,0.8);
+        }
+        
+        .form-select {
+            cursor: pointer;
+        }
+        
+        /* Order Summary */
+        .order-summary {
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 30px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            height: fit-content;
+            position: sticky;
+            top: 120px;
+        }
+        
+        .summary-title {
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            color: #000;
+        }
+        
+        .cart-items {
+            margin-bottom: 1.5rem;
+        }
+        
+        .cart-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+        
+        .item-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            object-fit: cover;
+            background: rgba(255,255,255,0.5);
+        }
+        
+        .item-details {
+            flex: 1;
+        }
+        
+        .item-name {
+            font-size: 1.125rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .item-quantity {
+            font-size: 0.875rem;
+            color: rgba(0,0,0,0.6);
+        }
+        
+        .item-price {
+            font-size: 1.125rem;
+            text-align: right;
+        }
+        
+        .summary-totals {
+            margin-top: 1.5rem;
+        }
+        
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            font-size: 1.125rem;
+        }
+        
+        .total-row.grand-total {
+            border-top: 2px solid rgba(0,0,0,0.2);
+            margin-top: 0.5rem;
+            padding-top: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .place-order-btn {
+            width: 100%;
+            padding: 1.25rem;
+            font-size: 1.25rem;
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-weight: 700;
+            background: #000;
+            color: #fffa87;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            margin-top: 1.5rem;
+        }
+        
+        .place-order-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+        }
+        
+        .place-order-btn:active {
+            transform: scale(0.98);
+        }
+        
+        /* Success Modal */
+        .success-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+        
+        .success-modal.show {
+            display: flex;
+        }
+        
+        .success-content {
+            background: #fffa87;
+            padding: 3rem;
+            border-radius: 30px;
+            text-align: center;
+            max-width: 500px;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.3);
+        }
+        
+        .success-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+        
+        .success-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .success-message {
+            font-size: 1.125rem;
+            color: rgba(0,0,0,0.7);
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+        
+        .success-btn {
+            padding: 1rem 2rem;
+            font-size: 1.125rem;
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-weight: 700;
+            background: #000;
+            color: #fffa87;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .success-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        @media (max-width: 768px) {
+            .checkout-form,
+            .order-summary {
+                padding: 1.5rem;
+            }
+            
+            .section-title,
+            .summary-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Logo -->
+    <div class="logo-container" onclick="window.location.href='index.html'">
+        <img src="L1.png" alt="Malgré">
+    </div>
+    
+    <!-- Back Button -->
+    <div class="back-button" onclick="window.location.href='product.html'">
+        <svg viewBox="0 0 24 24">
+            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+        </svg>
+    </div>
+    
+    <div class="page-container">
+        <div class="checkout-content">
+            <!-- Checkout Form -->
+            <div class="checkout-form">
+                <form id="checkoutForm">
+                    <!-- Contact Information -->
+                    <div class="form-section">
+                        <h2 class="section-title">Contact Information</h2>
+                        <div class="form-group">
+                            <label class="form-label" for="email">Email</label>
+                            <input type="email" id="email" class="form-input" placeholder="your@email.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="phone">Phone Number</label>
+                            <input type="tel" id="phone" class="form-input" placeholder="+966 5X XXX XXXX" required>
+                        </div>
+                    </div>
+                    
+                    <!-- Shipping Address -->
+                    <div class="form-section">
+                        <h2 class="section-title">Shipping Address</h2>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="firstName">First Name</label>
+                                <input type="text" id="firstName" class="form-input" placeholder="First name" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="lastName">Last Name</label>
+                                <input type="text" id="lastName" class="form-input" placeholder="Last name" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="address">Address</label>
+                            <input type="text" id="address" class="form-input" placeholder="Street address" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="apartment">Apartment, suite, etc. (optional)</label>
+                            <input type="text" id="apartment" class="form-input" placeholder="Apartment, suite, etc.">
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="city">City</label>
+                                <select id="city" class="form-select" required>
+                                    <option value="">Select city</option>
+                                    <!-- Cities will be loaded based on country -->
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="country">Country</label>
+                                <input type="text" id="country" class="form-input" readonly style="background: rgba(0,0,0,0.1); cursor: not-allowed;">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="postalCode">Postal Code</label>
+                            <input type="text" id="postalCode" class="form-input" placeholder="Postal code" required>
+                        </div>
+                    </div>
+                    
+                    <!-- Payment Method -->
+                    <div class="form-section">
+                        <h2 class="section-title">Payment Method</h2>
+                        <div class="form-group">
+                            <label class="form-label" for="paymentMethod">Select Payment</label>
+                            <select id="paymentMethod" class="form-select" required>
+                                <option value="">Choose payment method</option>
+                                <option value="cod">Cash on Delivery</option>
+                                <option value="card">Credit/Debit Card</option>
+                                <option value="bank">Bank Transfer</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+            <!-- Order Summary -->
+            <div class="order-summary">
+                <h2 class="summary-title">Order Summary</h2>
+                
+                <div class="cart-items" id="cartItems">
+                    <!-- Cart items will be loaded here -->
+                </div>
+                
+                <div class="summary-totals">
+                    <div class="total-row">
+                        <span>Subtotal</span>
+                        <span id="subtotalAmount">0 SAR</span>
+                    </div>
+                    <div class="total-row">
+                        <span>Tax (15%)</span>
+                        <span id="taxAmount">0 SAR</span>
+                    </div>
+                    <div class="total-row">
+                        <span>Delivery</span>
+                        <span id="deliveryAmount">25 SAR</span>
+                    </div>
+                    <div class="total-row grand-total">
+                        <span>Total</span>
+                        <span id="totalAmount">0 SAR</span>
+                    </div>
+                </div>
+                
+                <button class="place-order-btn" onclick="placeOrder()">Place Order</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Success Modal -->
+    <div class="success-modal" id="successModal">
+        <div class="success-content">
+            <div class="success-icon">✓</div>
+            <h2 class="success-title">Order Placed Successfully!</h2>
+            <p class="success-message">Thank you for your order. We'll send you a confirmation email shortly.</p>
+            <button class="success-btn" onclick="window.location.href='index.html'">Continue Shopping</button>
+        </div>
+    </div>
+
+    <script>
+        // Load cart from localStorage
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        
+        // Get selected country from homepage
+        const selectedCountryCode = localStorage.getItem('selectedCountry') || 'sa';
+        
+        // Country mapping
+        const countryNames = {
+            'sa': 'Saudi Arabia',
+            'kw': 'Kuwait'
+        };
+        
+        const selectedCountry = countryNames[selectedCountryCode] || 'Saudi Arabia';
+        
+        // Cities data
+        const cities = {
+            'Saudi Arabia': [
+                // Riyadh Region
+                'Riyadh',
+                'Al Kharj',
+                'Al Majma\'ah',
+                'Al Zulfi',
+                'Ad Diriyah',
+                'Dawadmi',
+                'Shaqra',
+                'Afif',
+                'Wadi Al-Dawasir',
+                'Al Quwayiyah',
+                'Hotat Bani Tamim',
+                'Al Hariq',
+                'Al Muzahmiyya',
+                'Mrat',
+                'Thadiq',
+                'Rumah',
+                'Dharma',
+                
+                // Makkah Region
+                'Mecca',
+                'Jeddah',
+                'Taif',
+                'Rabigh',
+                'Khulais',
+                'Ranyah',
+                'Turubah',
+                'Al Jumum',
+                'Al Kamil',
+                'Khurma',
+                'Adham',
+                'Al Muwayh',
+                'Maysan',
+                'Al Lith',
+                'Al Qunfudhah',
+                
+                // Medina Region
+                'Medina',
+                'Yanbu',
+                'Badr',
+                'Al Ula',
+                'Mahd adh Dhahab',
+                'Khaybar',
+                'Al Hanakiyah',
+                
+                // Eastern Region
+                'Dammam',
+                'Al Khobar',
+                'Dhahran',
+                'Al Jubail',
+                'Al Ahsa (Hofuf)',
+                'Qatif',
+                'Ras Tanura',
+                'Al Mubarraz',
+                'Al Khafji',
+                'Abqaiq',
+                'Safwa',
+                'Saihat',
+                'Al Nairiyah',
+                'Rahima',
+                'Udhailiyah',
+                
+                // Qassim Region
+                'Buraidah',
+                'Unaizah',
+                'Ar Rass',
+                'Al Mithnab',
+                'Al Bukairiyah',
+                'Al Badaya',
+                'Riyadh Al Khabra',
+                'Al Asyah',
+                'Al Shammasiya',
+                'Uglat Asugour',
+                
+                // Asir Region
+                'Abha',
+                'Khamis Mushait',
+                'Bisha',
+                'Al Namas',
+                'Sarat Abidah',
+                'Ahad Rafidah',
+                'Balqarn',
+                'Rijal Almaa',
+                'Muhayil',
+                'Bariq',
+                'Dhahran Al Janub',
+                'Al Majardah',
+                'Tarib',
+                
+                // Tabuk Region
+                'Tabuk',
+                'Al Wajh',
+                'Duba',
+                'Tayma',
+                'Umluj',
+                'Haql',
+                'Al Bad',
+                'Timaa',
+                
+                // Hail Region
+                'Hail',
+                'Baqaa',
+                'Al Ghazalah',
+                'Shamli',
+                'Al Shinaan',
+                'Mauqaq',
+                'Al Sulaimi',
+                
+                // Northern Borders Region
+                'Arar',
+                'Rafha',
+                'Turaif',
+                'Al Uwayqilah',
+                
+                // Jazan Region
+                'Jizan',
+                'Sabya',
+                'Abu Arish',
+                'Samtah',
+                'Al Darb',
+                'Baish',
+                'Al Aridah',
+                'Farasan',
+                'Al Raith',
+                'Damad',
+                'Al Ardha',
+                'Harub',
+                
+                // Najran Region
+                'Najran',
+                'Sharourah',
+                'Habuna',
+                'Badr Al Janoub',
+                'Yadamah',
+                'Khubash',
+                'Thar',
+                
+                // Al Bahah Region
+                'Al Bahah',
+                'Baljurashi',
+                'Al Mandaq',
+                'Al Mikhwah',
+                'Al Aqiq',
+                'Al Qura',
+                'Qilwah',
+                'Sabt Al Alaya',
+                
+                // Al Jawf Region
+                'Sakakah',
+                'Dumat Al Jandal',
+                'Qurayyat',
+                'Tabarjal',
+                'Suwayr',
+                'Al Hazm'
+            ],
+            'Kuwait': [
+                'Al Asimah (Kuwait City)',
+                'Hawalli',
+                'Al Farwaniyah',
+                'Mubarak Al-Kabeer',
+                'Al Ahmadi',
+                'Al Jahra'
+            ]
+        };
+        
+        // Set country and load cities
+        function initializeCountryAndCities() {
+            // Set country (readonly)
+            document.getElementById('country').value = selectedCountry;
+            
+            // Load cities
+            const citySelect = document.getElementById('city');
+            const countryCities = cities[selectedCountry] || [];
+            
+            citySelect.innerHTML = '<option value="">Select city</option>';
+            countryCities.forEach(city => {
+                const option = document.createElement('option');
+                option.value = city;
+                option.textContent = city;
+                citySelect.appendChild(option);
+            });
+        }
+        
+        // Display cart items
+        function displayCartItems() {
+            const cartItemsContainer = document.getElementById('cartItems');
+            
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p style="text-align: center; color: rgba(0,0,0,0.5);">Your cart is empty</p>';
+                return;
+            }
+            
+            cartItemsContainer.innerHTML = '';
+            cart.forEach(item => {
+                const itemHTML = `
+                    <div class="cart-item">
+                        <img src="${item.image}" alt="${item.name}" class="item-image">
+                        <div class="item-details">
+                            <div class="item-name">${item.name}</div>
+                            <div class="item-quantity">Qty: ${item.quantity}</div>
+                        </div>
+                        <div class="item-price">${(item.price * item.quantity).toLocaleString()} SAR</div>
+                    </div>
+                `;
+                cartItemsContainer.innerHTML += itemHTML;
+            });
+        }
+        
+        // Calculate totals
+        function calculateTotals() {
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const tax = subtotal * 0.15;
+            const delivery = 25;
+            const total = subtotal + tax + delivery;
+            
+            document.getElementById('subtotalAmount').textContent = subtotal.toLocaleString() + ' SAR';
+            document.getElementById('taxAmount').textContent = tax.toFixed(2) + ' SAR';
+            document.getElementById('deliveryAmount').textContent = delivery + ' SAR';
+            document.getElementById('totalAmount').textContent = total.toFixed(2) + ' SAR';
+        }
+        
+        // Place order
+        function placeOrder() {
+            const form = document.getElementById('checkoutForm');
+            
+            // Validate form
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+            
+            // Get form data
+            const orderData = {
+                contact: {
+                    email: document.getElementById('email').value,
+                    phone: document.getElementById('phone').value
+                },
+                shipping: {
+                    firstName: document.getElementById('firstName').value,
+                    lastName: document.getElementById('lastName').value,
+                    address: document.getElementById('address').value,
+                    apartment: document.getElementById('apartment').value,
+                    city: document.getElementById('city').value,
+                    country: document.getElementById('country').value,
+                    postalCode: document.getElementById('postalCode').value
+                },
+                payment: document.getElementById('paymentMethod').value,
+                items: cart,
+                timestamp: new Date().toISOString()
+            };
+            
+            // في الإنتاج، راح ترسل الطلب لقاعدة البيانات أو API
+            console.log('Order placed:', orderData);
+            
+            // Clear cart
+            localStorage.removeItem('cart');
+            
+            // Show success modal
+            document.getElementById('successModal').classList.add('show');
+        }
+        
+        // Initialize
+        initializeCountryAndCities();
+        displayCartItems();
+        calculateTotals();
+        
+        // Redirect if cart is empty
+        if (cart.length === 0) {
+            setTimeout(() => {
+                // Uncomment this in production
+                // window.location.href = 'product.html';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>

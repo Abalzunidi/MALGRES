@@ -1037,7 +1037,11 @@
         
         // Checkout
         function checkout() {
-            alert('Checkout functionality coming soon!');
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            window.location.href = 'checkout.html';
         }
         
         // Initialize
