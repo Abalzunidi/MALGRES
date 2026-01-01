@@ -397,15 +397,6 @@
                             <input type="text" id="postalCode" class="form-input" placeholder="Postal code" required>
                         </div>
                     </div>
-                    
-                    <!-- Delivery -->
-                    <div class="form-section">
-                        <h2 class="section-title">Delivery</h2>
-                        <div class="form-group">
-                            <label class="form-label" for="deliveryNotes">Delivery Notes (Optional)</label>
-                            <input type="text" id="deliveryNotes" class="form-input" placeholder="Any special instructions for delivery">
-                        </div>
-                    </div>
                 </form>
             </div>
             
@@ -714,9 +705,6 @@
                     city: document.getElementById('city').value,
                     country: document.getElementById('country').value,
                     postalCode: document.getElementById('postalCode').value
-                },
-                delivery: {
-                    notes: document.getElementById('deliveryNotes').value
                 },
                 items: cart,
                 timestamp: new Date().toISOString()
