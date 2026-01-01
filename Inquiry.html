@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inquiry - Malgré</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-weight: 700;
+            background-color: #fffa87;
+            min-height: 100vh;
+        }
+        
+        .page-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding-top: 100px;
+            padding-bottom: 3rem;
+        }
+        
+        /* Logo at top center */
+        .logo-container {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            cursor: pointer;
+        }
+        
+        .logo-container img {
+            height: 80px;
+            width: auto;
+        }
+        
+        /* Back Button */
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 50px;
+            height: 50px;
+            background: #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        
+        .back-button:hover {
+            transform: scale(1.1);
+        }
+        
+        .back-button svg {
+            width: 24px;
+            height: 24px;
+            fill: #fffa87;
+        }
+        
+        /* Hamburger Menu Button */
+        .menu-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: #000;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        
+        .menu-button:hover {
+            transform: scale(1.1);
+        }
+        
+        .menu-line {
+            width: 24px;
+            height: 3px;
+            background: #fffa87;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+        
+        /* Slide-in Menu */
+        .slide-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 300px;
+            height: 100vh;
+            background: #000;
+            z-index: 999;
+            transition: right 0.4s ease;
+            padding: 100px 2rem 2rem;
+            box-shadow: -5px 0 20px rgba(0,0,0,0.3);
+        }
+        
+        .slide-menu.open {
+            right: 0;
+        }
+        
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .menu-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .menu-items {
+            list-style: none;
+        }
+        
+        .menu-item {
+            margin-bottom: 2rem;
+        }
+        
+        .menu-item a {
+            color: #fffa87;
+            text-decoration: none;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            display: block;
+        }
+        
+        .menu-item a:hover {
+            transform: translateX(10px);
+            color: #fff;
+        }
+        
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        
+        .inquiry-container {
+            width: 100%;
+            max-width: 600px;
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 30px;
+            padding: 3rem 2rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        
+        .inquiry-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #000;
+        }
+        
+        .inquiry-subtitle {
+            font-size: 1.125rem;
+            text-align: center;
+            margin-bottom: 2.5rem;
+            color: rgba(0,0,0,0.6);
+            font-weight: 400;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+            color: rgba(0,0,0,0.7);
+        }
+        
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.125rem;
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-weight: 600;
+            background: rgba(255,255,255,0.5);
+            border: 2px solid transparent;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            color: #000;
+        }
+        
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: #000;
+            background: rgba(255,255,255,0.8);
+        }
+        
+        .form-textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .submit-button {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.25rem;
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-weight: 700;
+            background: #000;
+            color: #fffa87;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            margin-top: 1rem;
+        }
+        
+        .submit-button:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+        }
+        
+        .submit-button:active {
+            transform: scale(0.98);
+        }
+        
+        .success-message {
+            background: #2ecc71;
+            color: #fff;
+            padding: 1rem;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            display: none;
+            font-size: 1rem;
+        }
+        
+        .success-message.show {
+            display: block;
+            animation: slideDown 0.4s ease;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .inquiry-container {
+                padding: 2rem 1.5rem;
+            }
+            
+            .inquiry-title {
+                font-size: 2rem;
+            }
+            
+            .slide-menu {
+                width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Logo -->
+    <div class="logo-container" onclick="window.location.href='index.html'">
+        <img src="L1.png" alt="Malgré">
+    </div>
+    
+    <!-- Back Button -->
+    <div class="back-button" onclick="window.location.href='index.html'">
+        <svg viewBox="0 0 24 24">
+            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+        </svg>
+    </div>
+    
+    <!-- Hamburger Menu Button -->
+    <div class="menu-button" onclick="toggleMenu()">
+        <span class="menu-line"></span>
+        <span class="menu-line"></span>
+        <span class="menu-line"></span>
+    </div>
+    
+    <!-- Menu Overlay -->
+    <div class="menu-overlay" onclick="toggleMenu()"></div>
+    
+    <!-- Slide-in Menu -->
+    <div class="slide-menu" id="slideMenu">
+        <ul class="menu-items">
+            <li class="menu-item"><a href="product.html">Malgré Signature</a></li>
+            <li class="menu-item"><a href="magazine.html">Malgré Magazine</a></li>
+            <li class="menu-item"><a href="inquiry.html">Inquiry</a></li>
+        </ul>
+    </div>
+    
+    <div class="page-container">
+        <div class="main-content">
+            <div class="inquiry-container">
+                <h1 class="inquiry-title">Inquiry</h1>
+                <p class="inquiry-subtitle">We'd love to hear from you. Send us your questions or feedback.</p>
+                
+                <div class="success-message" id="successMessage">
+                    Thank you! Your inquiry has been submitted successfully.
+                </div>
+                
+                <form onsubmit="handleSubmit(event)">
+                    <div class="form-group">
+                        <label class="form-label" for="name">Name</label>
+                        <input 
+                            type="text" 
+                            id="name" 
+                            class="form-input" 
+                            placeholder="Enter your name"
+                            required
+                        >
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="phone">Phone Number</label>
+                        <input 
+                            type="tel" 
+                            id="phone" 
+                            class="form-input" 
+                            placeholder="Enter your phone number"
+                            required
+                        >
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="email">Email</label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            class="form-input" 
+                            placeholder="Enter your email"
+                            required
+                        >
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="inquiry">Your Inquiry</label>
+                        <textarea 
+                            id="inquiry" 
+                            class="form-textarea" 
+                            placeholder="Write your message here..."
+                            required
+                        ></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-button">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle Menu
+        function toggleMenu() {
+            const menu = document.getElementById('slideMenu');
+            const overlay = document.querySelector('.menu-overlay');
+            
+            menu.classList.toggle('open');
+            overlay.classList.toggle('show');
+        }
+        
+        // Handle Form Submit
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const email = document.getElementById('email').value;
+            const inquiry = document.getElementById('inquiry').value;
+            
+            // في الإنتاج، راح ترسل البيانات لقاعدة بيانات أو API
+            console.log({
+                name,
+                phone,
+                email,
+                inquiry,
+                timestamp: new Date().toISOString()
+            });
+            
+            // Show success message
+            const successMessage = document.getElementById('successMessage');
+            successMessage.classList.add('show');
+            
+            // Clear form
+            document.getElementById('name').value = '';
+            document.getElementById('phone').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('inquiry').value = '';
+            
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+                successMessage.classList.remove('show');
+            }, 5000);
+            
+            // Scroll to top
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+</body>
+</html>
