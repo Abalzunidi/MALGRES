@@ -49,118 +49,61 @@
             transform: scale(1.05);
         }
         
-        /* Tutorial Overlay */
-        .tutorial-overlay {
+        /* Country Selection Popup */
+        .country-selection-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.85);
-            z-index: 9999;
+            background: rgba(0,0,0,0.9);
+            z-index: 99999;
             display: none;
-            pointer-events: none; /* Don't block clicks */
-        }
-        
-        .tutorial-overlay.show {
-            display: block;
-        }
-        
-        /* Spotlight effect for step 2 */
-        .tutorial-overlay.step2 {
-            background: radial-gradient(
-                circle at 180px 180px,
-                transparent 0px,
-                transparent 180px,
-                rgba(0,0,0,0.85) 180px
-            );
-        }
-        
-        /* Tutorial Arrow */
-        .tutorial-arrow {
-            position: fixed;
-            z-index: 10000;
-        }
-        
-        .arrow-container {
-            position: relative;
-            display: flex;
             align-items: center;
-            gap: 1rem;
+            justify-content: center;
         }
         
-        /* Horizontal Arrow pointing right */
-        .arrow-horizontal {
+        .country-selection-overlay.show {
             display: flex;
-            align-items: center;
         }
         
-        .arrow-line-horizontal {
-            width: 100px;
-            height: 4px;
+        .country-selection-popup {
             background: #fffa87;
-            animation: pulse 1.5s infinite;
-        }
-        
-        .arrow-head-horizontal {
-            width: 0;
-            height: 0;
-            border-top: 15px solid transparent;
-            border-bottom: 15px solid transparent;
-            border-left: 20px solid #fffa87;
-            animation: pulse 1.5s infinite;
-        }
-        
-        .arrow-head-left {
-            width: 0;
-            height: 0;
-            border-top: 15px solid transparent;
-            border-bottom: 15px solid transparent;
-            border-right: 20px solid #fffa87;
-            animation: pulse 1.5s infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.6;
-            }
-        }
-        
-        .tutorial-message {
-            background: #fffa87;
-            color: #000;
-            padding: 1rem 1.5rem;
-            border-radius: 15px;
-            font-size: 1.25rem;
+            padding: 2rem;
+            border-radius: 30px;
             text-align: center;
+            max-width: 400px;
+            width: 85%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+        
+        .country-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+        
+        .country-button {
+            padding: 1.25rem 2rem;
+            font-size: 1.5rem;
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-weight: 700;
+            background: #000;
+            color: #fffa87;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            white-space: nowrap;
-            animation: float 2s ease-in-out infinite;
         }
         
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
+        .country-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
         }
         
-        /* Highlight elements during tutorial */
-        .tutorial-highlight {
-            position: relative;
-            z-index: 10001 !important;
-        }
-        
-        /* Special highlight for menu items */
-        .menu-item.tutorial-highlight {
-            background: rgba(255,250,135,0.3) !important;
-            border: 2px solid #fffa87 !important;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.5) !important;
+        .country-button:active {
+            transform: scale(0.98);
         }
         
         /* Hamburger Menu Button */
@@ -610,29 +553,20 @@
                 padding: 0.875rem 2rem;
             }
             
-            /* Tutorial adjustments for mobile */
-            .tutorial-arrow {
-                display: none !important; /* Hide arrows on mobile - too complicated */
+            /* Country selection popup */
+            .country-selection-popup {
+                width: 90%;
+                max-width: 320px;
+                padding: 1.5rem;
             }
             
-            .tutorial-overlay.step2 {
-                background: rgba(0,0,0,0.5); /* Lighter overlay on mobile */
+            .country-buttons {
+                gap: 1rem;
             }
             
-            /* Menu items more visible in tutorial */
-            .menu-item.tutorial-highlight {
-                font-size: 22px !important;
-                padding: 20px !important;
-                animation: pulse-mobile 1s infinite;
-            }
-            
-            @keyframes pulse-mobile {
-                0%, 100% {
-                    transform: scale(1);
-                }
-                50% {
-                    transform: scale(1.05);
-                }
+            .country-button {
+                font-size: 1.25rem;
+                padding: 1rem 1.5rem;
             }
         }
         
@@ -691,32 +625,37 @@
             .popup-title {
                 font-size: 1.5rem;
             }
+            
+            /* Country selection popup */
+            .country-selection-popup {
+                width: 95%;
+                max-width: 280px;
+                padding: 1.25rem;
+            }
+            
+            .country-buttons {
+                gap: 0.875rem;
+            }
+            
+            .country-button {
+                font-size: 1.125rem;
+                padding: 0.875rem 1.25rem;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- Tutorial Overlay -->
-    <div class="tutorial-overlay" id="tutorialOverlay"></div>
-    
-    <!-- Tutorial Arrow - Step 1: Point to Menu (from right, pointing left) -->
-    <div class="tutorial-arrow" id="tutorialArrow1" style="display: none; top: 30px; left: 120px;">
-        <div class="arrow-container" style="flex-direction: row-reverse;">
-            <div class="tutorial-message">Click here to open menu</div>
-            <div class="arrow-horizontal" style="flex-direction: row-reverse;">
-                <div class="arrow-line-horizontal"></div>
-                <div class="arrow-head-left"></div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Tutorial Arrow - Step 2: Point to Country (from right, pointing left) -->
-    <div class="tutorial-arrow" id="tutorialArrow2" style="display: none; top: 150px; left: 370px;">
-        <div class="arrow-container" style="flex-direction: row-reverse;">
-            <div class="tutorial-message">Choose your country</div>
-            <div class="arrow-horizontal" style="flex-direction: row-reverse;">
-                <div class="arrow-line-horizontal"></div>
-                <div class="arrow-head-left"></div>
+    <!-- Country Selection Popup -->
+    <div class="country-selection-overlay" id="countrySelectionOverlay">
+        <div class="country-selection-popup">
+            <div class="country-buttons">
+                <button class="country-button" onclick="selectCountryFromPopup('sa')">
+                    Saudi Arabia
+                </button>
+                <button class="country-button" onclick="selectCountryFromPopup('kw')">
+                    Kuwait
+                </button>
             </div>
         </div>
     </div>
@@ -937,85 +876,27 @@
         // Initialize
         updateMenuActiveState();
         
-        // Tutorial System
-        let tutorialStep = 0;
-        
-        // Start tutorial if no country is selected (must choose country)
+        // Show country selection popup if no country is selected
         if (!currentCountry) {
-            setTimeout(startTutorial, 500);
+            setTimeout(() => {
+                document.getElementById('countrySelectionOverlay').classList.add('show');
+            }, 300);
         }
         
-        function startTutorial() {
-            tutorialStep = 1;
-            showTutorialStep1();
-        }
-        
-        // Step 1: Point to Menu Button
-        function showTutorialStep1() {
-            document.getElementById('tutorialOverlay').classList.add('show');
-            document.getElementById('tutorialArrow1').style.display = 'block';
-            document.getElementById('menuButton').classList.add('tutorial-highlight');
-        }
-        
-        // Step 2: Point to Country Selection
-        function showTutorialStep2() {
-            document.getElementById('tutorialArrow1').style.display = 'none';
-            document.getElementById('tutorialArrow2').style.display = 'block';
-            document.getElementById('menuButton').classList.remove('tutorial-highlight');
+        // Select country from popup
+        function selectCountryFromPopup(country) {
+            currentCountry = country;
+            localStorage.setItem('selectedCountry', country);
             
-            // Add spotlight effect
-            document.getElementById('tutorialOverlay').classList.add('step2');
+            // Hide popup
+            document.getElementById('countrySelectionOverlay').classList.remove('show');
             
-            // Highlight country items
-            document.getElementById('menu-sa').classList.add('tutorial-highlight');
-            document.getElementById('menu-kw').classList.add('tutorial-highlight');
-        }
-        
-        // Complete Tutorial
-        function completeTutorial() {
-            document.getElementById('tutorialOverlay').classList.remove('show');
-            document.getElementById('tutorialOverlay').classList.remove('step2');
-            document.getElementById('tutorialArrow1').style.display = 'none';
-            document.getElementById('tutorialArrow2').style.display = 'none';
-            document.getElementById('menuButton').classList.remove('tutorial-highlight');
-            document.getElementById('menu-sa').classList.remove('tutorial-highlight');
-            document.getElementById('menu-kw').classList.remove('tutorial-highlight');
+            // Update menu
+            updateMenuActiveState();
             
-            // Don't save to localStorage - tutorial should show again if country is not selected
-            tutorialStep = 0;
-        }
-        
-        // Override toggleMenu to handle tutorial
-        const originalToggleMenu = toggleMenu;
-        toggleMenu = function() {
-            if (tutorialStep === 1) {
-                // First time opening menu during tutorial
-                tutorialStep = 2;
-                originalToggleMenu();
-                setTimeout(showTutorialStep2, 300);
-            } else if (tutorialStep === 2) {
-                // Don't allow closing menu until country is selected
-                return;
-            } else {
-                originalToggleMenu();
-            }
-        }
-        
-        // Override selectCountryFromMenu to complete tutorial
-        const originalSelectCountry = selectCountryFromMenu;
-        selectCountryFromMenu = function(country) {
-            // Complete tutorial BEFORE calling original function
-            // This allows toggleMenu to work properly
-            if (tutorialStep === 2) {
-                tutorialStep = 0; // Reset step first so toggleMenu works
-            }
-            
-            originalSelectCountry(country);
-            
-            // Clean up tutorial UI after selection
-            if (tutorialStep === 0) {
-                completeTutorial();
-            }
+            // Update price
+            const data = content[country];
+            document.getElementById('product-price').textContent = `${data.price} ${data.currency}`;
         }
     </script>
 </body>
