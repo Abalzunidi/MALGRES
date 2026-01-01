@@ -824,9 +824,16 @@
         // Override selectCountryFromMenu to complete tutorial
         const originalSelectCountry = selectCountryFromMenu;
         selectCountryFromMenu = function(country) {
+            // Complete tutorial BEFORE calling original function
+            // This allows toggleMenu to work properly
+            if (tutorialStep === 2) {
+                tutorialStep = 0; // Reset step first so toggleMenu works
+            }
+            
             originalSelectCountry(country);
             
-            if (tutorialStep === 2) {
+            // Clean up tutorial UI after selection
+            if (tutorialStep === 0) {
                 completeTutorial();
             }
         }
