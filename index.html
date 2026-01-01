@@ -512,6 +512,186 @@
             from { transform: scale(0) rotate(-90deg); opacity: 0; }
             to { transform: scale(1) rotate(0); opacity: 1; }
         }
+        
+        /* ===================================
+           MOBILE RESPONSIVE STYLES
+           =================================== */
+        
+        @media (max-width: 768px) {
+            /* Logo smaller on mobile */
+            .logo-container img {
+                height: 60px;
+            }
+            
+            /* Menu button smaller */
+            .menu-button {
+                width: 45px;
+                height: 45px;
+                top: 15px;
+                right: 15px;
+            }
+            
+            /* Side menu full width on mobile */
+            .side-menu {
+                width: 100%;
+                max-width: 100%;
+            }
+            
+            /* Menu items larger touch targets */
+            .menu-item {
+                padding: 18px 20px;
+                font-size: 20px;
+            }
+            
+            .menu-section-title {
+                font-size: 16px;
+            }
+            
+            /* Page container more padding */
+            .page-container {
+                padding-top: 90px;
+            }
+            
+            /* Products container - single column on mobile */
+            .products-container {
+                grid-template-columns: 1fr !important;
+                gap: 1.5rem;
+                padding: 1rem;
+            }
+            
+            /* Product cards larger on mobile */
+            .product-card {
+                padding: 1.5rem;
+            }
+            
+            .product-card img {
+                height: 250px;
+            }
+            
+            .product-name {
+                font-size: 1.75rem;
+            }
+            
+            .product-price {
+                font-size: 1.5rem;
+            }
+            
+            .product-cta {
+                font-size: 1.125rem;
+                padding: 0.875rem 1.5rem;
+            }
+            
+            /* Popup adjustments */
+            .popup-document {
+                width: 90%;
+                max-width: 350px;
+                padding: 2rem 1.5rem;
+            }
+            
+            .popup-logo {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .popup-title {
+                font-size: 1.75rem;
+            }
+            
+            .popup-flag {
+                font-size: 3rem;
+            }
+            
+            .popup-text {
+                font-size: 1.125rem;
+            }
+            
+            .popup-close {
+                font-size: 1.25rem;
+                padding: 0.875rem 2rem;
+            }
+            
+            /* Tutorial adjustments for mobile */
+            .tutorial-arrow {
+                display: none !important; /* Hide arrows on mobile - too complicated */
+            }
+            
+            .tutorial-overlay.step2 {
+                background: rgba(0,0,0,0.5); /* Lighter overlay on mobile */
+            }
+            
+            /* Menu items more visible in tutorial */
+            .menu-item.tutorial-highlight {
+                font-size: 22px !important;
+                padding: 20px !important;
+                animation: pulse-mobile 1s infinite;
+            }
+            
+            @keyframes pulse-mobile {
+                0%, 100% {
+                    transform: scale(1);
+                }
+                50% {
+                    transform: scale(1.05);
+                }
+            }
+        }
+        
+        /* Tablet landscape */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .products-container {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+            
+            .logo-container img {
+                height: 70px;
+            }
+            
+            .product-card img {
+                height: 300px;
+            }
+        }
+        
+        /* Small phones */
+        @media (max-width: 480px) {
+            .logo-container img {
+                height: 50px;
+            }
+            
+            .menu-button {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .product-card {
+                padding: 1rem;
+            }
+            
+            .product-card img {
+                height: 200px;
+            }
+            
+            .product-name {
+                font-size: 1.5rem;
+            }
+            
+            .product-price {
+                font-size: 1.25rem;
+            }
+            
+            .popup-document {
+                width: 95%;
+                padding: 1.5rem 1rem;
+            }
+            
+            .popup-logo {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .popup-title {
+                font-size: 1.5rem;
+            }
+        }
     </style>
 </head>
 <body>

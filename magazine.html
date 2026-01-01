@@ -109,6 +109,110 @@
             color: #fffa87;
             background-color: #000;
         }
+        
+        /* ===================================
+           MOBILE RESPONSIVE STYLES
+           =================================== */
+        
+        @media (max-width: 768px) {
+            /* Header elements */
+            .logo-container img {
+                height: 60px;
+            }
+            
+            .back-button {
+                width: 45px;
+                height: 45px;
+                top: 15px;
+                left: 15px;
+            }
+            
+            /* Page container */
+            .page-container {
+                padding-top: 90px;
+            }
+            
+            /* Magazine content */
+            .magazine-content {
+                padding: 1rem;
+            }
+            
+            /* Magazine image responsive */
+            .magazine-image {
+                max-width: 100%;
+                height: auto;
+                border-radius: 15px;
+            }
+            
+            /* Navigation buttons */
+            .nav-button {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+            
+            .nav-button.prev {
+                left: 10px;
+            }
+            
+            .nav-button.next {
+                right: 10px;
+            }
+            
+            /* Page indicator */
+            .page-indicator {
+                font-size: 1rem;
+                padding: 0.75rem 1.25rem;
+                bottom: 15px;
+            }
+        }
+        
+        /* Small phones */
+        @media (max-width: 480px) {
+            .logo-container img {
+                height: 50px;
+            }
+            
+            .back-button {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .magazine-content {
+                padding: 0.5rem;
+            }
+            
+            .nav-button {
+                width: 45px;
+                height: 45px;
+                font-size: 1.25rem;
+            }
+            
+            .nav-button.prev {
+                left: 5px;
+            }
+            
+            .nav-button.next {
+                right: 5px;
+            }
+            
+            .page-indicator {
+                font-size: 0.875rem;
+                padding: 0.625rem 1rem;
+                bottom: 10px;
+            }
+        }
+        
+        /* Tablet landscape */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .logo-container img {
+                height: 70px;
+            }
+            
+            .magazine-image {
+                max-height: 80vh;
+            }
+        }
     </style>
 </head>
 <body>
