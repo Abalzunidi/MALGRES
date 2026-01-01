@@ -398,17 +398,12 @@
                         </div>
                     </div>
                     
-                    <!-- Payment Method -->
+                    <!-- Delivery -->
                     <div class="form-section">
-                        <h2 class="section-title">Payment Method</h2>
+                        <h2 class="section-title">Delivery</h2>
                         <div class="form-group">
-                            <label class="form-label" for="paymentMethod">Select Payment</label>
-                            <select id="paymentMethod" class="form-select" required>
-                                <option value="">Choose payment method</option>
-                                <option value="cod">Cash on Delivery</option>
-                                <option value="card">Credit/Debit Card</option>
-                                <option value="bank">Bank Transfer</option>
-                            </select>
+                            <label class="form-label" for="deliveryNotes">Delivery Notes (Optional)</label>
+                            <input type="text" id="deliveryNotes" class="form-input" placeholder="Any special instructions for delivery">
                         </div>
                     </div>
                 </form>
@@ -441,7 +436,7 @@
                     </div>
                 </div>
                 
-                <button class="place-order-btn" onclick="placeOrder()">Place Order</button>
+                <button class="place-order-btn" onclick="proceedToPayment()">Proceed to Payment</button>
             </div>
         </div>
     </div>
@@ -695,8 +690,8 @@
             document.getElementById('totalAmount').textContent = total.toFixed(2) + ' SAR';
         }
         
-        // Place order
-        function placeOrder() {
+        // Proceed to Payment
+        function proceedToPayment() {
             const form = document.getElementById('checkoutForm');
             
             // Validate form
@@ -720,19 +715,26 @@
                     country: document.getElementById('country').value,
                     postalCode: document.getElementById('postalCode').value
                 },
-                payment: document.getElementById('paymentMethod').value,
+                delivery: {
+                    notes: document.getElementById('deliveryNotes').value
+                },
                 items: cart,
                 timestamp: new Date().toISOString()
             };
             
-            // في الإنتاج، راح ترسل الطلب لقاعدة البيانات أو API
-            console.log('Order placed:', orderData);
+            // Save order data to localStorage for payment page
+            localStorage.setItem('pendingOrder', JSON.stringify(orderData));
             
-            // Clear cart
-            localStorage.removeItem('cart');
+            // Calculate total
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const tax = subtotal * 0.15;
+            const delivery = 25;
+            const total = subtotal + tax + delivery;
             
-            // Show success modal
-            document.getElementById('successModal').classList.add('show');
+            localStorage.setItem('orderTotal', total.toFixed(2));
+            
+            // Redirect to payment page
+            window.location.href = 'payment.html';
         }
         
         // Initialize
