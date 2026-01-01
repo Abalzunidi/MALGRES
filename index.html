@@ -59,6 +59,7 @@
             background: rgba(0,0,0,0.85);
             z-index: 9999;
             display: none;
+            pointer-events: none; /* Don't block clicks */
         }
         
         .tutorial-overlay.show {
@@ -700,16 +701,18 @@
             // Close menu
             toggleMenu();
             
-            // Show popup
-            const popup = document.getElementById('popup');
-            const popupFlag = document.getElementById('popupFlag');
-            const popupText = document.getElementById('popupText');
-            
-            popupFlag.textContent = content[country].flag;
-            popupText.innerHTML = '<span style="color: #000 !important;">From ' + content[oldCountry].name + ' to ' + content[country].name + '</span>';
-            popupText.style.setProperty('color', '#000', 'important');
-            
-            popup.classList.add('show');
+            // Show popup only if there was a previous country
+            if (oldCountry !== null) {
+                const popup = document.getElementById('popup');
+                const popupFlag = document.getElementById('popupFlag');
+                const popupText = document.getElementById('popupText');
+                
+                popupFlag.textContent = content[country].flag;
+                popupText.innerHTML = '<span style="color: #000 !important;">From ' + content[oldCountry].name + ' to ' + content[country].name + '</span>';
+                popupText.style.setProperty('color', '#000', 'important');
+                
+                popup.classList.add('show');
+            }
             
             // Update price
             const data = content[country];
