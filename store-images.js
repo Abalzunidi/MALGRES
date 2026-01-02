@@ -15,7 +15,7 @@ const STORE_IMAGES = {
     // ========================================
     logos: {
         // Main logo (appears in header)
-        main: 'L1.png',
+        main: 'L2.png',
         
         // Secondary logo (appears in popups/stamps)
         secondary: 'L2.png',
