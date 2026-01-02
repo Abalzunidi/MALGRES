@@ -338,6 +338,36 @@
             padding: 2rem 1rem;
         }
         
+        /* Images container */
+        .images-container {
+            max-width: 900px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .main-image-wrapper {
+            width: 100%;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px var(--shadow-medium);
+            transition: all 0.3s ease;
+        }
+        
+        .main-image-wrapper:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px var(--shadow-heavy);
+        }
+        
+        .main-display-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+        
         .products-container {
             max-width: 1000px;
             width: 100%;
@@ -577,6 +607,16 @@
             .side-menu {
                 max-width: 85%;
                 left: -100%;
+            }
+            
+            /* Images container mobile */
+            .images-container {
+                gap: 1.5rem;
+                padding: 0 0.5rem;
+            }
+            
+            .main-image-wrapper {
+                border-radius: 15px;
             }
             
             .side-menu.active {
@@ -859,9 +899,21 @@
 
         <!-- Main Content -->
         <main>
-            <div style="text-align: center; padding: 4rem 2rem;">
-                <h1 style="font-size: 3rem; color: var(--text-primary); margin-bottom: 1rem;">Welcome to Malgré</h1>
-                <p style="font-size: 1.25rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto;">Discover our exclusive collection of luxury products</p>
+            <div class="images-container">
+                <!-- Image 1 -->
+                <div class="main-image-wrapper">
+                    <img src="M1.png" alt="Malgré Image 1" class="main-display-image" data-image="main-image-1">
+                </div>
+                
+                <!-- Image 2 -->
+                <div class="main-image-wrapper">
+                    <img src="M2.png" alt="Malgré Image 2" class="main-display-image" data-image="main-image-2">
+                </div>
+                
+                <!-- Image 3 -->
+                <div class="main-image-wrapper">
+                    <img src="M3.png" alt="Malgré Image 3" class="main-display-image" data-image="main-image-3">
+                </div>
             </div>
         </main>
 
