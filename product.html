@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Malgré Signature - Product Details</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="store-colors.css">
     <style>
         * {
             margin: 0;
@@ -15,7 +16,7 @@
         body {
             font-family: 'Cormorant Garamond', Georgia, serif;
             font-weight: 700;
-            background-color: #fffa87;
+            background-color: var(--bg-primary);
             min-height: 100vh;
         }
         
@@ -48,7 +49,7 @@
             left: 20px;
             width: 50px;
             height: 50px;
-            background: #000;
+            background: var(--btn-bg);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -56,7 +57,7 @@
             cursor: pointer;
             z-index: 1000;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 15px var(--shadow-heavy);
         }
         
         .back-button:hover {
@@ -66,7 +67,7 @@
         .back-button svg {
             width: 24px;
             height: 24px;
-            fill: #fffa87;
+            fill: var(--btn-text);
         }
         
         /* Cart Icon Button */
@@ -76,7 +77,7 @@
             right: 20px;
             width: 50px;
             height: 50px;
-            background: #000;
+            background: var(--btn-bg);
             border-radius: 50%;
             display: none;
             align-items: center;
@@ -84,7 +85,7 @@
             cursor: pointer;
             z-index: 1000;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 15px var(--shadow-heavy);
         }
         
         .cart-icon-button.show {
@@ -98,15 +99,15 @@
         .cart-icon-button svg {
             width: 24px;
             height: 24px;
-            fill: #fffa87;
+            fill: var(--btn-text);
         }
         
         .cart-badge {
             position: absolute;
             top: -5px;
             right: -5px;
-            background: #fffa87;
-            color: #000;
+            background: var(--cart-badge-bg);
+            color: var(--cart-badge-text);
             width: 22px;
             height: 22px;
             border-radius: 50%;
@@ -124,7 +125,7 @@
             left: 20px;
             width: 50px;
             height: 50px;
-            background: #000;
+            background: var(--btn-bg);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -132,7 +133,7 @@
             cursor: pointer;
             z-index: 1000;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 15px var(--shadow-heavy);
         }
         
         .menu-button:hover {
@@ -151,7 +152,7 @@
         .menu-icon span {
             width: 100%;
             height: 3px;
-            background: #fffa87;
+            background: var(--btn-text);
             border-radius: 2px;
             transition: all 0.3s ease;
         }
@@ -175,8 +176,8 @@
             left: -350px;
             width: 350px;
             height: 100vh;
-            background: #fffa87;
-            box-shadow: 5px 0 25px rgba(0,0,0,0.3);
+            background: var(--menu-bg);
+            box-shadow: 5px 0 25px var(--shadow-heavy);
             z-index: 999;
             transition: left 0.4s ease;
             overflow-y: auto;
@@ -195,8 +196,8 @@
             width: 400px;
             max-width: 90%;
             height: 100vh;
-            background: #fffa87;
-            box-shadow: -5px 0 25px rgba(0,0,0,0.3);
+            background: var(--cart-bg);
+            box-shadow: -5px 0 25px var(--shadow-heavy);
             z-index: 999;
             transition: right 0.4s ease;
             overflow-y: auto;
@@ -213,7 +214,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
+            background: var(--popup-overlay);
             z-index: 998;
             opacity: 0;
             visibility: hidden;
@@ -233,7 +234,7 @@
         
         .menu-section-title {
             font-size: 14px;
-            color: rgba(0,0,0,0.5);
+            color: var(--text-light);
             text-transform: uppercase;
             letter-spacing: 2px;
             margin-bottom: 15px;
@@ -242,7 +243,7 @@
         
         .menu-item {
             padding: 15px 20px;
-            background: rgba(0,0,0,0.05);
+            background: var(--card-bg);
             border-radius: 12px;
             margin-bottom: 10px;
             cursor: pointer;
@@ -253,13 +254,13 @@
         }
         
         .menu-item:hover {
-            background: rgba(0,0,0,0.1);
+            background: var(--card-hover-bg);
             transform: translateX(-5px);
         }
         
         .menu-item.active {
-            background: #000;
-            color: #fffa87;
+            background: var(--card-active-bg);
+            color: var(--card-active-text);
         }
         
         /* Cart Panel Content */
@@ -271,7 +272,7 @@
         
         .cart-item {
             padding: 1rem;
-            background: rgba(0,0,0,0.05);
+            background: var(--cart-item-bg);
             border-radius: 12px;
             margin-bottom: 1rem;
         }
@@ -286,7 +287,7 @@
             width: 70px;
             height: 70px;
             object-fit: contain;
-            background: rgba(255,255,255,0.5);
+            background: var(--input-bg);
             border-radius: 8px;
             padding: 0.5rem;
         }
@@ -302,7 +303,7 @@
         
         .cart-item-price {
             font-size: 1rem;
-            color: rgba(0,0,0,0.7);
+            color: var(--text-secondary);
         }
         
         .cart-item-bottom {
@@ -320,8 +321,8 @@
         .quantity-btn {
             width: 30px;
             height: 30px;
-            background: #000;
-            color: #fffa87;
+            background: var(--btn-bg);
+            color: var(--btn-text);
             border: none;
             border-radius: 50%;
             cursor: pointer;
@@ -348,8 +349,8 @@
         }
         
         .delete-btn {
-            background: #ff4444;
-            color: #fff;
+            background: var(--error-bg);
+            color: var(--error-text);
             border: none;
             padding: 0.5rem 1rem;
             border-radius: 20px;
@@ -361,14 +362,14 @@
         }
         
         .delete-btn:hover {
-            background: #cc0000;
+            background: var(--error-hover);
             transform: scale(1.05);
         }
         
         .cart-summary {
             margin-top: 2rem;
             padding-top: 1.5rem;
-            border-top: 2px solid rgba(0,0,0,0.1);
+            border-top: 2px solid var(--border-light);
         }
         
         .cart-summary-row {
@@ -381,12 +382,12 @@
         .cart-summary-row.total {
             font-size: 1.5rem;
             padding-top: 1rem;
-            border-top: 2px solid rgba(0,0,0,0.2);
+            border-top: 2px solid var(--border-medium);
             margin-top: 1rem;
         }
         
         .cart-summary-label {
-            color: rgba(0,0,0,0.7);
+            color: var(--text-secondary);
         }
         
         .cart-summary-value {
@@ -395,8 +396,8 @@
         
         .checkout-button {
             width: 100%;
-            background-color: #000;
-            color: #fffa87;
+            background-color: var(--btn-bg);
+            color: var(--btn-text);
             padding: 1rem;
             border-radius: 50px;
             font-weight: 700;
@@ -404,14 +405,14 @@
             border: none;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 15px var(--shadow-heavy);
             font-family: 'Cormorant Garamond', Georgia, serif;
             margin-top: 1.5rem;
         }
         
         .checkout-button:hover {
             transform: scale(1.02);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+            box-shadow: 0 6px 20px var(--shadow-heavy);
         }
         
         /* Main content */
@@ -434,7 +435,7 @@
             width: 100%;
             max-height: 500px;
             object-fit: contain;
-            background: rgba(255, 255, 255, 0.3);
+            background: var(--input-bg);
             border-radius: 20px;
             padding: 2rem;
             margin-bottom: 1rem;
@@ -451,7 +452,7 @@
             width: 80px;
             height: 80px;
             object-fit: contain;
-            background: rgba(255, 255, 255, 0.3);
+            background: var(--input-bg);
             border-radius: 10px;
             padding: 0.5rem;
             cursor: pointer;
@@ -464,7 +465,7 @@
         }
         
         .thumbnail.active {
-            border-color: #000;
+            border-color: var(--btn-bg);
         }
         
         /* Product Info */
@@ -476,14 +477,14 @@
         .product-title {
             font-size: 2rem;
             font-weight: 700;
-            color: #000;
+            color: var(--text-primary);
             margin-bottom: 1rem;
         }
         
         .product-price {
             font-size: 1.75rem;
             font-weight: 700;
-            color: #000;
+            color: var(--text-primary);
             margin-bottom: 1.5rem;
         }
         
@@ -498,7 +499,7 @@
         
         .product-quantity-label {
             font-size: 1.125rem;
-            color: rgba(0,0,0,0.7);
+            color: var(--text-secondary);
         }
         
         .product-quantity-control {
@@ -510,8 +511,8 @@
         .product-quantity-btn {
             width: 40px;
             height: 40px;
-            background: #000;
-            color: #fffa87;
+            background: var(--btn-bg);
+            color: var(--btn-text);
             border: none;
             border-radius: 50%;
             cursor: pointer;
@@ -538,8 +539,8 @@
         }
         
         .add-to-cart-btn {
-            background-color: #000;
-            color: #fffa87;
+            background-color: var(--btn-bg);
+            color: var(--btn-text);
             padding: 1rem 3rem;
             border-radius: 50px;
             font-weight: 700;
@@ -547,14 +548,14 @@
             border: none;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 15px var(--shadow-heavy);
             font-family: 'Cormorant Garamond', Georgia, serif;
             display: inline-block;
         }
         
         .add-to-cart-btn:hover {
             transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+            box-shadow: 0 6px 20px var(--shadow-heavy);
         }
         
         .add-to-cart-btn:active {
@@ -563,7 +564,7 @@
         
         /* Product Description */
         .product-description {
-            background: rgba(0, 0, 0, 0.05);
+            background: var(--card-bg);
             border-radius: 20px;
             padding: 2rem;
             margin-bottom: 2rem;
@@ -572,7 +573,7 @@
         .description-title {
             font-size: 1.5rem;
             font-weight: 700;
-            color: #000;
+            color: var(--text-primary);
             margin-bottom: 1rem;
             text-align: center;
         }
@@ -580,7 +581,7 @@
         .description-text {
             font-size: 1.125rem;
             font-weight: 400;
-            color: rgba(0, 0, 0, 0.8);
+            color: var(--text-secondary);
             line-height: 1.8;
             text-align: center;
         }
@@ -589,7 +590,7 @@
         footer {
             padding: 1.5rem 0;
             text-align: center;
-            background-color: #fffa87;
+            background-color: var(--footer-bg);
         }
         
         .footer-text {
@@ -597,8 +598,8 @@
             padding: 0.25rem 0.75rem;
             display: inline-block;
             border-radius: 0.25rem;
-            color: #fffa87;
-            background-color: #000;
+            color: var(--footer-text);
+            background-color: var(--footer-text-bg);
         }
         
         /* Success Message */
@@ -607,14 +608,14 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) scale(0);
-            background: #000;
-            color: #fffa87;
+            background: var(--btn-bg);
+            color: var(--btn-text);
             padding: 2rem 3rem;
             border-radius: 20px;
             font-size: 1.25rem;
             font-weight: 700;
             z-index: 10000;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 40px var(--shadow-extra);
             transition: all 0.3s ease;
         }
         
@@ -625,7 +626,7 @@
         .empty-cart {
             text-align: center;
             padding: 3rem 1rem;
-            color: rgba(0,0,0,0.5);
+            color: var(--text-light);
             font-size: 1.125rem;
         }
         

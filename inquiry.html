@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inquiry - Malgré</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="store-colors.css">
     <style>
         * {
             margin: 0;
@@ -15,7 +16,7 @@
         body {
             font-family: 'Cormorant Garamond', Georgia, serif;
             font-weight: 700;
-            background-color: #fffa87;
+            background-color: var(--bg-primary);
             min-height: 100vh;
         }
         
@@ -49,7 +50,7 @@
             left: 20px;
             width: 50px;
             height: 50px;
-            background: #000;
+            background: var(--btn-bg);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -57,7 +58,7 @@
             cursor: pointer;
             z-index: 1000;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 15px var(--shadow-heavy);
         }
         
         .back-button:hover {
@@ -67,7 +68,7 @@
         .back-button svg {
             width: 24px;
             height: 24px;
-            fill: #fffa87;
+            fill: var(--btn-text);
         }
         
         /* Hamburger Menu Button */
@@ -77,7 +78,7 @@
             right: 20px;
             width: 50px;
             height: 50px;
-            background: #000;
+            background: var(--btn-bg);
             border-radius: 50%;
             display: flex;
             flex-direction: column;
@@ -87,7 +88,7 @@
             cursor: pointer;
             z-index: 1000;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 15px var(--shadow-heavy);
         }
         
         .menu-button:hover {
@@ -97,7 +98,7 @@
         .menu-line {
             width: 24px;
             height: 3px;
-            background: #fffa87;
+            background: var(--btn-text);
             border-radius: 2px;
             transition: all 0.3s ease;
         }
@@ -109,11 +110,11 @@
             right: -100%;
             width: 300px;
             height: 100vh;
-            background: #000;
+            background: var(--btn-bg);
             z-index: 999;
             transition: right 0.4s ease;
             padding: 100px 2rem 2rem;
-            box-shadow: -5px 0 20px rgba(0,0,0,0.3);
+            box-shadow: -5px 0 20px var(--shadow-heavy);
         }
         
         .slide-menu.open {
@@ -126,7 +127,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
+            background: var(--popup-overlay);
             z-index: 998;
             opacity: 0;
             visibility: hidden;
@@ -147,7 +148,7 @@
         }
         
         .menu-item a {
-            color: #fffa87;
+            color: var(--btn-text);
             text-decoration: none;
             font-size: 1.5rem;
             transition: all 0.3s ease;
@@ -171,24 +172,24 @@
         .inquiry-container {
             width: 100%;
             max-width: 600px;
-            background: rgba(0, 0, 0, 0.05);
+            background: var(--card-bg);
             border-radius: 30px;
             padding: 3rem 2rem;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 40px var(--shadow-light);
         }
         
         .inquiry-title {
             font-size: 2.5rem;
             text-align: center;
             margin-bottom: 1rem;
-            color: #000;
+            color: var(--text-primary);
         }
         
         .inquiry-subtitle {
             font-size: 1.125rem;
             text-align: center;
             margin-bottom: 2.5rem;
-            color: rgba(0,0,0,0.6);
+            color: var(--text-secondary);
             font-weight: 400;
         }
         
@@ -200,7 +201,7 @@
             display: block;
             font-size: 1.125rem;
             margin-bottom: 0.5rem;
-            color: rgba(0,0,0,0.7);
+            color: var(--text-secondary);
         }
         
         .form-input,
@@ -210,18 +211,23 @@
             font-size: 1.125rem;
             font-family: 'Cormorant Garamond', Georgia, serif;
             font-weight: 600;
-            background: rgba(255,255,255,0.5);
-            border: 2px solid transparent;
+            background: var(--input-bg);
+            border: 2px solid var(--input-border);
             border-radius: 15px;
             transition: all 0.3s ease;
-            color: #000;
+            color: var(--input-text);
         }
         
         .form-input:focus,
         .form-textarea:focus {
             outline: none;
-            border-color: #000;
-            background: rgba(255,255,255,0.8);
+            border-color: var(--input-focus-border);
+            background: var(--input-focus-bg);
+        }
+        
+        .form-input::placeholder,
+        .form-textarea::placeholder {
+            color: var(--input-placeholder);
         }
         
         .form-textarea {
@@ -235,19 +241,19 @@
             font-size: 1.25rem;
             font-family: 'Cormorant Garamond', Georgia, serif;
             font-weight: 700;
-            background: #000;
-            color: #fffa87;
+            background: var(--btn-bg);
+            color: var(--btn-text);
             border: none;
             border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 15px var(--shadow-heavy);
             margin-top: 1rem;
         }
         
         .submit-button:hover {
             transform: scale(1.02);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+            box-shadow: 0 6px 20px var(--shadow-heavy);
         }
         
         .submit-button:active {
@@ -255,8 +261,8 @@
         }
         
         .success-message {
-            background: #2ecc71;
-            color: #fff;
+            background: var(--success-bg);
+            color: var(--success-text);
             padding: 1rem;
             border-radius: 15px;
             margin-bottom: 1.5rem;

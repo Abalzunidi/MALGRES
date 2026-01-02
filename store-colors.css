@@ -1,0 +1,287 @@
+/* ================================================
+   STORE COLORS - CENTRALIZED COLOR MANAGEMENT
+   ================================================
+   
+   This file controls ALL colors used across the entire store.
+   Modify colors here to change the entire store theme.
+   
+   استخدم هذا الملف للتحكم في كل ألوان المتجر
+   ================================================ */
+
+:root {
+    /* ========================================
+       PRIMARY COLORS - الألوان الأساسية
+       ======================================== */
+    
+    /* Main background color - لون الخلفية الرئيسي */
+    --bg-primary: #fffa87;
+    
+    /* Main text color - لون النص الأساسي */
+    --text-primary: #000000;
+    
+    /* Secondary text color - لون النص الثانوي */
+    --text-secondary: rgba(0, 0, 0, 0.7);
+    
+    /* Light text color - لون النص الفاتح */
+    --text-light: rgba(0, 0, 0, 0.5);
+    
+    
+    /* ========================================
+       ACCENT COLORS - ألوان التمييز
+       ======================================== */
+    
+    /* Dark accent (buttons, menu, etc.) - اللون الداكن للأزرار والقوائم */
+    --accent-dark: #000000;
+    
+    /* Light accent (button text, hover states) - اللون الفاتح لنصوص الأزرار */
+    --accent-light: #fffa87;
+    
+    
+    /* ========================================
+       BUTTON COLORS - ألوان الأزرار
+       ======================================== */
+    
+    /* Primary button background - خلفية الزر الأساسي */
+    --btn-bg: #000000;
+    
+    /* Primary button text - نص الزر الأساسي */
+    --btn-text: #fffa87;
+    
+    /* Button hover - حالة التمرير على الزر */
+    --btn-hover: #1f2937;
+    
+    
+    /* ========================================
+       CARD & CONTAINER COLORS - ألوان البطاقات والحاويات
+       ======================================== */
+    
+    /* Card background - خلفية البطاقات */
+    --card-bg: rgba(0, 0, 0, 0.05);
+    
+    /* Card hover background - خلفية البطاقة عند التمرير */
+    --card-hover-bg: rgba(0, 0, 0, 0.1);
+    
+    /* Active/selected card - البطاقة النشطة */
+    --card-active-bg: #000000;
+    --card-active-text: #fffa87;
+    
+    
+    /* ========================================
+       INPUT & FORM COLORS - ألوان الحقول والنماذج
+       ======================================== */
+    
+    /* Input background - خلفية حقول الإدخال */
+    --input-bg: rgba(255, 255, 255, 0.5);
+    
+    /* Input focus background - خلفية الحقل عند التركيز */
+    --input-focus-bg: rgba(255, 255, 255, 0.8);
+    
+    /* Input border - حدود الحقل */
+    --input-border: transparent;
+    
+    /* Input focus border - حدود الحقل عند التركيز */
+    --input-focus-border: #000000;
+    
+    /* Input text - نص الحقل */
+    --input-text: #000000;
+    
+    /* Input placeholder - نص placeholder */
+    --input-placeholder: rgba(0, 0, 0, 0.4);
+    
+    
+    /* ========================================
+       MENU COLORS - ألوان القوائم
+       ======================================== */
+    
+    /* Menu background - خلفية القائمة */
+    --menu-bg: #fffa87;
+    
+    /* Menu text - نص القائمة */
+    --menu-text: #000000;
+    
+    /* Menu item hover - عنصر القائمة عند التمرير */
+    --menu-item-hover: rgba(0, 0, 0, 0.1);
+    
+    /* Menu item active - عنصر القائمة النشط */
+    --menu-item-active-bg: #000000;
+    --menu-item-active-text: #fffa87;
+    
+    
+    /* ========================================
+       CART COLORS - ألوان السلة
+       ======================================== */
+    
+    /* Cart panel background - خلفية لوحة السلة */
+    --cart-bg: #fffa87;
+    
+    /* Cart item background - خلفية عنصر السلة */
+    --cart-item-bg: rgba(0, 0, 0, 0.05);
+    
+    /* Cart badge background - خلفية شارة السلة */
+    --cart-badge-bg: #fffa87;
+    --cart-badge-text: #000000;
+    
+    
+    /* ========================================
+       POPUP & MODAL COLORS - ألوان النوافذ المنبثقة
+       ======================================== */
+    
+    /* Popup background - خلفية النافذة المنبثقة */
+    --popup-bg: rgba(255, 250, 135, 0.95);
+    
+    /* Popup overlay - خلفية التعتيم */
+    --popup-overlay: rgba(0, 0, 0, 0.85);
+    
+    /* Popup border - حدود النافذة المنبثقة */
+    --popup-border: rgba(0, 0, 0, 0.3);
+    
+    /* Popup text - نص النافذة المنبثقة */
+    --popup-text: #000000;
+    
+    
+    /* ========================================
+       SUCCESS & ERROR COLORS - ألوان النجاح والخطأ
+       ======================================== */
+    
+    /* Success color - لون النجاح */
+    --success-bg: #2ecc71;
+    --success-text: #ffffff;
+    
+    /* Error/Delete color - لون الخطأ/الحذف */
+    --error-bg: #ff4444;
+    --error-hover: #cc0000;
+    --error-text: #ffffff;
+    
+    
+    /* ========================================
+       SHADOW COLORS - ألوان الظلال
+       ======================================== */
+    
+    /* Light shadow - ظل خفيف */
+    --shadow-light: rgba(0, 0, 0, 0.1);
+    
+    /* Medium shadow - ظل متوسط */
+    --shadow-medium: rgba(0, 0, 0, 0.2);
+    
+    /* Heavy shadow - ظل ثقيل */
+    --shadow-heavy: rgba(0, 0, 0, 0.3);
+    
+    /* Extra heavy shadow - ظل ثقيل جداً */
+    --shadow-extra: rgba(0, 0, 0, 0.5);
+    
+    
+    /* ========================================
+       BORDER & DIVIDER COLORS - ألوان الحدود والفواصل
+       ======================================== */
+    
+    /* Light border - حدود خفيفة */
+    --border-light: rgba(0, 0, 0, 0.1);
+    
+    /* Medium border - حدود متوسطة */
+    --border-medium: rgba(0, 0, 0, 0.2);
+    
+    /* Divider - فاصل */
+    --divider: rgba(0, 0, 0, 0.4);
+    
+    
+    /* ========================================
+       FOOTER COLORS - ألوان التذييل
+       ======================================== */
+    
+    /* Footer background - خلفية التذييل */
+    --footer-bg: #fffa87;
+    
+    /* Footer text background - خلفية نص التذييل */
+    --footer-text-bg: #000000;
+    
+    /* Footer text color - لون نص التذييل */
+    --footer-text: #fffa87;
+}
+
+
+/* ================================================
+   ALTERNATIVE THEME EXAMPLES - أمثلة لثيمات بديلة
+   ================================================
+   
+   Uncomment one of these to try different themes
+   قم بإلغاء التعليق عن أحدها لتجربة ثيم مختلف
+   ================================================ */
+
+/* 
+   DARK THEME - ثيم داكن
+   ==================== 
+*/
+/*
+:root {
+    --bg-primary: #1a1a1a;
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.7);
+    --text-light: rgba(255, 255, 255, 0.5);
+    
+    --accent-dark: #ffffff;
+    --accent-light: #1a1a1a;
+    
+    --btn-bg: #ffffff;
+    --btn-text: #1a1a1a;
+    --btn-hover: #e0e0e0;
+    
+    --card-bg: rgba(255, 255, 255, 0.05);
+    --card-hover-bg: rgba(255, 255, 255, 0.1);
+    --card-active-bg: #ffffff;
+    --card-active-text: #1a1a1a;
+    
+    --input-bg: rgba(255, 255, 255, 0.1);
+    --input-focus-bg: rgba(255, 255, 255, 0.15);
+    --input-border: transparent;
+    --input-focus-border: #ffffff;
+    
+    --menu-bg: #1a1a1a;
+    --menu-text: #ffffff;
+}
+*/
+
+
+/* 
+   BLUE THEME - ثيم أزرق
+   ==================== 
+*/
+/*
+:root {
+    --bg-primary: #e3f2fd;
+    --text-primary: #0d47a1;
+    
+    --accent-dark: #1565c0;
+    --accent-light: #e3f2fd;
+    
+    --btn-bg: #1565c0;
+    --btn-text: #ffffff;
+    --btn-hover: #0d47a1;
+    
+    --card-bg: rgba(21, 101, 192, 0.05);
+    --card-active-bg: #1565c0;
+    --card-active-text: #ffffff;
+}
+*/
+
+
+/* 
+   PINK THEME - ثيم وردي
+   ==================== 
+*/
+/*
+:root {
+    --bg-primary: #fce4ec;
+    --text-primary: #880e4f;
+    
+    --accent-dark: #c2185b;
+    --accent-light: #fce4ec;
+    
+    --btn-bg: #c2185b;
+    --btn-text: #ffffff;
+    --btn-hover: #880e4f;
+    
+    --card-bg: rgba(194, 24, 91, 0.05);
+    --card-active-bg: #c2185b;
+    --card-active-text: #ffffff;
+}
+*/

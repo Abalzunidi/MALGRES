@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout - Malgré</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="store-colors.css">
     <style>
         * {
             margin: 0;
@@ -15,7 +16,7 @@
         body {
             font-family: 'Cormorant Garamond', Georgia, serif;
             font-weight: 700;
-            background-color: #fffa87;
+            background-color: var(--bg-primary);
             min-height: 100vh;
         }
         
@@ -25,7 +26,6 @@
             padding-bottom: 3rem;
         }
         
-        /* Logo at top center */
         .logo-container {
             position: absolute;
             top: 20px;
@@ -40,14 +40,13 @@
             width: auto;
         }
         
-        /* Back Button */
         .back-button {
             position: fixed;
             top: 20px;
             left: 20px;
             width: 50px;
             height: 50px;
-            background: #000;
+            background: var(--btn-bg);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -55,7 +54,7 @@
             cursor: pointer;
             z-index: 1000;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 15px var(--shadow-heavy);
         }
         
         .back-button:hover {
@@ -65,10 +64,9 @@
         .back-button svg {
             width: 24px;
             height: 24px;
-            fill: #fffa87;
+            fill: var(--btn-text);
         }
         
-        /* Main Content */
         .checkout-content {
             max-width: 1200px;
             margin: 0 auto;
@@ -84,12 +82,11 @@
             }
         }
         
-        /* Checkout Form */
         .checkout-form {
-            background: rgba(0, 0, 0, 0.05);
+            background: var(--card-bg);
             border-radius: 30px;
             padding: 2.5rem;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 40px var(--shadow-light);
         }
         
         .form-section {
@@ -99,7 +96,7 @@
         .section-title {
             font-size: 1.75rem;
             margin-bottom: 1.5rem;
-            color: #000;
+            color: var(--text-primary);
         }
         
         .form-row {
@@ -123,7 +120,7 @@
             display: block;
             font-size: 1rem;
             margin-bottom: 0.5rem;
-            color: rgba(0,0,0,0.7);
+            color: var(--text-secondary);
         }
         
         .form-input,
@@ -133,30 +130,29 @@
             font-size: 1rem;
             font-family: 'Cormorant Garamond', Georgia, serif;
             font-weight: 600;
-            background: rgba(255,255,255,0.5);
-            border: 2px solid transparent;
+            background: var(--input-bg);
+            border: 2px solid var(--input-border);
             border-radius: 15px;
             transition: all 0.3s ease;
-            color: #000;
+            color: var(--input-text);
         }
         
         .form-input:focus,
         .form-select:focus {
             outline: none;
-            border-color: #000;
-            background: rgba(255,255,255,0.8);
+            border-color: var(--input-focus-border);
+            background: var(--input-focus-bg);
         }
         
         .form-select {
             cursor: pointer;
         }
         
-        /* Order Summary */
         .order-summary {
-            background: rgba(0, 0, 0, 0.05);
+            background: var(--card-bg);
             border-radius: 30px;
             padding: 2.5rem;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 40px var(--shadow-light);
             height: fit-content;
             position: sticky;
             top: 120px;
@@ -165,7 +161,7 @@
         .summary-title {
             font-size: 1.75rem;
             margin-bottom: 1.5rem;
-            color: #000;
+            color: var(--text-primary);
         }
         
         .cart-items {
@@ -176,7 +172,7 @@
             display: flex;
             gap: 1rem;
             padding: 1rem 0;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
+            border-bottom: 1px solid var(--border-light);
         }
         
         .item-image {
@@ -184,7 +180,7 @@
             height: 60px;
             border-radius: 10px;
             object-fit: cover;
-            background: rgba(255,255,255,0.5);
+            background: var(--input-bg);
         }
         
         .item-details {
@@ -198,7 +194,7 @@
         
         .item-quantity {
             font-size: 0.875rem;
-            color: rgba(0,0,0,0.6);
+            color: var(--text-secondary);
         }
         
         .item-price {
@@ -218,7 +214,7 @@
         }
         
         .total-row.grand-total {
-            border-top: 2px solid rgba(0,0,0,0.2);
+            border-top: 2px solid var(--border-medium);
             margin-top: 0.5rem;
             padding-top: 1rem;
             font-size: 1.5rem;
@@ -230,33 +226,32 @@
             font-size: 1.25rem;
             font-family: 'Cormorant Garamond', Georgia, serif;
             font-weight: 700;
-            background: #000;
-            color: #fffa87;
+            background: var(--btn-bg);
+            color: var(--btn-text);
             border: none;
             border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 15px var(--shadow-heavy);
             margin-top: 1.5rem;
         }
         
         .place-order-btn:hover {
             transform: scale(1.02);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+            box-shadow: 0 6px 20px var(--shadow-heavy);
         }
         
         .place-order-btn:active {
             transform: scale(0.98);
         }
         
-        /* Success Modal */
         .success-modal {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.7);
+            background: var(--popup-overlay);
             display: none;
             align-items: center;
             justify-content: center;
@@ -268,12 +263,12 @@
         }
         
         .success-content {
-            background: #fffa87;
+            background: var(--bg-primary);
             padding: 3rem;
             border-radius: 30px;
             text-align: center;
             max-width: 500px;
-            box-shadow: 0 10px 50px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 50px var(--shadow-heavy);
         }
         
         .success-icon {
@@ -288,7 +283,7 @@
         
         .success-message {
             font-size: 1.125rem;
-            color: rgba(0,0,0,0.7);
+            color: var(--text-secondary);
             margin-bottom: 2rem;
             font-weight: 400;
         }
@@ -298,8 +293,8 @@
             font-size: 1.125rem;
             font-family: 'Cormorant Garamond', Georgia, serif;
             font-weight: 700;
-            background: #000;
-            color: #fffa87;
+            background: var(--btn-bg);
+            color: var(--btn-text);
             border: none;
             border-radius: 50px;
             cursor: pointer;
@@ -324,12 +319,10 @@
     </style>
 </head>
 <body>
-    <!-- Logo -->
     <div class="logo-container" onclick="window.location.href='index.html'">
         <img src="L1.png" alt="Malgré">
     </div>
     
-    <!-- Back Button -->
     <div class="back-button" onclick="window.location.href='product.html'">
         <svg viewBox="0 0 24 24">
             <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
@@ -338,10 +331,8 @@
     
     <div class="page-container">
         <div class="checkout-content">
-            <!-- Checkout Form -->
             <div class="checkout-form">
                 <form id="checkoutForm">
-                    <!-- Contact Information -->
                     <div class="form-section">
                         <h2 class="section-title">Contact Information</h2>
                         <div class="form-group">
@@ -354,7 +345,6 @@
                         </div>
                     </div>
                     
-                    <!-- Shipping Address -->
                     <div class="form-section">
                         <h2 class="section-title">Shipping Address</h2>
                         <div class="form-row">
@@ -383,7 +373,6 @@
                                 <label class="form-label" for="city">City</label>
                                 <select id="city" class="form-select" required>
                                     <option value="">Select city</option>
-                                    <!-- Cities will be loaded based on country -->
                                 </select>
                             </div>
                             <div class="form-group">
@@ -400,12 +389,10 @@
                 </form>
             </div>
             
-            <!-- Order Summary -->
             <div class="order-summary">
                 <h2 class="summary-title">Order Summary</h2>
                 
                 <div class="cart-items" id="cartItems">
-                    <!-- Cart items will be loaded here -->
                 </div>
                 
                 <div class="summary-totals">
@@ -432,7 +419,6 @@
         </div>
     </div>
     
-    <!-- Success Modal -->
     <div class="success-modal" id="successModal">
         <div class="success-content">
             <div class="success-icon">✓</div>
@@ -443,13 +429,9 @@
     </div>
 
     <script>
-        // Load cart from localStorage
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        
-        // Get selected country from homepage
         const selectedCountryCode = localStorage.getItem('selectedCountry') || 'sa';
         
-        // Country mapping
         const countryNames = {
             'sa': 'Saudi Arabia',
             'kw': 'Kuwait'
@@ -457,163 +439,27 @@
         
         const selectedCountry = countryNames[selectedCountryCode] || 'Saudi Arabia';
         
-        // Cities data
         const cities = {
             'Saudi Arabia': [
-                // Riyadh Region
-                'Riyadh',
-                'Al Kharj',
-                'Al Majma\'ah',
-                'Al Zulfi',
-                'Ad Diriyah',
-                'Dawadmi',
-                'Shaqra',
-                'Afif',
-                'Wadi Al-Dawasir',
-                'Al Quwayiyah',
-                'Hotat Bani Tamim',
-                'Al Hariq',
-                'Al Muzahmiyya',
-                'Mrat',
-                'Thadiq',
-                'Rumah',
-                'Dharma',
-                
-                // Makkah Region
-                'Mecca',
-                'Jeddah',
-                'Taif',
-                'Rabigh',
-                'Khulais',
-                'Ranyah',
-                'Turubah',
-                'Al Jumum',
-                'Al Kamil',
-                'Khurma',
-                'Adham',
-                'Al Muwayh',
-                'Maysan',
-                'Al Lith',
-                'Al Qunfudhah',
-                
-                // Medina Region
-                'Medina',
-                'Yanbu',
-                'Badr',
-                'Al Ula',
-                'Mahd adh Dhahab',
-                'Khaybar',
-                'Al Hanakiyah',
-                
-                // Eastern Region
-                'Dammam',
-                'Al Khobar',
-                'Dhahran',
-                'Al Jubail',
-                'Al Ahsa (Hofuf)',
-                'Qatif',
-                'Ras Tanura',
-                'Al Mubarraz',
-                'Al Khafji',
-                'Abqaiq',
-                'Safwa',
-                'Saihat',
-                'Al Nairiyah',
-                'Rahima',
-                'Udhailiyah',
-                
-                // Qassim Region
-                'Buraidah',
-                'Unaizah',
-                'Ar Rass',
-                'Al Mithnab',
-                'Al Bukairiyah',
-                'Al Badaya',
-                'Riyadh Al Khabra',
-                'Al Asyah',
-                'Al Shammasiya',
-                'Uglat Asugour',
-                
-                // Asir Region
-                'Abha',
-                'Khamis Mushait',
-                'Bisha',
-                'Al Namas',
-                'Sarat Abidah',
-                'Ahad Rafidah',
-                'Balqarn',
-                'Rijal Almaa',
-                'Muhayil',
-                'Bariq',
-                'Dhahran Al Janub',
-                'Al Majardah',
-                'Tarib',
-                
-                // Tabuk Region
-                'Tabuk',
-                'Al Wajh',
-                'Duba',
-                'Tayma',
-                'Umluj',
-                'Haql',
-                'Al Bad',
-                'Timaa',
-                
-                // Hail Region
-                'Hail',
-                'Baqaa',
-                'Al Ghazalah',
-                'Shamli',
-                'Al Shinaan',
-                'Mauqaq',
-                'Al Sulaimi',
-                
-                // Northern Borders Region
-                'Arar',
-                'Rafha',
-                'Turaif',
-                'Al Uwayqilah',
-                
-                // Jazan Region
-                'Jizan',
-                'Sabya',
-                'Abu Arish',
-                'Samtah',
-                'Al Darb',
-                'Baish',
-                'Al Aridah',
-                'Farasan',
-                'Al Raith',
-                'Damad',
-                'Al Ardha',
-                'Harub',
-                
-                // Najran Region
-                'Najran',
-                'Sharourah',
-                'Habuna',
-                'Badr Al Janoub',
-                'Yadamah',
-                'Khubash',
-                'Thar',
-                
-                // Al Bahah Region
-                'Al Bahah',
-                'Baljurashi',
-                'Al Mandaq',
-                'Al Mikhwah',
-                'Al Aqiq',
-                'Al Qura',
-                'Qilwah',
-                'Sabt Al Alaya',
-                
-                // Al Jawf Region
-                'Sakakah',
-                'Dumat Al Jandal',
-                'Qurayyat',
-                'Tabarjal',
-                'Suwayr',
-                'Al Hazm'
+                'Riyadh', 'Al Kharj', 'Al Majma\'ah', 'Al Zulfi', 'Ad Diriyah', 'Dawadmi', 'Shaqra', 'Afif',
+                'Wadi Al-Dawasir', 'Al Quwayiyah', 'Hotat Bani Tamim', 'Al Hariq', 'Al Muzahmiyya', 'Mrat',
+                'Thadiq', 'Rumah', 'Dharma', 'Mecca', 'Jeddah', 'Taif', 'Rabigh', 'Khulais', 'Ranyah',
+                'Turubah', 'Al Jumum', 'Al Kamil', 'Khurma', 'Adham', 'Al Muwayh', 'Maysan', 'Al Lith',
+                'Al Qunfudhah', 'Medina', 'Yanbu', 'Badr', 'Al Ula', 'Mahd adh Dhahab', 'Khaybar',
+                'Al Hanakiyah', 'Dammam', 'Al Khobar', 'Dhahran', 'Al Jubail', 'Al Ahsa (Hofuf)',
+                'Qatif', 'Ras Tanura', 'Al Mubarraz', 'Al Khafji', 'Abqaiq', 'Safwa', 'Saihat',
+                'Al Nairiyah', 'Rahima', 'Udhailiyah', 'Buraidah', 'Unaizah', 'Ar Rass', 'Al Mithnab',
+                'Al Bukairiyah', 'Al Badaya', 'Riyadh Al Khabra', 'Al Asyah', 'Al Shammasiya',
+                'Uglat Asugour', 'Abha', 'Khamis Mushait', 'Bisha', 'Al Namas', 'Sarat Abidah',
+                'Ahad Rafidah', 'Balqarn', 'Rijal Almaa', 'Muhayil', 'Bariq', 'Dhahran Al Janub',
+                'Al Majardah', 'Tarib', 'Tabuk', 'Al Wajh', 'Duba', 'Tayma', 'Umluj', 'Haql',
+                'Al Bad', 'Timaa', 'Hail', 'Baqaa', 'Al Ghazalah', 'Shamli', 'Al Shinaan', 'Mauqaq',
+                'Al Sulaimi', 'Arar', 'Rafha', 'Turaif', 'Al Uwayqilah', 'Jizan', 'Sabya', 'Abu Arish',
+                'Samtah', 'Al Darb', 'Baish', 'Al Aridah', 'Farasan', 'Al Raith', 'Damad', 'Al Ardha',
+                'Harub', 'Najran', 'Sharourah', 'Habuna', 'Badr Al Janoub', 'Yadamah', 'Khubash',
+                'Thar', 'Al Bahah', 'Baljurashi', 'Al Mandaq', 'Al Mikhwah', 'Al Aqiq', 'Al Qura',
+                'Qilwah', 'Sabt Al Alaya', 'Sakakah', 'Dumat Al Jandal', 'Qurayyat', 'Tabarjal',
+                'Suwayr', 'Al Hazm'
             ],
             'Kuwait': [
                 'Al Asimah (Kuwait City)',
@@ -625,12 +471,8 @@
             ]
         };
         
-        // Set country and load cities
         function initializeCountryAndCities() {
-            // Set country (readonly)
             document.getElementById('country').value = selectedCountry;
-            
-            // Load cities
             const citySelect = document.getElementById('city');
             const countryCities = cities[selectedCountry] || [];
             
@@ -643,18 +485,17 @@
             });
         }
         
-        // Display cart items
         function displayCartItems() {
             const cartItemsContainer = document.getElementById('cartItems');
             
             if (cart.length === 0) {
-                cartItemsContainer.innerHTML = '<p style="text-align: center; color: rgba(0,0,0,0.5);">Your cart is empty</p>';
+                cartItemsContainer.innerHTML = '<p style="text-align: center; color: var(--text-light);">Your cart is empty</p>';
                 return;
             }
             
             cartItemsContainer.innerHTML = '';
             cart.forEach(item => {
-                const itemHTML = `
+                const cartItemHTML = `
                     <div class="cart-item">
                         <img src="${item.image}" alt="${item.name}" class="item-image">
                         <div class="item-details">
@@ -664,11 +505,10 @@
                         <div class="item-price">${(item.price * item.quantity).toLocaleString()} SAR</div>
                     </div>
                 `;
-                cartItemsContainer.innerHTML += itemHTML;
+                cartItemsContainer.innerHTML += cartItemHTML;
             });
         }
         
-        // Calculate totals
         function calculateTotals() {
             const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             const tax = subtotal * 0.15;
@@ -681,17 +521,14 @@
             document.getElementById('totalAmount').textContent = total.toFixed(2) + ' SAR';
         }
         
-        // Proceed to Payment
         function proceedToPayment() {
             const form = document.getElementById('checkoutForm');
             
-            // Validate form
             if (!form.checkValidity()) {
                 form.reportValidity();
                 return;
             }
             
-            // Get form data
             const orderData = {
                 contact: {
                     email: document.getElementById('email').value,
@@ -710,10 +547,8 @@
                 timestamp: new Date().toISOString()
             };
             
-            // Save order data to localStorage for payment page
             localStorage.setItem('pendingOrder', JSON.stringify(orderData));
             
-            // Calculate total
             const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             const tax = subtotal * 0.15;
             const delivery = 25;
@@ -721,20 +556,15 @@
             
             localStorage.setItem('orderTotal', total.toFixed(2));
             
-            // Redirect to payment page
             window.location.href = 'payment.html';
         }
         
-        // Initialize
         initializeCountryAndCities();
         displayCartItems();
         calculateTotals();
         
-        // Redirect if cart is empty
         if (cart.length === 0) {
             setTimeout(() => {
-                // Uncomment this in production
-                // window.location.href = 'product.html';
             }, 2000);
         }
     </script>

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Malgré Magazine</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="store-colors.css">
     <style>
         * {
             margin: 0;
@@ -15,7 +16,7 @@
         body {
             font-family: 'Cormorant Garamond', Georgia, serif;
             font-weight: 700;
-            background-color: #fffa87;
+            background-color: var(--bg-primary);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -59,21 +60,21 @@
             max-height: 70vh;
             object-fit: contain;
             border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 40px var(--shadow-medium);
         }
         
         /* Page indicator */
         .page-indicator {
             font-size: 1.25rem;
-            color: rgba(0,0,0,0.5);
+            color: var(--text-light);
             margin-bottom: 1.5rem;
             letter-spacing: 2px;
         }
         
         /* Next/Done Button */
         .action-button {
-            background-color: #000;
-            color: #fffa87;
+            background-color: var(--btn-bg);
+            color: var(--btn-text);
             padding: 1rem 3rem;
             border-radius: 50px;
             font-weight: 700;
@@ -81,13 +82,13 @@
             border: none;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 15px var(--shadow-heavy);
             font-family: 'Cormorant Garamond', Georgia, serif;
         }
         
         .action-button:hover {
             transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+            box-shadow: 0 6px 20px var(--shadow-heavy);
         }
         
         .action-button:active {
@@ -98,7 +99,7 @@
         footer {
             padding: 1.5rem 0;
             text-align: center;
-            background-color: #fffa87;
+            background-color: var(--footer-bg);
         }
         
         .footer-text {
@@ -106,8 +107,8 @@
             padding: 0.25rem 0.75rem;
             display: inline-block;
             border-radius: 0.25rem;
-            color: #fffa87;
-            background-color: #000;
+            color: var(--footer-text);
+            background-color: var(--footer-text-bg);
         }
         
         /* ===================================

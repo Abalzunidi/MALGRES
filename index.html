@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Malgré</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="store-colors.css">
     <style>
         * {
             margin: 0;
@@ -15,7 +16,7 @@
         body {
             font-family: 'Cormorant Garamond', Georgia, serif;
             font-weight: 700;
-            background-color: #fffa87;
+            background-color: var(--bg-primary);
             min-height: 100vh;
         }
         
@@ -56,7 +57,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.9);
+            background: var(--popup-overlay);
             z-index: 99999;
             display: none;
             align-items: center;
@@ -68,13 +69,13 @@
         }
         
         .country-selection-popup {
-            background: #fffa87;
+            background: var(--bg-primary);
             padding: 2rem;
             border-radius: 30px;
             text-align: center;
             max-width: 400px;
             width: 85%;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            box-shadow: 0 20px 60px var(--shadow-extra);
         }
         
         .country-buttons {
@@ -88,18 +89,18 @@
             font-size: 1.5rem;
             font-family: 'Cormorant Garamond', Georgia, serif;
             font-weight: 700;
-            background: #000;
-            color: #fffa87;
+            background: var(--btn-bg);
+            color: var(--btn-text);
             border: none;
             border-radius: 20px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 15px var(--shadow-heavy);
         }
         
         .country-button:hover {
             transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+            box-shadow: 0 6px 20px var(--shadow-heavy);
         }
         
         .country-button:active {
@@ -113,7 +114,7 @@
             left: 20px;
             width: 50px;
             height: 50px;
-            background: #000;
+            background: var(--accent-dark);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -121,7 +122,7 @@
             cursor: pointer;
             z-index: 1000;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 15px var(--shadow-heavy);
         }
         
         .menu-button:hover {
@@ -140,7 +141,7 @@
         .menu-icon span {
             width: 100%;
             height: 3px;
-            background: #fffa87;
+            background: var(--accent-light);
             border-radius: 2px;
             transition: all 0.3s ease;
         }
@@ -164,8 +165,8 @@
             left: -350px;
             width: 350px;
             height: 100vh;
-            background: #fffa87;
-            box-shadow: 5px 0 25px rgba(0,0,0,0.3);
+            background: var(--menu-bg);
+            box-shadow: 5px 0 25px var(--shadow-heavy);
             z-index: 999;
             transition: left 0.4s ease;
             overflow-y: auto;
@@ -182,7 +183,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
+            background: var(--popup-overlay);
             z-index: 998;
             opacity: 0;
             visibility: hidden;
@@ -202,7 +203,7 @@
         
         .menu-section-title {
             font-size: 14px;
-            color: rgba(0,0,0,0.5);
+            color: var(--text-light);
             text-transform: uppercase;
             letter-spacing: 2px;
             margin-bottom: 15px;
@@ -211,7 +212,7 @@
         
         .menu-item {
             padding: 15px 20px;
-            background: rgba(0,0,0,0.05);
+            background: var(--card-bg);
             border-radius: 12px;
             margin-bottom: 10px;
             cursor: pointer;
@@ -219,19 +220,19 @@
             display: flex;
             align-items: center;
             font-size: 18px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 10px var(--shadow-medium);
         }
         
         .menu-item:hover {
-            background: rgba(0,0,0,0.1);
+            background: var(--card-hover-bg);
             transform: translateX(-5px);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 6px 15px var(--shadow-heavy);
         }
         
         .menu-item.active {
-            background: #000;
-            color: #fffa87;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+            background: var(--card-active-bg);
+            color: var(--card-active-text);
+            box-shadow: 0 6px 15px var(--shadow-heavy);
         }
         
         /* Country Change Popup */
@@ -242,7 +243,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.85);
+            background: var(--popup-overlay);
             backdrop-filter: blur(10px);
             z-index: 9999;
             align-items: center;
@@ -258,9 +259,9 @@
             max-width: 85%;
             height: 400px;
             max-height: 70vh;
-            background: rgba(255, 250, 135, 0.95);
-            border: 3px solid rgba(0, 0, 0, 0.3);
-            box-shadow: 0 30px 80px rgba(0,0,0,0.8);
+            background: var(--popup-bg);
+            border: 3px solid var(--popup-border);
+            box-shadow: 0 30px 80px var(--shadow-extra);
             position: relative;
             animation: slideIn 0.6s ease;
             backdrop-filter: blur(10px);
@@ -273,7 +274,7 @@
             left: 15px;
             right: 15px;
             bottom: 15px;
-            border: 1px solid rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border-medium);
         }
         
         .popup-logo {
@@ -302,7 +303,7 @@
         .popup-divider {
             width: 80px;
             height: 2px;
-            background: #000;
+            background: var(--text-primary);
             margin: 15px auto;
             opacity: 0.4;
         }
@@ -310,7 +311,7 @@
         .popup-title {
             font-size: 22px;
             font-weight: 700;
-            color: #000;
+            color: var(--popup-text);
             letter-spacing: 2px;
             margin-bottom: 10px;
         }
@@ -318,12 +319,12 @@
         .popup-text {
             font-size: 16px !important;
             font-weight: 600 !important;
-            color: #000 !important;
+            color: var(--popup-text) !important;
             line-height: 1.6 !important;
         }
         
         .popup-text * {
-            color: #000 !important;
+            color: var(--popup-text) !important;
         }
         
         /* Main content */
@@ -362,21 +363,21 @@
         .product-title {
             font-size: 1rem;
             font-weight: 700;
-            color: #000;
+            color: var(--text-primary);
             margin-bottom: 0.5rem;
         }
         
         .product-price {
             font-size: 1.25rem;
             font-weight: 700;
-            color: #000;
+            color: var(--text-primary);
         }
         
         /* Footer */
         footer {
             padding: 1.5rem 0;
             text-align: center;
-            background-color: #fffa87;
+            background-color: var(--footer-bg);
         }
         
         .footer-text {
@@ -384,8 +385,8 @@
             padding: 0.25rem 0.75rem;
             display: inline-block;
             border-radius: 0.25rem;
-            color: #fffa87;
-            background-color: #000;
+            color: var(--footer-text);
+            background-color: var(--footer-text-bg);
         }
         
         /* Cart Summary */
@@ -395,8 +396,8 @@
             left: 0;
             right: 0;
             padding: 1.5rem;
-            background-color: #fffa87;
-            box-shadow: 0 -25px 50px -12px rgba(0,0,0,0.25);
+            background-color: var(--bg-primary);
+            box-shadow: 0 -25px 50px -12px var(--shadow-medium);
             z-index: 50;
             display: none;
         }
@@ -417,19 +418,19 @@
         
         .cart-total-label {
             font-size: 0.875rem;
-            color: #000;
+            color: var(--text-primary);
             margin-bottom: 0.25rem;
         }
         
         .cart-total-amount {
             font-size: 1.875rem;
             font-weight: 700;
-            color: #000;
+            color: var(--text-primary);
         }
         
         .checkout-button {
-            background-color: #000;
-            color: #fff;
+            background-color: var(--btn-bg);
+            color: var(--btn-text);
             padding: 1rem 2rem;
             border-radius: 9999px;
             font-weight: 700;
@@ -437,12 +438,12 @@
             border: none;
             cursor: pointer;
             transition: all 0.15s;
-            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+            box-shadow: 0 20px 25px -5px var(--shadow-light);
             font-family: 'Cormorant Garamond', Georgia, serif;
         }
         
         .checkout-button:hover {
-            background-color: #1f2937;
+            background-color: var(--btn-hover);
             transform: scale(1.05);
         }
         
@@ -714,7 +715,7 @@
                 <div id="popupFlag" class="popup-flag">🇸🇦</div>
                 <div class="popup-divider"></div>
                 <div class="popup-title">COUNTRY CHANGED</div>
-                <div id="popupText" class="popup-text" style="color: #000 !important;">From Saudi Arabia to Kuwait</div>
+                <div id="popupText" class="popup-text">From Saudi Arabia to Kuwait</div>
             </div>
         </div>
     </div>
@@ -832,8 +833,7 @@
                 const popupText = document.getElementById('popupText');
                 
                 popupFlag.textContent = content[country].flag;
-                popupText.innerHTML = '<span style="color: #000 !important;">From ' + content[oldCountry].name + ' to ' + content[country].name + '</span>';
-                popupText.style.setProperty('color', '#000', 'important');
+                popupText.innerHTML = '<span>From ' + content[oldCountry].name + ' to ' + content[country].name + '</span>';
                 
                 popup.classList.add('show');
             }
