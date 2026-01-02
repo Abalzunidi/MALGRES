@@ -150,7 +150,9 @@ const STORE_IMAGES = {
     mainPage: {
         image1: 'M1.png',
         image2: 'M2.png',
-        image3: 'M3.png'
+        image3: 'M3.png',
+        image4: 'M4.png',
+        image5: 'M5.png'
     },
     
     

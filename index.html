@@ -335,37 +335,81 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 2rem 1rem;
+            padding: 0;
+            width: 100%;
+            height: 100%;
         }
         
-        /* Images container */
-        .images-container {
-            max-width: 900px;
+        /* Carousel container - Full Screen */
+        .carousel-container {
             width: 100%;
-            margin: 0 auto;
+            height: 100vh;
+            margin: 0;
+            position: relative;
             display: flex;
             flex-direction: column;
-            gap: 2rem;
+            align-items: center;
+            justify-content: center;
+            padding-top: 100px; /* Space for logo */
+            padding-bottom: 80px; /* Space for footer */
         }
         
-        .main-image-wrapper {
+        .carousel-images {
+            position: relative;
             width: 100%;
-            border-radius: 20px;
+            height: 100%;
+            max-height: calc(100vh - 180px); /* Full height minus header and footer */
             overflow: hidden;
-            box-shadow: 0 10px 30px var(--shadow-medium);
+            border-radius: 0; /* No rounded corners for full screen */
+            box-shadow: none;
+        }
+        
+        .carousel-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Fit entire image */
+            object-position: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        
+        .carousel-image.active {
+            opacity: 1;
+            z-index: 1;
+        }
+        
+        /* Carousel indicators (dots) - Position at bottom */
+        .carousel-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+        
+        .carousel-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--text-light);
+            cursor: pointer;
             transition: all 0.3s ease;
         }
         
-        .main-image-wrapper:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px var(--shadow-heavy);
+        .carousel-indicator:hover {
+            transform: scale(1.2);
         }
         
-        .main-display-image {
-            width: 100%;
-            height: auto;
-            display: block;
-            object-fit: cover;
+        .carousel-indicator.active {
+            background: var(--text-primary);
+            width: 30px;
+            border-radius: 6px;
         }
         
         .products-container {
@@ -609,14 +653,28 @@
                 left: -100%;
             }
             
-            /* Images container mobile */
-            .images-container {
-                gap: 1.5rem;
-                padding: 0 0.5rem;
+            /* Carousel mobile - Full Screen */
+            .carousel-container {
+                padding-top: 80px;
+                padding-bottom: 60px;
             }
             
-            .main-image-wrapper {
-                border-radius: 15px;
+            .carousel-images {
+                max-height: calc(100vh - 140px);
+            }
+            
+            .carousel-indicators {
+                bottom: 15px;
+                gap: 8px;
+            }
+            
+            .carousel-indicator {
+                width: 10px;
+                height: 10px;
+            }
+            
+            .carousel-indicator.active {
+                width: 24px;
             }
             
             .side-menu.active {
@@ -772,6 +830,20 @@
                 height: 40px;
             }
             
+            /* Carousel smaller on tiny screens */
+            .carousel-container {
+                padding-top: 70px;
+                padding-bottom: 50px;
+            }
+            
+            .carousel-images {
+                max-height: calc(100vh - 120px);
+            }
+            
+            .carousel-indicators {
+                bottom: 10px;
+            }
+            
             .product-card {
                 padding: 1rem;
             }
@@ -899,20 +971,22 @@
 
         <!-- Main Content -->
         <main>
-            <div class="images-container">
-                <!-- Image 1 -->
-                <div class="main-image-wrapper">
-                    <img src="M1.png" alt="Malgré Image 1" class="main-display-image" data-image="main-image-1">
+            <div class="carousel-container">
+                <div class="carousel-images">
+                    <img src="M1.png" alt="Malgré Image 1" class="carousel-image active" data-image="main-image-1">
+                    <img src="M2.png" alt="Malgré Image 2" class="carousel-image" data-image="main-image-2">
+                    <img src="M3.png" alt="Malgré Image 3" class="carousel-image" data-image="main-image-3">
+                    <img src="M4.png" alt="Malgré Image 4" class="carousel-image" data-image="main-image-4">
+                    <img src="M5.png" alt="Malgré Image 5" class="carousel-image" data-image="main-image-5">
                 </div>
                 
-                <!-- Image 2 -->
-                <div class="main-image-wrapper">
-                    <img src="M2.png" alt="Malgré Image 2" class="main-display-image" data-image="main-image-2">
-                </div>
-                
-                <!-- Image 3 -->
-                <div class="main-image-wrapper">
-                    <img src="M3.png" alt="Malgré Image 3" class="main-display-image" data-image="main-image-3">
+                <!-- Carousel Dots -->
+                <div class="carousel-indicators">
+                    <div class="carousel-indicator active" data-index="0"></div>
+                    <div class="carousel-indicator" data-index="1"></div>
+                    <div class="carousel-indicator" data-index="2"></div>
+                    <div class="carousel-indicator" data-index="3"></div>
+                    <div class="carousel-indicator" data-index="4"></div>
                 </div>
             </div>
         </main>
@@ -939,6 +1013,61 @@
     <script>
         let currentCountry = null; // No default - user must select
         let cart = [];
+        
+        // ========================================
+        // AUTO-ROTATING CAROUSEL
+        // ========================================
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-image');
+        const indicators = document.querySelectorAll('.carousel-indicator');
+        const totalSlides = slides.length;
+        let autoRotateInterval;
+        
+        // Change to specific slide
+        function goToSlide(index) {
+            // Remove active class from current slide and indicator
+            slides[currentSlide].classList.remove('active');
+            indicators[currentSlide].classList.remove('active');
+            
+            // Update current slide
+            currentSlide = index;
+            
+            // Add active class to new slide and indicator
+            slides[currentSlide].classList.add('active');
+            indicators[currentSlide].classList.add('active');
+        }
+        
+        // Next slide
+        function nextSlide() {
+            const next = (currentSlide + 1) % totalSlides;
+            goToSlide(next);
+        }
+        
+        // Start auto rotation
+        function startAutoRotate() {
+            autoRotateInterval = setInterval(nextSlide, 3000); // Change every 3 seconds
+        }
+        
+        // Stop auto rotation
+        function stopAutoRotate() {
+            clearInterval(autoRotateInterval);
+        }
+        
+        // Add click events to indicators
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+                stopAutoRotate();
+                goToSlide(index);
+                startAutoRotate(); // Restart auto rotation after manual selection
+            });
+        });
+        
+        // Start carousel when page loads
+        startAutoRotate();
+        
+        // ========================================
+        // COUNTRY & CART SYSTEM
+        // ========================================
         
         const content = {
             sa: {
