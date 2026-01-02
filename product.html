@@ -1053,6 +1053,12 @@
         // Get current product
         const currentProduct = productsData[productId];
         
+        // If product not found, redirect to products page
+        if (!currentProduct) {
+            console.error('Product not found:', productId);
+            window.location.href = 'products.html';
+        }
+        
         const content = {
             sa: {
                 name: 'Saudi Arabia',
@@ -1070,23 +1076,40 @@
         
         // Initialize product display
         function initializeProduct() {
+            console.log('Initializing product:', productId);
+            console.log('Product data:', currentProduct);
+            
             // Update page title
             document.title = currentProduct.name + ' - Product Details';
             
             // Update product name
-            document.querySelector('.product-title').textContent = currentProduct.name;
+            const titleElement = document.querySelector('.product-title');
+            if (titleElement) {
+                titleElement.textContent = currentProduct.name;
+            }
             
             // Update product description
-            document.querySelector('.description-text').textContent = currentProduct.description;
+            const descElement = document.querySelector('.description-text');
+            if (descElement) {
+                descElement.textContent = currentProduct.description;
+            }
             
             // Update main image
-            document.getElementById('mainImage').src = currentProduct.images.main;
+            const mainImage = document.getElementById('mainImage');
+            if (mainImage && currentProduct.images.main) {
+                mainImage.src = currentProduct.images.main;
+                console.log('Main image set to:', currentProduct.images.main);
+            }
             
             // Update thumbnails
             const thumbnails = document.querySelectorAll('.thumbnail');
+            console.log('Found thumbnails:', thumbnails.length);
+            
             thumbnails.forEach((thumb, index) => {
                 if (currentProduct.images.thumbnails[index]) {
                     thumb.src = currentProduct.images.thumbnails[index];
+                    console.log(`Thumbnail ${index + 1} set to:`, currentProduct.images.thumbnails[index]);
+                    
                     thumb.onclick = function() {
                         changeImage(currentProduct.images.thumbnails[index], this);
                     };
@@ -1354,14 +1377,28 @@
             window.location.href = 'checkout.html';
         }
         
-        // Initialize
-        initializeProduct();
-        updateMenuActiveState();
-        
-        // Show cart icon if cart has items
-        if (cart.length > 0) {
-            document.getElementById('cartIconButton').classList.add('show');
-            updateCartDisplay();
+        // Initialize when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function() {
+                initializeProduct();
+                updateMenuActiveState();
+                
+                // Show cart icon if cart has items
+                if (cart.length > 0) {
+                    document.getElementById('cartIconButton').classList.add('show');
+                    updateCartDisplay();
+                }
+            });
+        } else {
+            // DOM already loaded
+            initializeProduct();
+            updateMenuActiveState();
+            
+            // Show cart icon if cart has items
+            if (cart.length > 0) {
+                document.getElementById('cartIconButton').classList.add('show');
+                updateCartDisplay();
+            }
         }
     </script>
 </body>
