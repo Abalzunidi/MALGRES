@@ -6,6 +6,7 @@
     <title>Malgré Signature - Product Details</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="store-colors.css">
+    <script src="store-images.js"></script>
     <style>
         * {
             margin: 0;
@@ -927,7 +928,7 @@
     <div class="page-container">
         <!-- Logo at Top Center -->
         <div class="logo-container" onclick="window.location.href='index.html'">
-            <img src="L1.png" alt="Malgré Logo">
+            <img src="L1.png" alt="Malgré Logo" data-image="logo-main">
         </div>
 
         <!-- Main Content -->
@@ -935,12 +936,12 @@
             <div class="product-container">
                 <!-- Image Gallery -->
                 <div class="image-gallery">
-                    <img src="I1.png" alt="Malgré Signature" class="main-image" id="mainImage">
+                    <img src="I1.png" alt="Malgré Signature" class="main-image" id="mainImage" data-image="product-main">
                     
                     <div class="thumbnail-container">
-                        <img src="I1.png" alt="Thumbnail 1" class="thumbnail active" onclick="changeImage('I1.png', this)">
-                        <img src="I1.png" alt="Thumbnail 2" class="thumbnail" onclick="changeImage('I1.png', this)">
-                        <img src="I1.png" alt="Thumbnail 3" class="thumbnail" onclick="changeImage('I1.png', this)">
+                        <img src="I1.png" alt="Thumbnail 1" class="thumbnail active" data-image="product-thumbnail-1" onclick="changeImage(STORE_IMAGES.products.signature.thumbnails[0], this)">
+                        <img src="I1.png" alt="Thumbnail 2" class="thumbnail" data-image="product-thumbnail-2" onclick="changeImage(STORE_IMAGES.products.signature.thumbnails[1], this)">
+                        <img src="I1.png" alt="Thumbnail 3" class="thumbnail" data-image="product-thumbnail-3" onclick="changeImage(STORE_IMAGES.products.signature.thumbnails[2], this)">
                     </div>
                 </div>
                 
@@ -1155,7 +1156,7 @@
                     name: 'Malgré Signature',
                     price: data.price,
                     currency: data.currency,
-                    image: 'I1.png',
+                    image: STORE_IMAGES.products.signature.cart,
                     quantity: productQuantity
                 });
             }
