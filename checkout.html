@@ -149,6 +149,17 @@
             cursor: pointer;
         }
         
+        /* Make select dropdown options transparent */
+        .form-select option {
+            background: transparent;
+            color: var(--text-primary);
+        }
+        
+        /* Firefox specific */
+        .form-select option {
+            background-color: var(--bg-primary);
+        }
+        
         .order-summary {
             background: var(--card-bg);
             border-radius: 30px;
@@ -191,6 +202,7 @@
         .item-name {
             font-size: 1.125rem;
             margin-bottom: 0.25rem;
+            color: var(--text-primary);
         }
         
         .item-quantity {
@@ -201,6 +213,7 @@
         .item-price {
             font-size: 1.125rem;
             text-align: right;
+            color: var(--text-primary);
         }
         
         .summary-totals {
@@ -212,6 +225,7 @@
             justify-content: space-between;
             padding: 0.75rem 0;
             font-size: 1.125rem;
+            color: var(--text-primary);
         }
         
         .total-row.grand-total {
@@ -219,6 +233,7 @@
             margin-top: 0.5rem;
             padding-top: 1rem;
             font-size: 1.5rem;
+            color: var(--text-primary);
         }
         
         .place-order-btn {
@@ -321,7 +336,7 @@
 </head>
 <body>
     <div class="logo-container" onclick="window.location.href='index.html'">
-        <img src="L1.png" alt="Malgré" data-image="logo-main">
+        <img src="L2.png" alt="Malgré" data-image="logo-main">
     </div>
     
     <div class="back-button" onclick="window.location.href='product.html'">

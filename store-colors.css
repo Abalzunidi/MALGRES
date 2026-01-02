@@ -14,16 +14,16 @@
        ======================================== */
     
     /* Main background color - لون الخلفية الرئيسي */
-    --bg-primary: #fffa87;
+    --bg-primary: #1b1540;
     
     /* Main text color - لون النص الأساسي */
-    --text-primary: #000000;
+    --text-primary: #ffffff;
     
     /* Secondary text color - لون النص الثانوي */
-    --text-secondary: rgba(0, 0, 0, 0.7);
+    --text-secondary: rgba(255, 255, 255, 0.8);
     
     /* Light text color - لون النص الفاتح */
-    --text-light: rgba(0, 0, 0, 0.5);
+    --text-light: rgba(255, 255, 255, 0.6);
     
     
     /* ========================================
@@ -31,10 +31,10 @@
        ======================================== */
     
     /* Dark accent (buttons, menu, etc.) - اللون الداكن للأزرار والقوائم */
-    --accent-dark: #000000;
+    --accent-dark: #ffffff;
     
     /* Light accent (button text, hover states) - اللون الفاتح لنصوص الأزرار */
-    --accent-light: #fffa87;
+    --accent-light: #1b1540;
     
     
     /* ========================================
@@ -42,13 +42,13 @@
        ======================================== */
     
     /* Primary button background - خلفية الزر الأساسي */
-    --btn-bg: #000000;
+    --btn-bg: #ffffff;
     
     /* Primary button text - نص الزر الأساسي */
-    --btn-text: #fffa87;
+    --btn-text: #1b1540;
     
     /* Button hover - حالة التمرير على الزر */
-    --btn-hover: #1f2937;
+    --btn-hover: rgba(255, 255, 255, 0.9);
     
     
     /* ========================================
@@ -56,14 +56,14 @@
        ======================================== */
     
     /* Card background - خلفية البطاقات */
-    --card-bg: rgba(0, 0, 0, 0.05);
+    --card-bg: rgba(255, 255, 255, 0.08);
     
     /* Card hover background - خلفية البطاقة عند التمرير */
-    --card-hover-bg: rgba(0, 0, 0, 0.1);
+    --card-hover-bg: rgba(255, 255, 255, 0.12);
     
     /* Active/selected card - البطاقة النشطة */
-    --card-active-bg: #000000;
-    --card-active-text: #fffa87;
+    --card-active-bg: #ffffff;
+    --card-active-text: #1b1540;
     
     
     /* ========================================
@@ -71,22 +71,22 @@
        ======================================== */
     
     /* Input background - خلفية حقول الإدخال */
-    --input-bg: rgba(255, 255, 255, 0.5);
+    --input-bg: rgba(255, 255, 255, 0.08);
     
     /* Input focus background - خلفية الحقل عند التركيز */
-    --input-focus-bg: rgba(255, 255, 255, 0.8);
+    --input-focus-bg: rgba(255, 255, 255, 0.12);
     
     /* Input border - حدود الحقل */
-    --input-border: transparent;
+    --input-border: rgba(255, 255, 255, 0.2);
     
     /* Input focus border - حدود الحقل عند التركيز */
-    --input-focus-border: #000000;
+    --input-focus-border: #ffffff;
     
     /* Input text - نص الحقل */
-    --input-text: #000000;
+    --input-text: #ffffff;
     
     /* Input placeholder - نص placeholder */
-    --input-placeholder: rgba(0, 0, 0, 0.4);
+    --input-placeholder: rgba(255, 255, 255, 0.5);
     
     
     /* ========================================
@@ -94,17 +94,17 @@
        ======================================== */
     
     /* Menu background - خلفية القائمة */
-    --menu-bg: #fffa87;
+    --menu-bg: #1b1540;
     
     /* Menu text - نص القائمة */
-    --menu-text: #000000;
+    --menu-text: #ffffff;
     
     /* Menu item hover - عنصر القائمة عند التمرير */
-    --menu-item-hover: rgba(0, 0, 0, 0.1);
+    --menu-item-hover: rgba(255, 255, 255, 0.1);
     
     /* Menu item active - عنصر القائمة النشط */
-    --menu-item-active-bg: #000000;
-    --menu-item-active-text: #fffa87;
+    --menu-item-active-bg: #ffffff;
+    --menu-item-active-text: #1b1540;
     
     
     /* ========================================
@@ -112,14 +112,14 @@
        ======================================== */
     
     /* Cart panel background - خلفية لوحة السلة */
-    --cart-bg: #fffa87;
+    --cart-bg: #1b1540;
     
     /* Cart item background - خلفية عنصر السلة */
-    --cart-item-bg: rgba(0, 0, 0, 0.05);
+    --cart-item-bg: rgba(255, 255, 255, 0.08);
     
     /* Cart badge background - خلفية شارة السلة */
-    --cart-badge-bg: #fffa87;
-    --cart-badge-text: #000000;
+    --cart-badge-bg: #ffffff;
+    --cart-badge-text: #1b1540;
     
     
     /* ========================================
@@ -127,16 +127,16 @@
        ======================================== */
     
     /* Popup background - خلفية النافذة المنبثقة */
-    --popup-bg: rgba(255, 250, 135, 0.95);
+    --popup-bg: rgba(255, 255, 255, 0.98);
     
     /* Popup overlay - خلفية التعتيم */
     --popup-overlay: rgba(0, 0, 0, 0.85);
     
     /* Popup border - حدود النافذة المنبثقة */
-    --popup-border: rgba(0, 0, 0, 0.3);
+    --popup-border: rgba(255, 255, 255, 0.3);
     
     /* Popup text - نص النافذة المنبثقة */
-    --popup-text: #000000;
+    --popup-text: #1b1540;
     
     
     /* ========================================
@@ -144,8 +144,8 @@
        ======================================== */
     
     /* Success color - لون النجاح */
-    --success-bg: #2ecc71;
-    --success-text: #ffffff;
+    --success-bg: #ffffff;
+    --success-text: #1b1540;
     
     /* Error/Delete color - لون الخطأ/الحذف */
     --error-bg: #ff4444;
@@ -158,16 +158,16 @@
        ======================================== */
     
     /* Light shadow - ظل خفيف */
-    --shadow-light: rgba(0, 0, 0, 0.1);
+    --shadow-light: rgba(0, 0, 0, 0.2);
     
     /* Medium shadow - ظل متوسط */
-    --shadow-medium: rgba(0, 0, 0, 0.2);
+    --shadow-medium: rgba(0, 0, 0, 0.3);
     
     /* Heavy shadow - ظل ثقيل */
-    --shadow-heavy: rgba(0, 0, 0, 0.3);
+    --shadow-heavy: rgba(0, 0, 0, 0.5);
     
     /* Extra heavy shadow - ظل ثقيل جداً */
-    --shadow-extra: rgba(0, 0, 0, 0.5);
+    --shadow-extra: rgba(0, 0, 0, 0.7);
     
     
     /* ========================================
@@ -175,13 +175,13 @@
        ======================================== */
     
     /* Light border - حدود خفيفة */
-    --border-light: rgba(0, 0, 0, 0.1);
+    --border-light: rgba(255, 255, 255, 0.15);
     
     /* Medium border - حدود متوسطة */
-    --border-medium: rgba(0, 0, 0, 0.2);
+    --border-medium: rgba(255, 255, 255, 0.25);
     
     /* Divider - فاصل */
-    --divider: rgba(0, 0, 0, 0.4);
+    --divider: rgba(255, 255, 255, 0.3);
     
     
     /* ========================================
@@ -189,13 +189,13 @@
        ======================================== */
     
     /* Footer background - خلفية التذييل */
-    --footer-bg: #fffa87;
+    --footer-bg: #1b1540;
     
     /* Footer text background - خلفية نص التذييل */
-    --footer-text-bg: #000000;
+    --footer-text-bg: #ffffff;
     
     /* Footer text color - لون نص التذييل */
-    --footer-text: #fffa87;
+    --footer-text: #1b1540;
 }
 
 

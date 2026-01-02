@@ -46,6 +46,93 @@ const STORE_IMAGES = {
             
             // Image shown in checkout
             checkout: 'I1.png'
+        },
+        
+        // Product 1 - Three Color Variants
+        product1: {
+            name: 'Product 1',
+            colors: [
+                {
+                    name: 'Color 1',
+                    main: 'P1.png',
+                    thumbnails: ['P1.png', 'P1.png', 'P1.png'],
+                    cart: 'P1.png'
+                },
+                {
+                    name: 'Color 2',
+                    main: 'P2.png',
+                    thumbnails: ['P2.png', 'P2.png', 'P2.png'],
+                    cart: 'P2.png'
+                },
+                {
+                    name: 'Color 3',
+                    main: 'P3.png',
+                    thumbnails: ['P3.png', 'P3.png', 'P3.png'],
+                    cart: 'P3.png'
+                }
+            ],
+            // Default to first color
+            main: 'P1.png',
+            thumbnails: ['P1.png', 'P1.png', 'P1.png'],
+            cart: 'P1.png'
+        },
+        
+        // Product 2 - Three Color Variants
+        product2: {
+            name: 'Product 2',
+            colors: [
+                {
+                    name: 'Color 1',
+                    main: 'P4.png',
+                    thumbnails: ['P4.png', 'P4.png', 'P4.png'],
+                    cart: 'P4.png'
+                },
+                {
+                    name: 'Color 2',
+                    main: 'P5.png',
+                    thumbnails: ['P5.png', 'P5.png', 'P5.png'],
+                    cart: 'P5.png'
+                },
+                {
+                    name: 'Color 3',
+                    main: 'P6.png',
+                    thumbnails: ['P6.png', 'P6.png', 'P6.png'],
+                    cart: 'P6.png'
+                }
+            ],
+            // Default to first color
+            main: 'P4.png',
+            thumbnails: ['P4.png', 'P4.png', 'P4.png'],
+            cart: 'P4.png'
+        },
+        
+        // Product 3 - Three Color Variants
+        product3: {
+            name: 'Product 3',
+            colors: [
+                {
+                    name: 'Color 1',
+                    main: 'P7.png',
+                    thumbnails: ['P7.png', 'P7.png', 'P7.png'],
+                    cart: 'P7.png'
+                },
+                {
+                    name: 'Color 2',
+                    main: 'P8.png',
+                    thumbnails: ['P8.png', 'P8.png', 'P8.png'],
+                    cart: 'P8.png'
+                },
+                {
+                    name: 'Color 3',
+                    main: 'P9.png',
+                    thumbnails: ['P9.png', 'P9.png', 'P9.png'],
+                    cart: 'P9.png'
+                }
+            ],
+            // Default to first color
+            main: 'P7.png',
+            thumbnails: ['P7.png', 'P7.png', 'P7.png'],
+            cart: 'P7.png'
         }
         
         // Add more products here as needed:
