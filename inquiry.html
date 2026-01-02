@@ -71,95 +71,6 @@
             fill: var(--btn-text);
         }
         
-        /* Hamburger Menu Button */
-        .menu-button {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            background: var(--btn-bg);
-            border-radius: 50%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-            cursor: pointer;
-            z-index: 1000;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px var(--shadow-heavy);
-        }
-        
-        .menu-button:hover {
-            transform: scale(1.1);
-        }
-        
-        .menu-line {
-            width: 24px;
-            height: 3px;
-            background: var(--btn-text);
-            border-radius: 2px;
-            transition: all 0.3s ease;
-        }
-        
-        /* Slide-in Menu */
-        .slide-menu {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 300px;
-            height: 100vh;
-            background: var(--btn-bg);
-            z-index: 999;
-            transition: right 0.4s ease;
-            padding: 100px 2rem 2rem;
-            box-shadow: -5px 0 20px var(--shadow-heavy);
-        }
-        
-        .slide-menu.open {
-            right: 0;
-        }
-        
-        .menu-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--popup-overlay);
-            z-index: 998;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-        
-        .menu-overlay.show {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .menu-items {
-            list-style: none;
-        }
-        
-        .menu-item {
-            margin-bottom: 2rem;
-        }
-        
-        .menu-item a {
-            color: var(--btn-text);
-            text-decoration: none;
-            font-size: 1.5rem;
-            transition: all 0.3s ease;
-            display: block;
-        }
-        
-        .menu-item a:hover {
-            transform: translateX(10px);
-            color: #fff;
-        }
-        
         /* Main Content */
         .main-content {
             flex: 1;
@@ -296,10 +207,6 @@
             .inquiry-title {
                 font-size: 2rem;
             }
-            
-            .slide-menu {
-                width: 250px;
-            }
         }
     </style>
 </head>
@@ -314,25 +221,6 @@
         <svg viewBox="0 0 24 24">
             <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
         </svg>
-    </div>
-    
-    <!-- Hamburger Menu Button -->
-    <div class="menu-button" onclick="toggleMenu()">
-        <span class="menu-line"></span>
-        <span class="menu-line"></span>
-        <span class="menu-line"></span>
-    </div>
-    
-    <!-- Menu Overlay -->
-    <div class="menu-overlay" onclick="toggleMenu()"></div>
-    
-    <!-- Slide-in Menu -->
-    <div class="slide-menu" id="slideMenu">
-        <ul class="menu-items">
-            <li class="menu-item"><a href="product.html">Malgré Signature</a></li>
-            <li class="menu-item"><a href="magazine.html">Malgré Magazine</a></li>
-            <li class="menu-item"><a href="inquiry.html">Inquiry</a></li>
-        </ul>
     </div>
     
     <div class="page-container">
@@ -396,15 +284,6 @@
     </div>
 
     <script>
-        // Toggle Menu
-        function toggleMenu() {
-            const menu = document.getElementById('slideMenu');
-            const overlay = document.querySelector('.menu-overlay');
-            
-            menu.classList.toggle('open');
-            overlay.classList.toggle('show');
-        }
-        
         // Handle Form Submit
         function handleSubmit(event) {
             event.preventDefault();
