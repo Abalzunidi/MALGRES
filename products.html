@@ -465,7 +465,7 @@
                 <!-- Product 1 -->
                 <div class="product-item" onclick="goToProduct('product1', event)">
                     <div class="product-image-container">
-                        <img src="P1.png" alt="Product 1" class="product-carousel-image" data-product="product1">
+                        <img src="P1.png" alt="MALGRÉ" class="product-carousel-image" data-product="product1">
                         
                         <!-- Carousel Arrows -->
                         <div class="carousel-arrow left" onclick="event.stopPropagation(); changeProductImage('product1', -1)">
@@ -495,120 +495,37 @@
                         </div>
                     </div>
                 </div>
-                
-                <!-- Product 2 -->
-                <div class="product-item" onclick="goToProduct('product2', event)">
-                    <div class="product-image-container">
-                        <img src="P4.png" alt="Product 2" class="product-carousel-image" data-product="product2">
-                        
-                        <!-- Carousel Arrows -->
-                        <div class="carousel-arrow left" onclick="event.stopPropagation(); changeProductImage('product2', -1)">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
-                            </svg>
-                        </div>
-                        <div class="carousel-arrow right" onclick="event.stopPropagation(); changeProductImage('product2', 1)">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
-                            </svg>
-                        </div>
-                        
-                        <!-- Carousel Dots -->
-                        <div class="carousel-dots">
-                            <div class="carousel-dot active" data-product="product2" data-index="0" onclick="event.stopPropagation(); setProductImage('product2', 0)"></div>
-                            <div class="carousel-dot" data-product="product2" data-index="1" onclick="event.stopPropagation(); setProductImage('product2', 1)"></div>
-                            <div class="carousel-dot" data-product="product2" data-index="2" onclick="event.stopPropagation(); setProductImage('product2', 2)"></div>
-                        </div>
-                    </div>
-                    <div class="product-details">
-                        <h3 class="product-title">MALGRÉ</h3>
-                        <p class="product-description">Discover sophistication and style with this premium product. Choose from three beautiful colors that define elegance.</p>
-                        <div class="product-footer">
-                            <div class="product-price" data-product="product2">400 SAR</div>
-                            <button class="learn-more-btn" onclick="event.stopPropagation(); window.location.href='product.html?product=product2'">Learn More</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Product 3 -->
-                <div class="product-item" onclick="goToProduct('product3', event)">
-                    <div class="product-image-container">
-                        <img src="P7.png" alt="Product 3" class="product-carousel-image" data-product="product3">
-                        
-                        <!-- Carousel Arrows -->
-                        <div class="carousel-arrow left" onclick="event.stopPropagation(); changeProductImage('product3', -1)">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
-                            </svg>
-                        </div>
-                        <div class="carousel-arrow right" onclick="event.stopPropagation(); changeProductImage('product3', 1)">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
-                            </svg>
-                        </div>
-                        
-                        <!-- Carousel Dots -->
-                        <div class="carousel-dots">
-                            <div class="carousel-dot active" data-product="product3" data-index="0" onclick="event.stopPropagation(); setProductImage('product3', 0)"></div>
-                            <div class="carousel-dot" data-product="product3" data-index="1" onclick="event.stopPropagation(); setProductImage('product3', 1)"></div>
-                            <div class="carousel-dot" data-product="product3" data-index="2" onclick="event.stopPropagation(); setProductImage('product3', 2)"></div>
-                        </div>
-                    </div>
-                    <div class="product-details">
-                        <h3 class="product-title">MALGRÉ</h3>
-                        <p class="product-description">Embrace timeless beauty with this exceptional product. Available in three elegant colors that speak to refined taste.</p>
-                        <div class="product-footer">
-                            <div class="product-price" data-product="product3">450 SAR</div>
-                            <button class="learn-more-btn" onclick="event.stopPropagation(); window.location.href='product.html?product=product3'">Learn More</button>
-                        </div>
-                    </div>
-                </div>
             </div>
         </main>
         
         <!-- Footer -->
         <footer>
-            <p class="footer-text">© 2025 All Rights Reserved</p>
+            <p class="footer-text">© 2026 All Rights Reserved</p>
         </footer>
     </div>
 
     <script>
         // Get country from localStorage
-        let currentCountry = localStorage.getItem('selectedCountry') || 'sa';
+        let currentCountry = 'sa'; // Default to Saudi Arabia
         
         const content = {
             sa: {
                 name: 'Saudi Arabia',
                 currency: 'SAR',
                 products: {
-                    product1: 350,
-                    product2: 400,
-                    product3: 450
-                }
-            },
-            kw: {
-                name: 'Kuwait',
-                currency: 'KWD',
-                products: {
-                    product1: 33,
-                    product2: 37,
-                    product3: 42
+                    product1: 350
                 }
             }
         };
         
         // Product images data
         const productImages = {
-            product1: ['P1.png', 'P2.png', 'P3.png'],
-            product2: ['P4.png', 'P5.png', 'P6.png'],
-            product3: ['P7.png', 'P8.png', 'P9.png']
+            product1: ['P1.png', 'P2.png', 'P3.png']
         };
         
         // Current image index for each product
         const currentImageIndex = {
-            product1: 0,
-            product2: 0,
-            product3: 0
+            product1: 0
         };
         
         // Change product image (next/previous)

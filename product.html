@@ -874,16 +874,6 @@
     <!-- Side Menu -->
     <div class="side-menu" id="sideMenu">
         <div class="menu-section">
-            <div class="menu-section-title">Country</div>
-            <div class="menu-item" id="menu-sa" onclick="selectCountryFromMenu('sa')">
-                Saudi Arabia
-            </div>
-            <div class="menu-item" id="menu-kw" onclick="selectCountryFromMenu('kw')">
-                Kuwait
-            </div>
-        </div>
-        
-        <div class="menu-section">
             <div class="menu-section-title">Sections</div>
             <div class="menu-item active">
                 Malgré Signature
@@ -979,7 +969,7 @@
 
         <!-- Footer -->
         <footer>
-            <p class="footer-text">© 2025 All Rights Reserved</p>
+            <p class="footer-text">© 2026 All Rights Reserved</p>
         </footer>
     </div>
 
@@ -994,24 +984,12 @@
         const productId = urlParams.get('product') || 'signature';
         
         // Get country from localStorage
-        let currentCountry = localStorage.getItem('selectedCountry') || 'sa';
+        let currentCountry = 'sa'; // Default to Saudi Arabia
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
         let productQuantity = 1;
         
         // Product data
         const productsData = {
-            signature: {
-                name: 'Malgré Signature',
-                description: 'Malgré Signature is a luxurious fragrance that embodies elegance and sophistication. This exquisite perfume features a harmonious blend of rich, captivating notes that create a unique and unforgettable scent experience.',
-                images: {
-                    main: 'I1.png',
-                    thumbnails: ['I1.png', 'I1.png', 'I1.png']
-                },
-                prices: {
-                    sa: { price: 450, currency: 'SAR' },
-                    kw: { price: 42, currency: 'KWD' }
-                }
-            },
             product1: {
                 name: 'MALGRÉ',
                 description: 'Experience luxury and elegance with this exquisite product. This premium item combines sophistication with style, creating a unique and memorable experience.',
@@ -1020,32 +998,7 @@
                     thumbnails: ['P1.png', 'P2.png', 'P3.png']
                 },
                 prices: {
-                    sa: { price: 350, currency: 'SAR' },
-                    kw: { price: 33, currency: 'KWD' }
-                }
-            },
-            product2: {
-                name: 'MALGRÉ',
-                description: 'Discover sophistication and style with this premium product. A perfect blend of elegance and quality that speaks to refined taste.',
-                images: {
-                    main: 'P4.png',
-                    thumbnails: ['P4.png', 'P5.png', 'P6.png']
-                },
-                prices: {
-                    sa: { price: 400, currency: 'SAR' },
-                    kw: { price: 37, currency: 'KWD' }
-                }
-            },
-            product3: {
-                name: 'MALGRÉ',
-                description: 'Embrace timeless beauty with this exceptional product. An exclusive piece that combines luxury with unmatched quality.',
-                images: {
-                    main: 'P7.png',
-                    thumbnails: ['P7.png', 'P8.png', 'P9.png']
-                },
-                prices: {
-                    sa: { price: 450, currency: 'SAR' },
-                    kw: { price: 42, currency: 'KWD' }
+                    sa: { price: 350, currency: 'SAR' }
                 }
             }
         };
@@ -1064,12 +1017,6 @@
                 name: 'Saudi Arabia',
                 currency: 'SAR',
                 price: currentProduct.prices.sa.price,
-                deliveryFee: 0  // Free delivery
-            },
-            kw: {
-                name: 'Kuwait',
-                currency: 'KWD',
-                price: currentProduct.prices.kw.price,
                 deliveryFee: 0  // Free delivery
             }
         };

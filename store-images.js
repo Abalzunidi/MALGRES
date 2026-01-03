@@ -161,15 +161,15 @@ const STORE_IMAGES = {
     // ========================================
     magazine: {
         // Magazine cover
-        cover: 'I1.png',
+        cover: 'J1.png',
         
         // All magazine pages
         pages: [
-            'I1.png',  // Page 1
-            'I1.png',  // Page 2
-            'I1.png',  // Page 3
-            'I1.png',  // Page 4
-            'I1.png'   // Page 5
+            'J1.png',  // Page 1
+            'J2.png',  // Page 2
+            'J3.png',  // Page 3
+            'J4.png',  // Page 4
+            'J5.png'   // Page 5
         ]
     },
     

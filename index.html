@@ -25,7 +25,7 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            padding-top: 100px;
+            padding-top: 100px; /* Space for logo */
         }
         
         /* Logo at top center */
@@ -35,6 +35,7 @@
             left: 50%;
             transform: translateX(-50%);
             z-index: 100;
+            cursor: pointer;
         }
         
         .logo-container img {
@@ -329,87 +330,87 @@
             color: var(--popup-text) !important;
         }
         
-        /* Main content */
+        /* Main content - Welcome Section */
         main {
             flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0;
+            padding: 4rem 2rem;
+            min-height: calc(100vh - 200px);
+            background: var(--bg-primary);
+        }
+        
+        /* Welcome section - Centered elegant text */
+        .welcome-section {
             width: 100%;
-            height: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
         }
         
-        /* Carousel container - Full Screen */
-        .carousel-container {
-            width: 100%;
-            height: 100vh;
-            margin: 0;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding-top: 100px; /* Space for logo */
-            padding-bottom: 80px; /* Space for footer */
+        .welcome-content {
+            padding: 2rem;
         }
         
-        .carousel-images {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            max-height: calc(100vh - 180px); /* Full height minus header and footer */
-            overflow: hidden;
-            border-radius: 0; /* No rounded corners for full screen */
-            box-shadow: none;
+        /* Brand name */
+        .brand-name {
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: 8px;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
         }
         
-        .carousel-image {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: contain; /* Fit entire image */
-            object-position: center;
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
-        }
-        
-        .carousel-image.active {
-            opacity: 1;
-            z-index: 1;
-        }
-        
-        /* Carousel indicators (dots) - Position at bottom */
-        .carousel-indicators {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 10;
-        }
-        
-        .carousel-indicator {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: var(--text-light);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .carousel-indicator:hover {
-            transform: scale(1.2);
-        }
-        
-        .carousel-indicator.active {
+        /* Decorative divider */
+        .divider {
+            width: 100px;
+            height: 2px;
             background: var(--text-primary);
-            width: 30px;
-            border-radius: 6px;
+            margin: 0 auto 2.5rem;
+        }
+        
+        /* Welcome text */
+        .welcome-text {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 2;
+            margin-bottom: 2.5rem;
+            font-style: italic;
+        }
+        
+        /* Brand description */
+        .brand-description {
+            font-size: 1.125rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            line-height: 2;
+            margin-bottom: 2rem;
+            text-align: justify;
+        }
+        
+        /* Brand philosophy */
+        .brand-philosophy {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 2;
+            margin-top: 2.5rem;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 1.5rem 0;
+            text-align: center;
+            background-color: var(--bg-primary);
+        }
+        
+        .footer-text {
+            font-size: 0.875rem;
+            color: var(--text-light);
+            letter-spacing: 1px;
         }
         
         .products-container {
@@ -547,9 +548,7 @@
         
         /* Footer */
         footer {
-            padding: 1.5rem 0;
-            text-align: center;
-            background-color: var(--footer-bg);
+            display: none; /* Hide footer on carousel page */
         }
         
         .footer-text {
@@ -653,28 +652,37 @@
                 left: -100%;
             }
             
-            /* Carousel mobile - Full Screen */
-            .carousel-container {
-                padding-top: 80px;
-                padding-bottom: 60px;
+            /* Welcome section mobile */
+            main {
+                padding: 2rem 1.5rem;
             }
             
-            .carousel-images {
-                max-height: calc(100vh - 140px);
+            .brand-name {
+                font-size: 2.5rem;
+                letter-spacing: 6px;
             }
             
-            .carousel-indicators {
-                bottom: 15px;
-                gap: 8px;
+            .divider {
+                width: 80px;
             }
             
-            .carousel-indicator {
-                width: 10px;
-                height: 10px;
+            .welcome-text {
+                font-size: 1.125rem;
             }
             
-            .carousel-indicator.active {
-                width: 24px;
+            .brand-description,
+            .brand-philosophy {
+                font-size: 1rem;
+                text-align: center;
+            }
+            
+            /* Footer mobile */
+            footer {
+                padding: 1rem 0;
+            }
+            
+            .footer-text {
+                font-size: 0.75rem;
             }
             
             .side-menu.active {
@@ -828,20 +836,31 @@
             .menu-button {
                 width: 40px;
                 height: 40px;
+                top: 10px;
+                right: 10px;
             }
             
-            /* Carousel smaller on tiny screens */
-            .carousel-container {
-                padding-top: 70px;
-                padding-bottom: 50px;
+            /* Welcome section small mobile */
+            main {
+                padding: 1.5rem 1rem;
             }
             
-            .carousel-images {
-                max-height: calc(100vh - 120px);
+            .brand-name {
+                font-size: 2rem;
+                letter-spacing: 4px;
             }
             
-            .carousel-indicators {
-                bottom: 10px;
+            .divider {
+                width: 60px;
+            }
+            
+            .welcome-text {
+                font-size: 1rem;
+            }
+            
+            .brand-description,
+            .brand-philosophy {
+                font-size: 0.9375rem;
             }
             
             .product-card {
@@ -894,20 +913,6 @@
 </head>
 <body>
 
-    <!-- Country Selection Popup -->
-    <div class="country-selection-overlay" id="countrySelectionOverlay">
-        <div class="country-selection-popup">
-            <div class="country-buttons">
-                <button class="country-button" onclick="selectCountryFromPopup('sa')">
-                    Saudi Arabia
-                </button>
-                <button class="country-button" onclick="selectCountryFromPopup('kw')">
-                    Kuwait
-                </button>
-            </div>
-        </div>
-    </div>
-
     <!-- Menu Button -->
     <div class="menu-button" id="menuButton" onclick="toggleMenu()">
         <div class="menu-icon">
@@ -922,16 +927,6 @@
 
     <!-- Side Menu -->
     <div class="side-menu" id="sideMenu">
-        <div class="menu-section">
-            <div class="menu-section-title">Country</div>
-            <div class="menu-item" id="menu-sa" onclick="selectCountryFromMenu('sa')">
-                Saudi Arabia
-            </div>
-            <div class="menu-item" id="menu-kw" onclick="selectCountryFromMenu('kw')">
-                Kuwait
-            </div>
-        </div>
-        
         <div class="menu-section">
             <div class="menu-section-title">Sections</div>
             <div class="menu-item" onclick="window.location.href='products.html'">
@@ -971,29 +966,34 @@
 
         <!-- Main Content -->
         <main>
-            <div class="carousel-container">
-                <div class="carousel-images">
-                    <img src="M1.png" alt="Malgré Image 1" class="carousel-image active" data-image="main-image-1">
-                    <img src="M2.png" alt="Malgré Image 2" class="carousel-image" data-image="main-image-2">
-                    <img src="M3.png" alt="Malgré Image 3" class="carousel-image" data-image="main-image-3">
-                    <img src="M4.png" alt="Malgré Image 4" class="carousel-image" data-image="main-image-4">
-                    <img src="M5.png" alt="Malgré Image 5" class="carousel-image" data-image="main-image-5">
-                </div>
-                
-                <!-- Carousel Dots -->
-                <div class="carousel-indicators">
-                    <div class="carousel-indicator active" data-index="0"></div>
-                    <div class="carousel-indicator" data-index="1"></div>
-                    <div class="carousel-indicator" data-index="2"></div>
-                    <div class="carousel-indicator" data-index="3"></div>
-                    <div class="carousel-indicator" data-index="4"></div>
+            <div class="welcome-section">
+                <div class="welcome-content">
+                    <h1 class="brand-name">MALGRÉ</h1>
+                    <div class="divider"></div>
+                    <p class="welcome-text">
+                        Where luxury meets artistry, and every detail whispers elegance.
+                    </p>
+                    <p class="brand-description">
+                        In a world of fleeting trends, Malgré stands as a testament to timeless sophistication. 
+                        We craft experiences that transcend the ordinary, curating moments of refined beauty 
+                        for those who appreciate the exquisite. Each piece in our collection embodies 
+                        the essence of exclusivity, designed for individuals who seek nothing less than perfection.
+                    </p>
+                    <p class="brand-philosophy">
+                        Welcome to a realm where distinction is not just celebrated—it is expected.
+                    </p>
                 </div>
             </div>
         </main>
 
         <!-- Footer -->
         <footer>
-            <p class="footer-text">© 2025 All Rights Reserved</p>
+            <p class="footer-text">© 2026 All Rights Reserved</p>
+        </footer>
+
+        <!-- Footer -->
+        <footer>
+            <p class="footer-text">© 2026 All Rights Reserved</p>
         </footer>
     </div>
 
@@ -1011,63 +1011,8 @@
     </div>
 
     <script>
-        let currentCountry = null; // No default - user must select
+        let currentCountry = 'sa'; // Default to Saudi Arabia
         let cart = [];
-        
-        // ========================================
-        // AUTO-ROTATING CAROUSEL
-        // ========================================
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.carousel-image');
-        const indicators = document.querySelectorAll('.carousel-indicator');
-        const totalSlides = slides.length;
-        let autoRotateInterval;
-        
-        // Change to specific slide
-        function goToSlide(index) {
-            // Remove active class from current slide and indicator
-            slides[currentSlide].classList.remove('active');
-            indicators[currentSlide].classList.remove('active');
-            
-            // Update current slide
-            currentSlide = index;
-            
-            // Add active class to new slide and indicator
-            slides[currentSlide].classList.add('active');
-            indicators[currentSlide].classList.add('active');
-        }
-        
-        // Next slide
-        function nextSlide() {
-            const next = (currentSlide + 1) % totalSlides;
-            goToSlide(next);
-        }
-        
-        // Start auto rotation
-        function startAutoRotate() {
-            autoRotateInterval = setInterval(nextSlide, 3000); // Change every 3 seconds
-        }
-        
-        // Stop auto rotation
-        function stopAutoRotate() {
-            clearInterval(autoRotateInterval);
-        }
-        
-        // Add click events to indicators
-        indicators.forEach((indicator, index) => {
-            indicator.addEventListener('click', () => {
-                stopAutoRotate();
-                goToSlide(index);
-                startAutoRotate(); // Restart auto rotation after manual selection
-            });
-        });
-        
-        // Start carousel when page loads
-        startAutoRotate();
-        
-        // ========================================
-        // COUNTRY & CART SYSTEM
-        // ========================================
         
         const content = {
             sa: {
@@ -1075,24 +1020,9 @@
                 flag: '🇸🇦',
                 currency: 'SAR',
                 products: {
-                    signature: 450,
-                    product1: 350,
-                    product2: 400,
-                    product3: 450
+                    product1: 350
                 },
                 phone: '+966 55 206 0478'
-            },
-            kw: {
-                name: 'Kuwait',
-                flag: '🇰🇼',
-                currency: 'KWD',
-                products: {
-                    signature: 42,
-                    product1: 33,
-                    product2: 37,
-                    product3: 42
-                },
-                phone: '+965 55 206 0478'
             }
         };
 
