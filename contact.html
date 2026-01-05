@@ -18,8 +18,7 @@
             font-family: 'Cormorant Garamond', Georgia, serif;
             font-weight: 700;
             background-color: var(--bg-primary);
-            min-height: 80vh;
-            max-height: 600px;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
@@ -133,35 +132,42 @@
         }
         
         .menu-section {
-            margin-bottom: 2rem;
+            margin-bottom: 40px;
         }
         
         .menu-section-title {
-            font-size: 0.875rem;
-            font-weight: 700;
+            font-size: 14px;
             color: var(--text-light);
-            letter-spacing: 2px;
-            margin-bottom: 1rem;
             text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            font-weight: 700;
         }
         
         .menu-item {
-            padding: 0.75rem 1.5rem;
-            color: var(--text-primary);
+            padding: 15px 20px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            margin-bottom: 10px;
             cursor: pointer;
             transition: all 0.3s ease;
-            border-radius: 10px;
-            font-size: 1.125rem;
+            display: flex;
+            align-items: center;
+            font-size: 18px;
+            color: var(--text-primary);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
         }
         
         .menu-item:hover {
-            background: var(--card-hover);
-            transform: translateX(5px);
+            background: var(--card-hover-bg);
+            transform: translateX(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
         }
         
         .menu-item.active {
-            background: var(--card-hover);
-            color: var(--text-primary);
+            background: var(--card-active-bg);
+            color: var(--card-active-text);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
         }
         
         /* Main content */
@@ -171,8 +177,7 @@
             align-items: center;
             justify-content: center;
             padding: 120px 2rem 2rem;
-            min-height: 80vh;
-            max-height: 600px;
+            min-height: 100vh;
         }
         
         .contact-container {
