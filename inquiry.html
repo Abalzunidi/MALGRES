@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Malgré Magazine</title>
+    <title>Inquiry - Malgré</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="store-colors.css">
     <script src="store-images.js"></script>
+    <script src="menu.js"></script>
     <style>
         * {
             margin: 0;
@@ -19,8 +20,14 @@
             font-weight: 700;
             background-color: var(--bg-primary);
             min-height: 100vh;
+        }
+        
+        .page-container {
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
+            padding-top: 100px;
+            padding-bottom: 3rem;
         }
         
         /* Logo at top center */
@@ -170,192 +177,151 @@
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
         }
         
-        /* Main content */
-        .magazine-container {
+        /* Main Content */
+        .main-content {
             flex: 1;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 120px 1rem 100px;
+            padding: 2rem;
         }
         
-        .magazine-image-container {
+        .inquiry-container {
             width: 100%;
             max-width: 600px;
-            margin-bottom: 2rem;
-            position: relative;
+            background: var(--card-bg);
+            border-radius: 30px;
+            padding: 3rem 2rem;
+            box-shadow: 0 10px 40px var(--shadow-light);
         }
         
-        .magazine-image {
-            width: 100%;
-            height: auto;
-            max-height: 70vh;
-            object-fit: contain;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px var(--shadow-medium);
+        .inquiry-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
         }
         
-        /* Page indicator */
-        .page-indicator {
-            font-size: 1.25rem;
-            color: var(--text-light);
+        .inquiry-subtitle {
+            font-size: 1.125rem;
+            text-align: center;
+            margin-bottom: 2.5rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+        
+        .form-group {
             margin-bottom: 1.5rem;
-            letter-spacing: 2px;
         }
         
-        /* Next/Done Button */
-        .action-button {
-            background-color: var(--btn-bg);
-            color: var(--btn-text);
-            padding: 1rem 3rem;
-            border-radius: 50px;
-            font-weight: 700;
+        .form-label {
+            display: block;
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+        
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.125rem;
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-weight: 600;
+            background: var(--input-bg);
+            border: 2px solid var(--input-border);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            color: var(--input-text);
+        }
+        
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--input-focus-border);
+            background: var(--input-focus-bg);
+        }
+        
+        .form-input::placeholder,
+        .form-textarea::placeholder {
+            color: var(--input-placeholder);
+        }
+        
+        .form-textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .submit-button {
+            width: 100%;
+            padding: 1rem;
             font-size: 1.25rem;
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-weight: 700;
+            background: var(--btn-bg);
+            color: var(--btn-text);
             border: none;
+            border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px var(--shadow-heavy);
-            font-family: 'Cormorant Garamond', Georgia, serif;
+            margin-top: 1rem;
         }
         
-        .action-button:hover {
-            transform: scale(1.05);
+        .submit-button:hover {
+            transform: scale(1.02);
             box-shadow: 0 6px 20px var(--shadow-heavy);
         }
         
-        .action-button:active {
+        .submit-button:active {
             transform: scale(0.98);
         }
         
-        /* Footer */
-        footer {
-            padding: 1.5rem 0;
+        .success-message {
+            background: var(--success-bg);
+            color: var(--success-text);
+            padding: 1rem;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
             text-align: center;
-            background-color: var(--footer-bg);
+            display: none;
+            font-size: 1rem;
         }
         
-        .footer-text {
-            font-size: 0.75rem;
-            padding: 0.25rem 0.75rem;
-            display: inline-block;
-            border-radius: 0.25rem;
-            color: var(--footer-text);
-            background-color: var(--footer-text-bg);
+        .success-message.show {
+            display: block;
+            animation: slideDown 0.4s ease;
         }
         
-        /* ===================================
-           MOBILE RESPONSIVE STYLES
-           =================================== */
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
         
+        /* Responsive */
         @media (max-width: 768px) {
-            /* Header elements */
-            .logo-container img {
-                height: 60px;
+            .inquiry-container {
+                padding: 2rem 1.5rem;
             }
             
-            .back-button {
-                width: 45px;
-                height: 45px;
-                top: 15px;
-                left: 15px;
-            }
-            
-            /* Page container */
-            .page-container {
-                padding-top: 90px;
-            }
-            
-            /* Magazine content */
-            .magazine-content {
-                padding: 1rem;
-            }
-            
-            /* Magazine image responsive */
-            .magazine-image {
-                max-width: 100%;
-                height: auto;
-                border-radius: 15px;
-            }
-            
-            /* Navigation buttons */
-            .nav-button {
-                width: 50px;
-                height: 50px;
-                font-size: 1.5rem;
-            }
-            
-            .nav-button.prev {
-                left: 10px;
-            }
-            
-            .nav-button.next {
-                right: 10px;
-            }
-            
-            /* Page indicator */
-            .page-indicator {
-                font-size: 1rem;
-                padding: 0.75rem 1.25rem;
-                bottom: 15px;
-            }
-        }
-        
-        /* Small phones */
-        @media (max-width: 480px) {
-            .logo-container img {
-                height: 50px;
-            }
-            
-            .back-button {
-                width: 40px;
-                height: 40px;
-            }
-            
-            .magazine-content {
-                padding: 0.5rem;
-            }
-            
-            .nav-button {
-                width: 45px;
-                height: 45px;
-                font-size: 1.25rem;
-            }
-            
-            .nav-button.prev {
-                left: 5px;
-            }
-            
-            .nav-button.next {
-                right: 5px;
-            }
-            
-            .page-indicator {
-                font-size: 0.875rem;
-                padding: 0.625rem 1rem;
-                bottom: 10px;
-            }
-        }
-        
-        /* Tablet landscape */
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .logo-container img {
-                height: 70px;
-            }
-            
-            .magazine-image {
-                max-height: 80vh;
+            .inquiry-title {
+                font-size: 2rem;
             }
         }
     </style>
 </head>
 <body>
-
-    <!-- Logo at Top Center -->
+    <!-- Logo -->
     <div class="logo-container" onclick="window.location.href='index.html'">
-        <img src="L2.png" alt="Malgré Logo" data-image="logo-main">
+        <img src="L2.png" alt="Malgré" data-image="logo-main">
     </div>
-
+    
     <!-- Menu Button -->
     <div class="menu-button" id="menuButton" onclick="toggleMenu()">
         <div class="menu-icon">
@@ -370,118 +336,112 @@
 
     <!-- Side Menu -->
     <div class="side-menu" id="sideMenu">
-        <!-- Home Section -->
-        <div class="menu-section">
-            <div class="menu-item" onclick="window.location.href='index.html'">
-                Home Page
-            </div>
-        </div>
-        
-        <!-- Collection Section -->
-        <div class="menu-section">
-            <div class="menu-section-title">Collection</div>
-            <div class="menu-item" onclick="window.location.href='products.html'">
-                Malgré Collection
-            </div>
-        </div>
-        
-        <!-- Explore Section -->
-        <div class="menu-section">
-            <div class="menu-section-title">Explore</div>
-            <div class="menu-item active">
-                Magazine
-            </div>
-            <div class="menu-item" onclick="window.location.href='inquiry.html'">
-                Inquiry
-            </div>
-            <div class="menu-item" onclick="window.location.href='locations.html'">
-                Locations
-            </div>
-        </div>
-        
-        <!-- Information Section -->
-        <div class="menu-section">
-            <div class="menu-section-title">Information</div>
-            <div class="menu-item" onclick="window.location.href='contact.html'">
-                Email
-            </div>
-            <div class="menu-item" onclick="window.location.href='returns.html'">
-                Return Policy
-            </div>
-            <div class="menu-item" onclick="window.location.href='privacy.html'">
-                Privacy Policy
-            </div>
-            <div class="menu-item" onclick="window.location.href='vision.html'">
-                Our Vision
-            </div>
-            <div class="menu-item" onclick="window.location.href='sponsorship.html'">
-                Sponsorship
+        <!-- Menu content will be loaded by menu.js -->
+    </div>
+    
+    <div class="page-container">
+        <div class="main-content">
+            <div class="inquiry-container">
+                <h1 class="inquiry-title">Inquiry</h1>
+                <p class="inquiry-subtitle">We'd love to hear from you. Send us your questions or feedback.</p>
+                
+                <div class="success-message" id="successMessage">
+                    Thank you! Your inquiry has been submitted successfully.
+                </div>
+                
+                <form onsubmit="handleSubmit(event)">
+                    <div class="form-group">
+                        <label class="form-label" for="name">Name</label>
+                        <input 
+                            type="text" 
+                            id="name" 
+                            class="form-input" 
+                            placeholder="Enter your name"
+                            required
+                        >
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="phone">Phone Number</label>
+                        <input 
+                            type="tel" 
+                            id="phone" 
+                            class="form-input" 
+                            placeholder="Enter your phone number"
+                            required
+                        >
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="email">Email</label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            class="form-input" 
+                            placeholder="Enter your email"
+                            required
+                        >
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="inquiry">Your Inquiry</label>
+                        <textarea 
+                            id="inquiry" 
+                            class="form-textarea" 
+                            placeholder="Write your message here..."
+                            required
+                        ></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-button">Submit</button>
+                </form>
             </div>
         </div>
     </div>
-
-    <!-- Magazine Content -->
-    <div class="magazine-container">
-        <div class="magazine-image-container">
-            <img src="I1.png" alt="Magazine Page" class="magazine-image" id="magazineImage" data-image="magazine-page" data-page="1">
-        </div>
-        
-        <div class="page-indicator" id="pageIndicator">1 / 5</div>
-        
-        <button class="action-button" id="actionButton" onclick="nextPage()">Next</button>
-    </div>
-
-    <!-- Footer -->
-    <footer>
-        <p class="footer-text">© 2026 All Rights Reserved</p>
-    </footer>
 
     <script>
-        let currentPage = 1;
-        const totalPages = 5;
+        // toggleMenu function is now in menu.js
         
-        // Menu toggle
-        function toggleMenu() {
-            const menuButton = document.getElementById('menuButton');
-            const sideMenu = document.getElementById('sideMenu');
-            const menuOverlay = document.getElementById('menuOverlay');
+        // Handle Form Submit
+        function handleSubmit(event) {
+            event.preventDefault();
             
-            menuButton.classList.toggle('active');
-            sideMenu.classList.toggle('active');
-            menuOverlay.classList.toggle('active');
-        }
-        
-        // Use magazine images from STORE_IMAGES
-        const magazineImages = STORE_IMAGES.magazine.pages;
-        
-        function nextPage() {
-            if (currentPage < totalPages) {
-                currentPage++;
-                updatePage();
-            } else {
-                // Last page - go back to home
-                window.location.href = 'index.html';
-            }
-        }
-        
-        function updatePage() {
-            // Update image
-            document.getElementById('magazineImage').src = magazineImages[currentPage - 1];
+            // Get form values
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const email = document.getElementById('email').value;
+            const inquiry = document.getElementById('inquiry').value;
             
-            // Update page indicator
-            document.getElementById('pageIndicator').textContent = `${currentPage} / ${totalPages}`;
+            // في الإنتاج، راح ترسل البيانات لقاعدة بيانات أو API
+            console.log({
+                name,
+                phone,
+                email,
+                inquiry,
+                timestamp: new Date().toISOString()
+            });
             
-            // Update button text
-            const actionButton = document.getElementById('actionButton');
-            if (currentPage === totalPages) {
-                actionButton.textContent = 'Done';
-            } else {
-                actionButton.textContent = 'Next';
-            }
+            // Show success message
+            const successMessage = document.getElementById('successMessage');
+            successMessage.classList.add('show');
+            
+            // Clear form
+            document.getElementById('name').value = '';
+            document.getElementById('phone').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('inquiry').value = '';
+            
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+                successMessage.classList.remove('show');
+            }, 5000);
+            
+            // Scroll to top
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         }
-        
-        // Initialize
-        updatePage();
     </script>
 </body>
 </html>

@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="store-colors.css">
     <script src="store-images.js"></script>
+    <script src="menu.js"></script>
     <style>
         * {
             margin: 0;
@@ -932,54 +933,7 @@
 
     <!-- Side Menu -->
     <div class="side-menu" id="sideMenu">
-        <!-- Home Section -->
-        <div class="menu-section">
-            <div class="menu-item active" onclick="window.location.href='index.html'">
-                Home Page
-            </div>
-        </div>
-        
-        <!-- Collection Section -->
-        <div class="menu-section">
-            <div class="menu-section-title">Collection</div>
-            <div class="menu-item" onclick="window.location.href='products.html'">
-                Malgré Collection
-            </div>
-        </div>
-        
-        <!-- Explore Section -->
-        <div class="menu-section">
-            <div class="menu-section-title">Explore</div>
-            <div class="menu-item" onclick="window.location.href='magazine.html'">
-                Magazine
-            </div>
-            <div class="menu-item" onclick="window.location.href='inquiry.html'">
-                Inquiry
-            </div>
-            <div class="menu-item" onclick="window.location.href='locations.html'">
-                Locations
-            </div>
-        </div>
-        
-        <!-- Information Section -->
-        <div class="menu-section">
-            <div class="menu-section-title">Information</div>
-            <div class="menu-item" onclick="window.location.href='contact.html'">
-                Email
-            </div>
-            <div class="menu-item" onclick="window.location.href='returns.html'">
-                Return Policy
-            </div>
-            <div class="menu-item" onclick="window.location.href='privacy.html'">
-                Privacy Policy
-            </div>
-            <div class="menu-item" onclick="window.location.href='vision.html'">
-                Our Vision
-            </div>
-            <div class="menu-item" onclick="window.location.href='sponsorship.html'">
-                Sponsorship
-            </div>
-        </div>
+        <!-- Menu content will be loaded by menu.js -->
     </div>
 
     <!-- Popup -->
@@ -1089,17 +1043,7 @@
                 }
             });
         }
-
-        // Toggle menu
-        function toggleMenu() {
-            const menuButton = document.getElementById('menuButton');
-            const sideMenu = document.getElementById('sideMenu');
-            const menuOverlay = document.getElementById('menuOverlay');
-            
-            menuButton.classList.toggle('active');
-            sideMenu.classList.toggle('active');
-            menuOverlay.classList.toggle('active');
-        }
+        // toggleMenu function is now in menu.js
 
         // Select country from menu
         function selectCountryFromMenu(country) {
