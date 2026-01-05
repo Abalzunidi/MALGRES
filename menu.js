@@ -26,6 +26,7 @@ function getCurrentPage() {
 // Menu structure - يمكنك تعديل المنيو من هنا
 const menuStructure = {
     home: {
+        sectionTitle: 'Main',
         title: 'Home Page',
         link: 'index.html',
         showOnPages: '*' // * means show on all pages
@@ -102,11 +103,19 @@ function generateMenuHTML() {
     const currentPage = getCurrentPage();
     let html = '';
     
-    // Home section (without section title)
+    // Logo at top
+    html += `
+        <div class="menu-logo" onclick="window.location.href='index.html'" style="text-align: center; margin-bottom: 30px; cursor: pointer;">
+            <img src="L2.png" alt="Malgré" data-image="logo-main" style="height: 80px; width: auto;">
+        </div>
+    `;
+    
+    // Home section (Main section with title)
     const isHomeActive = currentPage === 'index.html' || currentPage === '';
     html += `
-        <!-- Home Section -->
+        <!-- Main Section -->
         <div class="menu-section">
+            <div class="menu-section-title">${menuStructure.home.sectionTitle}</div>
             <div class="menu-item ${isHomeActive ? 'active' : ''}" onclick="window.location.href='${menuStructure.home.link}'">
                 ${menuStructure.home.title}
             </div>
@@ -121,6 +130,13 @@ function generateMenuHTML() {
     
     // Information section
     html += generateSection('information', menuStructure.information, currentPage);
+    
+    // Copyright at bottom
+    html += `
+        <div class="menu-copyright" style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); color: var(--text-light); font-size: 0.875rem;">
+            © 2026 All Rights Reserved
+        </div>
+    `;
     
     return html;
 }
