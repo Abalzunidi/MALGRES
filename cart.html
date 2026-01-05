@@ -24,7 +24,6 @@
             flex-direction: column;
         }
         
-        /* Logo at top center */
         .logo-container {
             position: absolute;
             top: 20px;
@@ -39,7 +38,6 @@
             width: auto;
         }
         
-        /* Menu Button */
         .menu-button {
             position: fixed;
             top: 20px;
@@ -89,7 +87,6 @@
             transform: rotate(-45deg) translateY(-7px);
         }
         
-        /* Side Menu */
         .side-menu {
             position: fixed;
             bottom: -100%;
@@ -171,7 +168,6 @@
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
         }
         
-        /* Main Content */
         .page-container {
             flex: 1;
             display: flex;
@@ -199,7 +195,6 @@
             text-align: center;
         }
         
-        /* Empty Cart */
         .empty-cart {
             text-align: center;
             padding: 4rem 2rem;
@@ -235,7 +230,6 @@
             box-shadow: 0 6px 20px var(--shadow-heavy);
         }
         
-        /* Cart Items */
         .cart-items {
             display: flex;
             flex-direction: column;
@@ -361,7 +355,6 @@
             color: var(--text-primary);
         }
         
-        /* Cart Summary */
         .cart-summary {
             background: var(--card-bg);
             border-radius: 20px;
@@ -407,13 +400,6 @@
             box-shadow: 0 6px 20px var(--shadow-heavy);
         }
         
-        .proceed-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-        
-        /* Footer */
         footer {
             padding: 2rem;
             text-align: center;
@@ -424,7 +410,6 @@
             font-size: 0.875rem;
         }
         
-        /* Responsive */
         @media (max-width: 768px) {
             .logo-container img {
                 height: 60px;
@@ -475,12 +460,10 @@
     </style>
 </head>
 <body>
-    <!-- Logo -->
     <div class="logo-container" onclick="window.location.href='index.html'">
         <img src="L2.png" alt="Malgré Logo" data-image="logo-main">
     </div>
     
-    <!-- Menu Button -->
     <div class="menu-button" id="menuButton" onclick="toggleMenu()">
         <div class="menu-icon">
             <span></span>
@@ -489,15 +472,12 @@
         </div>
     </div>
 
-    <!-- Menu Overlay -->
     <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
 
-    <!-- Side Menu -->
     <div class="side-menu" id="sideMenu">
         <!-- Menu content will be loaded by menu.js -->
     </div>
     
-    <!-- Main Content -->
     <div class="page-container">
         <h1 class="cart-title">Shopping Cart</h1>
         <p class="cart-subtitle">Review your items before checkout</p>
@@ -507,45 +487,26 @@
         </div>
     </div>
 
-    <!-- Footer -->
     <footer>
         <p class="footer-text">© 2026 All Rights Reserved</p>
     </footer>
 
     <script>
+        // Global cart variable
+        let currentCart = [];
+        
         // Get cart from localStorage
         function getCart() {
             const cart = localStorage.getItem('cart');
-            return cart ? JSON.parse(cart) : [];
+            currentCart = cart ? JSON.parse(cart) : [];
+            return currentCart;
         }
         
         // Save cart to localStorage
         function saveCart(cart) {
+            currentCart = cart;
             localStorage.setItem('cart', JSON.stringify(cart));
-            renderCart();
-        }
-        
-        // Update quantity
-        window.updateQuantity = function(productId, change) {
-            const cart = getCart();
-            const item = cart.find(item => item.id === productId);
-            
-            if (item) {
-                item.quantity += change;
-                
-                if (item.quantity <= 0) {
-                    window.removeFromCart(productId);
-                } else {
-                    saveCart(cart);
-                }
-            }
-        }
-        
-        // Remove item from cart
-        window.removeFromCart = function(productId) {
-            let cart = getCart();
-            cart = cart.filter(item => item.id !== productId);
-            saveCart(cart);
+            loadCart(); // Reload the cart display
         }
         
         // Calculate total
@@ -553,10 +514,13 @@
             return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
         }
         
-        // Render cart
-        function renderCart() {
+        // Load and display cart
+        function loadCart() {
+            console.log('Loading cart...');
             const cart = getCart();
             const cartContent = document.getElementById('cartContent');
+            
+            console.log('Cart items:', cart);
             
             if (cart.length === 0) {
                 cartContent.innerHTML = `
@@ -572,33 +536,38 @@
             }
             
             const subtotal = calculateTotal(cart);
-            const shipping = 0; // Free shipping
+            const shipping = 0;
             const total = subtotal + shipping;
+            
+            let itemsHTML = '';
+            cart.forEach((item, index) => {
+                itemsHTML += `
+                    <div class="cart-item">
+                        <div class="cart-item-image">
+                            <img src="${item.image}" alt="${item.name}">
+                        </div>
+                        <div class="cart-item-details">
+                            <div class="cart-item-header">
+                                <div class="cart-item-name">${item.name}</div>
+                                <div class="cart-item-price">${item.price} SAR</div>
+                            </div>
+                            <div class="cart-item-color">Color: ${item.color || 'Default'}</div>
+                            <div class="cart-item-footer">
+                                <div class="quantity-control">
+                                    <button class="quantity-btn" onclick="changeQuantity(${index}, -1)">−</button>
+                                    <span class="quantity-value">${item.quantity}</span>
+                                    <button class="quantity-btn" onclick="changeQuantity(${index}, 1)">+</button>
+                                </div>
+                                <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
             
             cartContent.innerHTML = `
                 <div class="cart-items">
-                    ${cart.map(item => `
-                        <div class="cart-item">
-                            <div class="cart-item-image">
-                                <img src="${item.image}" alt="${item.name}">
-                            </div>
-                            <div class="cart-item-details">
-                                <div class="cart-item-header">
-                                    <div class="cart-item-name">${item.name}</div>
-                                    <div class="cart-item-price">${item.price} SAR</div>
-                                </div>
-                                <div class="cart-item-color">Color: ${item.color}</div>
-                                <div class="cart-item-footer">
-                                    <div class="quantity-control">
-                                        <button class="quantity-btn" onclick="updateQuantity('${item.id}', -1)">−</button>
-                                        <span class="quantity-value">${item.quantity}</span>
-                                        <button class="quantity-btn" onclick="updateQuantity('${item.id}', 1)">+</button>
-                                    </div>
-                                    <button class="remove-btn" onclick="removeFromCart('${item.id}')">Remove</button>
-                                </div>
-                            </div>
-                        </div>
-                    `).join('')}
+                    ${itemsHTML}
                 </div>
                 
                 <div class="cart-summary">
@@ -614,25 +583,53 @@
                         <span>Total</span>
                         <span>${total} SAR</span>
                     </div>
-                    <button class="proceed-btn" onclick="proceedToPayment()">
+                    <button class="proceed-btn" onclick="goToCheckout()">
                         Proceed to Payment
                     </button>
                 </div>
             `;
         }
         
-        // Proceed to payment
-        // Proceed to payment
-        window.proceedToPayment = function() {
+        // Change quantity by index
+        function changeQuantity(index, change) {
+            console.log('changeQuantity called:', index, change);
             const cart = getCart();
-            if (cart.length === 0) return;
             
-            // Redirect to checkout page
+            if (cart[index]) {
+                cart[index].quantity += change;
+                
+                if (cart[index].quantity <= 0) {
+                    cart.splice(index, 1); // Remove item if quantity is 0
+                }
+                
+                saveCart(cart);
+            }
+        }
+        
+        // Remove item by index
+        function removeItem(index) {
+            console.log('removeItem called:', index);
+            const cart = getCart();
+            cart.splice(index, 1);
+            saveCart(cart);
+        }
+        
+        // Go to checkout
+        function goToCheckout() {
+            console.log('goToCheckout called');
+            const cart = getCart();
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
             window.location.href = 'checkout.html';
         }
         
-        // Initialize
-        renderCart();
+        // Initialize cart on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            console.log('Page loaded, loading cart...');
+            loadCart();
+        });
     </script>
 </body>
 </html>
