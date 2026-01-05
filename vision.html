@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Vision - Malgré</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="store-colors.css">
+    <script src="store-images.js"></script>
+    <script src="menu.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-weight: 700;
+            background-color: var(--bg-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Logo at top center */
+        .logo-container {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            cursor: pointer;
+        }
+        
+        .logo-container img {
+            height: 80px;
+            width: auto;
+        }
+        
+        /* Menu Button */
+        .menu-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 50px;
+            height: 50px;
+            background: var(--btn-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px var(--shadow-heavy);
+        }
+        
+        .menu-button:hover {
+            transform: scale(1.1);
+        }
+        
+        .menu-icon {
+            width: 24px;
+            height: 18px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .menu-icon span {
+            width: 100%;
+            height: 2px;
+            background: var(--btn-text);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+        
+        .menu-button.active .menu-icon span:nth-child(1) {
+            transform: rotate(45deg) translateY(7px);
+        }
+        
+        .menu-button.active .menu-icon span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .menu-button.active .menu-icon span:nth-child(3) {
+            transform: rotate(-45deg) translateY(-7px);
+        }
+        
+        /* Side Menu */
+        .side-menu {
+            position: fixed;
+            bottom: -100%;
+            left: 0;
+            right: 0;
+            width: 100%;
+            max-width: 100%;
+            height: 85vh;
+            max-height: none;
+            background: var(--menu-bg);
+            box-shadow: 0 -5px 25px var(--shadow-heavy);
+            z-index: 999;
+            transition: bottom 0.4s ease;
+            overflow-y: auto;
+            padding: 30px;
+            border-radius: 30px 30px 0 0;
+        }
+        
+        .side-menu.active {
+            bottom: 0;
+        }
+        
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--popup-overlay);
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+        
+        .menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+        
+        .menu-section {
+            margin-bottom: 40px;
+        }
+        
+        .menu-section-title {
+            font-size: 14px;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .menu-item {
+            padding: 15px 20px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            font-size: 18px;
+            color: var(--text-primary);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        }
+        
+        .menu-item:hover {
+            background: var(--card-hover-bg);
+            transform: translateX(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        .menu-item.active {
+            background: var(--card-active-bg);
+            color: var(--card-active-text);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* Main Content */
+        .page-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 120px 2rem 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        .vision-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .vision-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: 8px;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+        
+        .vision-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-light);
+            font-style: italic;
+            letter-spacing: 2px;
+        }
+        
+        .vision-content {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 4px 20px var(--shadow-medium);
+        }
+        
+        .vision-text {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            line-height: 2;
+            font-weight: 400;
+            text-align: justify;
+        }
+        
+        .vision-text p {
+            margin-bottom: 2rem;
+        }
+        
+        .vision-text p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .highlight {
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+        
+        .vision-divider {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(to right, transparent, var(--text-primary), transparent);
+            margin: 2.5rem auto;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .footer-text {
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .logo-container img {
+                height: 60px;
+            }
+            
+            .menu-button {
+                width: 45px;
+                height: 45px;
+                top: 15px;
+                left: 15px;
+            }
+            
+            .side-menu {
+                height: 85vh;
+                max-height: none;
+                padding: 20px;
+            }
+            
+            .page-container {
+                padding: 100px 1.5rem 2rem;
+            }
+            
+            .vision-title {
+                font-size: 2.5rem;
+                letter-spacing: 4px;
+            }
+            
+            .vision-subtitle {
+                font-size: 1rem;
+            }
+            
+            .vision-content {
+                padding: 2rem 1.5rem;
+            }
+            
+            .vision-text {
+                font-size: 1.125rem;
+                line-height: 1.9;
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Logo -->
+    <div class="logo-container" onclick="window.location.href='index.html'">
+        <img src="L2.png" alt="Malgré Logo" data-image="logo-main">
+    </div>
+    
+    <!-- Menu Button -->
+    <div class="menu-button" id="menuButton" onclick="toggleMenu()">
+        <div class="menu-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
+    <!-- Menu Overlay -->
+    <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+
+    <!-- Side Menu -->
+    <div class="side-menu" id="sideMenu">
+        <!-- Menu content will be loaded by menu.js -->
+    </div>
+    
+    <!-- Main Content -->
+    <div class="page-container">
+        <div class="vision-header">
+            <h1 class="vision-title">Our Vision</h1>
+            <p class="vision-subtitle">MALGRÉ</p>
+        </div>
+        
+        <div class="vision-content">
+            <div class="vision-text">
+                <p>
+                    At <span class="highlight">MALGRÉ</span>, our vision is built on <span class="highlight">intention</span>, 
+                    <span class="highlight">clarity</span>, and <span class="highlight">individuality</span>.
+                </p>
+                
+                <div class="vision-divider"></div>
+                
+                <p>
+                    We believe in creating value through <span class="highlight">restraint</span> — where every detail is purposeful, 
+                    every choice is considered, and nothing exists without meaning. Our vision is to stand apart quietly, 
+                    without excess or noise, by focusing on what truly matters.
+                </p>
+                
+                <div class="vision-divider"></div>
+                
+                <p>
+                    MALGRÉ aspires to become a brand defined by <span class="highlight">character</span> rather than trends, 
+                    <span class="highlight">substance</span> rather than spectacle, and <span class="highlight">presence</span> 
+                    rather than volume. We aim to connect with those who appreciate depth, authenticity, and thoughtful design.
+                </p>
+                
+                <div class="vision-divider"></div>
+                
+                <p>
+                    Our vision is to grow with <span class="highlight">integrity</span>, remain selective in our approach, 
+                    and build something lasting — a name that represents <span class="highlight">confidence</span>, 
+                    <span class="highlight">refinement</span>, and <span class="highlight">quiet strength</span>.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p class="footer-text">© 2026 All Rights Reserved</p>
+    </footer>
+</body>
+</html>

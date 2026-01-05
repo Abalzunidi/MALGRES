@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Return Policy - Malgré</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="store-colors.css">
+    <script src="store-images.js"></script>
+    <script src="menu.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-weight: 700;
+            background-color: var(--bg-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Logo at top center */
+        .logo-container {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            cursor: pointer;
+        }
+        
+        .logo-container img {
+            height: 80px;
+            width: auto;
+        }
+        
+        /* Menu Button */
+        .menu-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 50px;
+            height: 50px;
+            background: var(--btn-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px var(--shadow-heavy);
+        }
+        
+        .menu-button:hover {
+            transform: scale(1.1);
+        }
+        
+        .menu-icon {
+            width: 24px;
+            height: 18px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .menu-icon span {
+            width: 100%;
+            height: 2px;
+            background: var(--btn-text);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+        
+        .menu-button.active .menu-icon span:nth-child(1) {
+            transform: rotate(45deg) translateY(7px);
+        }
+        
+        .menu-button.active .menu-icon span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .menu-button.active .menu-icon span:nth-child(3) {
+            transform: rotate(-45deg) translateY(-7px);
+        }
+        
+        /* Side Menu */
+        .side-menu {
+            position: fixed;
+            bottom: -100%;
+            left: 0;
+            right: 0;
+            width: 100%;
+            max-width: 100%;
+            height: 85vh;
+            max-height: none;
+            background: var(--menu-bg);
+            box-shadow: 0 -5px 25px var(--shadow-heavy);
+            z-index: 999;
+            transition: bottom 0.4s ease;
+            overflow-y: auto;
+            padding: 30px;
+            border-radius: 30px 30px 0 0;
+        }
+        
+        .side-menu.active {
+            bottom: 0;
+        }
+        
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--popup-overlay);
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+        
+        .menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+        
+        .menu-section {
+            margin-bottom: 40px;
+        }
+        
+        .menu-section-title {
+            font-size: 14px;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .menu-item {
+            padding: 15px 20px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            font-size: 18px;
+            color: var(--text-primary);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        }
+        
+        .menu-item:hover {
+            background: var(--card-hover-bg);
+            transform: translateX(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        .menu-item.active {
+            background: var(--card-active-bg);
+            color: var(--card-active-text);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* Main Content */
+        .page-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 120px 2rem 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        .policy-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .policy-title {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: 6px;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+        
+        .policy-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            font-style: italic;
+        }
+        
+        .policy-intro {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            text-align: center;
+            padding: 0 1rem;
+        }
+        
+        .policy-content {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 4px 15px var(--shadow-medium);
+        }
+        
+        .policy-article {
+            margin-bottom: 2.5rem;
+        }
+        
+        .policy-article:last-child {
+            margin-bottom: 0;
+        }
+        
+        .article-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .article-content {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-weight: 400;
+        }
+        
+        .article-content p {
+            margin-bottom: 1rem;
+        }
+        
+        .article-content ul,
+        .article-content ol {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .article-content li {
+            margin-bottom: 0.5rem;
+            line-height: 1.8;
+        }
+        
+        .article-content strong {
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+        
+        .divider {
+            border: none;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin: 2rem 0;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .footer-text {
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .logo-container img {
+                height: 60px;
+            }
+            
+            .menu-button {
+                width: 45px;
+                height: 45px;
+                top: 15px;
+                left: 15px;
+            }
+            
+            .side-menu {
+                height: 85vh;
+                max-height: none;
+                padding: 20px;
+            }
+            
+            .page-container {
+                padding: 100px 1.5rem 2rem;
+            }
+            
+            .policy-title {
+                font-size: 2rem;
+                letter-spacing: 4px;
+            }
+            
+            .policy-subtitle {
+                font-size: 1rem;
+            }
+            
+            .policy-content {
+                padding: 1.5rem;
+            }
+            
+            .article-title {
+                font-size: 1.25rem;
+            }
+            
+            .article-content {
+                font-size: 1rem;
+            }
+            
+            .article-content ul,
+            .article-content ol {
+                margin-left: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Logo -->
+    <div class="logo-container" onclick="window.location.href='index.html'">
+        <img src="L2.png" alt="Malgré Logo" data-image="logo-main">
+    </div>
+    
+    <!-- Menu Button -->
+    <div class="menu-button" id="menuButton" onclick="toggleMenu()">
+        <div class="menu-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
+    <!-- Menu Overlay -->
+    <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+
+    <!-- Side Menu -->
+    <div class="side-menu" id="sideMenu">
+        <!-- Menu content will be loaded by menu.js -->
+    </div>
+    
+    <!-- Main Content -->
+    <div class="page-container">
+        <div class="policy-header">
+            <h1 class="policy-title">Return Policy</h1>
+            <p class="policy-subtitle">MALGRÉ</p>
+        </div>
+        
+        <p class="policy-intro">
+            This Return & Exchange Policy is established in accordance with applicable e-commerce laws and regulations 
+            and governs the contractual relationship between MALGRÉ ("the Company") and its customers.
+        </p>
+        
+        <div class="policy-content">
+            <!-- Article 1 -->
+            <div class="policy-article">
+                <h2 class="article-title">Article (1): Definitions</h2>
+                <div class="article-content">
+                    <ul>
+                        <li><strong>Company:</strong> MALGRÉ, the owner and operator of the MALGRÉ brand.</li>
+                        <li><strong>Customer:</strong> Any individual or legal entity purchasing products through the Company's official sales channels.</li>
+                        <li><strong>Product(s):</strong> Perfumes and fragrance-related items sold by MALGRÉ.</li>
+                        <li><strong>Contract:</strong> The agreement formed upon completion of a purchase order.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr class="divider">
+
+            <!-- Article 2 -->
+            <div class="policy-article">
+                <h2 class="article-title">Article (2): Scope of Application</h2>
+                <div class="article-content">
+                    <p>This Policy applies to all purchases made through:</p>
+                    <ul>
+                        <li>The official MALGRÉ website</li>
+                        <li>Any authorized online sales platforms operated by the Company</li>
+                    </ul>
+                    <p>This Policy does not apply to purchases made through unauthorized resellers or third parties.</p>
+                </div>
+            </div>
+
+            <hr class="divider">
+
+            <!-- Article 3 -->
+            <div class="policy-article">
+                <h2 class="article-title">Article (3): Right of Return and Exchange</h2>
+                <div class="article-content">
+                    <ol>
+                        <li>The Customer has the right to request a return or exchange within <strong>7 calendar days</strong> from the date of receipt, in accordance with applicable e-commerce regulations.</li>
+                        <li>To be eligible, the Product must:
+                            <ul>
+                                <li>Be unused, unopened, and untested</li>
+                                <li>Be in its original condition and packaging</li>
+                                <li>Include all accessories, labels, and proof of purchase</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <hr class="divider">
+
+            <!-- Article 4 -->
+            <div class="policy-article">
+                <h2 class="article-title">Article (4): Non-Returnable Items</h2>
+                <div class="article-content">
+                    <p>For health, hygiene, and quality control reasons, returns or exchanges will not be accepted in the following cases:</p>
+                    <ul>
+                        <li>Products that have been opened, used, or tampered with</li>
+                        <li>Consumable goods that cannot be returned for sanitary reasons</li>
+                        <li>Discounted items, promotional offers, or final sale items</li>
+                        <li>Complimentary samples or gifts</li>
+                        <li>Requests submitted after the legal return period</li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr class="divider">
+
+            <!-- Article 5 -->
+            <div class="policy-article">
+                <h2 class="article-title">Article (5): Damaged or Incorrect Products</h2>
+                <div class="article-content">
+                    <ol>
+                        <li>If a Product is received damaged, leaked, or incorrect, the Customer must notify the Company within <strong>48 hours</strong> of delivery.</li>
+                        <li>Clear photos or videos evidencing the issue must be provided.</li>
+                        <li>Upon verification, MALGRÉ shall, at its discretion:
+                            <ul>
+                                <li>Replace the Product at no additional cost, or</li>
+                                <li>Refund the full amount paid, including shipping fees</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <hr class="divider">
+
+            <!-- Article 6 -->
+            <div class="policy-article">
+                <h2 class="article-title">Article (6): Return Procedure</h2>
+                <div class="article-content">
+                    <ol>
+                        <li>The Customer must submit a formal return or exchange request via the Company's official communication channels.</li>
+                        <li>Prior approval from MALGRÉ is required before returning any Product.</li>
+                        <li>The Product must be shipped according to the provided instructions.</li>
+                        <li>Any return sent without prior authorization may be rejected.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <hr class="divider">
+
+            <!-- Article 7 -->
+            <div class="policy-article">
+                <h2 class="article-title">Article (7): Refunds</h2>
+                <div class="article-content">
+                    <ul>
+                        <li>Returned Products will be inspected upon receipt.</li>
+                        <li>Approved refunds will be processed within <strong>5–10 business days</strong>.</li>
+                        <li>Refunds will be issued to the original payment method.</li>
+                        <li>Shipping fees are non-refundable unless the return is due to Company error.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr class="divider">
+
+            <!-- Article 8 -->
+            <div class="policy-article">
+                <h2 class="article-title">Article (8): Exchanges</h2>
+                <div class="article-content">
+                    <ul>
+                        <li>Exchanges are subject to product availability.</li>
+                        <li>Any price difference will be settled accordingly with the Customer.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr class="divider">
+
+            <!-- Article 9 -->
+            <div class="policy-article">
+                <h2 class="article-title">Article (9): Order Cancellation</h2>
+                <div class="article-content">
+                    <ul>
+                        <li>Orders may be canceled free of charge before shipment.</li>
+                        <li>Once shipped, the order becomes subject to this Return & Exchange Policy.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr class="divider">
+
+            <!-- Article 10 -->
+            <div class="policy-article">
+                <h2 class="article-title">Article (10): Limitation of Liability</h2>
+                <div class="article-content">
+                    <ul>
+                        <li>MALGRÉ is not responsible for dissatisfaction due to personal scent preferences.</li>
+                        <li>The Company is not liable for delays or damages caused by third-party shipping providers.</li>
+                        <li>The Company bears no responsibility for improper storage or misuse after delivery.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr class="divider">
+
+            <!-- Article 11 -->
+            <div class="policy-article">
+                <h2 class="article-title">Article (11): Force Majeure</h2>
+                <div class="article-content">
+                    <p>MALGRÉ shall not be held liable for failure or delay in performance due to events beyond its reasonable control, including but not limited to natural disasters or governmental actions.</p>
+                </div>
+            </div>
+
+            <hr class="divider">
+
+            <!-- Article 12 -->
+            <div class="policy-article">
+                <h2 class="article-title">Article (12): Amendments</h2>
+                <div class="article-content">
+                    <p>MALGRÉ reserves the right to amend or update this Policy at any time. Any changes shall become effective upon publication on the official website.</p>
+                </div>
+            </div>
+
+            <hr class="divider">
+
+            <!-- Article 13 -->
+            <div class="policy-article">
+                <h2 class="article-title">Article (13): Governing Law and Jurisdiction</h2>
+                <div class="article-content">
+                    <p>This Policy shall be governed by and construed in accordance with the laws of the <strong>Kingdom of Saudi Arabia</strong>, and the competent courts therein shall have exclusive jurisdiction over any disputes.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p class="footer-text">© 2026 All Rights Reserved</p>
+    </footer>
+</body>
+</html>
