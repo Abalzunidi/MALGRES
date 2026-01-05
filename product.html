@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Malgré Signature - Product Details</title>
+    <title>Malgré</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="store-colors.css">
     <script src="store-images.js"></script>
@@ -25,7 +25,7 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            padding-top: 100px;
+            padding-top: 100px; /* Space for logo */
         }
         
         /* Logo at top center */
@@ -43,90 +43,80 @@
             width: auto;
         }
         
-        /* Back Button */
-        .back-button {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            width: 50px;
-            height: 50px;
-            background: var(--btn-bg);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .product-card {
             cursor: pointer;
-            z-index: 1000;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px var(--shadow-heavy);
+            transition: transform 0.3s;
         }
         
-        .back-button:hover {
-            transform: scale(1.1);
+        .product-card:hover {
+            transform: scale(1.05);
         }
         
-        .back-button svg {
-            width: 24px;
-            height: 24px;
-            fill: var(--btn-text);
-        }
-        
-        /* Cart Icon Button */
-        .cart-icon-button {
+        /* Country Selection Popup */
+        .country-selection-overlay {
             position: fixed;
-            top: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            background: var(--btn-bg);
-            border-radius: 50%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--popup-overlay);
+            z-index: 99999;
             display: none;
             align-items: center;
             justify-content: center;
+        }
+        
+        .country-selection-overlay.show {
+            display: flex;
+        }
+        
+        .country-selection-popup {
+            background: var(--bg-primary);
+            padding: 2rem;
+            border-radius: 30px;
+            text-align: center;
+            max-width: 400px;
+            width: 85%;
+            box-shadow: 0 20px 60px var(--shadow-extra);
+        }
+        
+        .country-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+        
+        .country-button {
+            padding: 1.25rem 2rem;
+            font-size: 1.5rem;
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-weight: 700;
+            background: var(--btn-bg);
+            color: var(--btn-text);
+            border: none;
+            border-radius: 20px;
             cursor: pointer;
-            z-index: 1000;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px var(--shadow-heavy);
         }
         
-        .cart-icon-button.show {
-            display: flex;
+        .country-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px var(--shadow-heavy);
         }
         
-        .cart-icon-button:hover {
-            transform: scale(1.1);
-        }
-        
-        .cart-icon-button svg {
-            width: 24px;
-            height: 24px;
-            fill: var(--btn-text);
-        }
-        
-        .cart-badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background: var(--cart-badge-bg);
-            color: var(--cart-badge-text);
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: 700;
+        .country-button:active {
+            transform: scale(0.98);
         }
         
         /* Hamburger Menu Button */
         .menu-button {
             position: fixed;
             top: 20px;
-            left: 90px;
+            left: 20px;
             width: 50px;
             height: 50px;
-            background: var(--btn-bg);
+            background: var(--accent-dark);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -153,7 +143,7 @@
         .menu-icon span {
             width: 100%;
             height: 3px;
-            background: var(--btn-text);
+            background: var(--accent-light);
             border-radius: 2px;
             transition: all 0.3s ease;
         }
@@ -170,47 +160,27 @@
             transform: rotate(-45deg) translateY(-7px);
         }
         
-        /* Side Menu */
+        /* Side Menu - Hidden by default */
         .side-menu {
             position: fixed;
-            bottom: -100%;
+            bottom: -100%; /* Changed to slide from bottom */
             left: 0;
             right: 0;
             width: 100%;
             max-width: 100%;
-            height: 85vh;
+            height: 85vh; /* 85% of viewport height */
             max-height: none;
             background: var(--menu-bg);
-            box-shadow: 0 -5px 25px var(--shadow-heavy);
+            box-shadow: 0 -5px 25px var(--shadow-heavy); /* Shadow on top */
             z-index: 999;
-            transition: bottom 0.4s ease;
+            transition: bottom 0.4s ease; /* Changed to bottom transition */
             overflow-y: auto;
             padding: 30px;
-            border-radius: 30px 30px 0 0;
+            border-radius: 30px 30px 0 0; /* Rounded top corners */
         }
         
         .side-menu.active {
-            bottom: 0;
-        }
-        
-        /* Cart Panel */
-        .cart-panel {
-            position: fixed;
-            top: 0;
-            right: -400px;
-            width: 400px;
-            max-width: 85%;
-            height: 100vh;
-            background: var(--cart-bg);
-            box-shadow: -5px 0 25px var(--shadow-heavy);
-            z-index: 999;
-            transition: right 0.4s ease;
-            overflow-y: auto;
-            padding: 80px 30px 30px;
-        }
-        
-        .cart-panel.active {
-            right: 0;
+            bottom: 0; /* Slide up to visible position */
         }
         
         .menu-overlay {
@@ -256,351 +226,333 @@
             display: flex;
             align-items: center;
             font-size: 18px;
-            color: var(--text-primary); /* White text */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            color: var(--text-primary); /* White text color */
         }
         
         .menu-item:hover {
             background: var(--card-hover-bg);
             transform: translateX(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
         }
         
         .menu-item.active {
             background: var(--card-active-bg);
             color: var(--card-active-text);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
         }
         
-        /* Cart Panel Content */
-        .cart-title {
-            font-size: 1.75rem;
-            margin-bottom: 2rem;
-            text-align: center;
-            color: var(--text-primary);
-        }
-        
-        .cart-item {
-            padding: 1rem;
-            background: var(--cart-item-bg);
-            border-radius: 12px;
-            margin-bottom: 1rem;
-        }
-        
-        .cart-item-top {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 0.75rem;
-        }
-        
-        .cart-item-image {
-            width: 70px;
-            height: 70px;
-            object-fit: contain;
-            background: var(--input-bg);
-            border-radius: 8px;
-            padding: 0.5rem;
-            flex-shrink: 0;
-        }
-        
-        .cart-item-details {
-            flex: 1;
-        }
-        
-        .cart-item-name {
-            font-size: 1rem;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary);
-        }
-        
-        .cart-item-price {
-            font-size: 1rem;
-            color: var(--text-secondary);
-        }
-        
-        .cart-item-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .quantity-control {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .quantity-btn {
-            width: 30px;
-            height: 30px;
-            background: var(--btn-bg);
-            color: var(--btn-text);
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 1.125rem;
-            display: flex;
+        /* Country Change Popup */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--popup-overlay);
+            backdrop-filter: blur(10px);
+            z-index: 9999;
             align-items: center;
             justify-content: center;
-            transition: all 0.2s ease;
-            font-weight: 700;
         }
         
-        .quantity-btn:hover {
-            transform: scale(1.1);
+        .popup-overlay.show {
+            display: flex;
         }
         
-        .quantity-btn:active {
-            transform: scale(0.95);
+        .popup-document {
+            width: 350px;
+            max-width: 85%;
+            height: 400px;
+            max-height: 70vh;
+            background: var(--popup-bg);
+            border: 3px solid var(--popup-border);
+            box-shadow: 0 30px 80px var(--shadow-extra);
+            position: relative;
+            animation: slideIn 0.6s ease;
+            backdrop-filter: blur(10px);
         }
         
-        .quantity-value {
-            font-size: 1.125rem;
-            min-width: 30px;
+        .popup-document::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            border: 1px solid var(--border-medium);
+        }
+        
+        .popup-logo {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            width: 60px;
+            height: 60px;
+            animation: logoStamp 0.5s ease 0.5s backwards;
+        }
+        
+        .popup-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
             text-align: center;
         }
         
-        .delete-btn {
-            background: var(--error-bg);
-            color: var(--error-text);
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.875rem;
+        .popup-flag {
+            font-size: 60px;
+            margin-bottom: 15px;
+        }
+        
+        .popup-divider {
+            width: 80px;
+            height: 2px;
+            background: var(--text-primary);
+            margin: 15px auto;
+            opacity: 0.4;
+        }
+        
+        .popup-title {
+            font-size: 22px;
             font-weight: 700;
-            transition: all 0.2s ease;
-            font-family: 'Cormorant Garamond', Georgia, serif;
+            color: var(--popup-text);
+            letter-spacing: 2px;
+            margin-bottom: 10px;
         }
         
-        .delete-btn:hover {
-            background: var(--error-hover);
-            transform: scale(1.05);
+        .popup-text {
+            font-size: 16px !important;
+            font-weight: 600 !important;
+            color: var(--popup-text) !important;
+            line-height: 1.6 !important;
         }
         
-        .cart-summary {
-            margin-top: 2rem;
-            padding-top: 1.5rem;
-            border-top: 2px solid var(--border-light);
+        .popup-text * {
+            color: var(--popup-text) !important;
         }
         
-        .cart-summary-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 1rem;
-            font-size: 1.125rem;
-        }
-        
-        .cart-summary-row.total {
-            font-size: 1.5rem;
-            padding-top: 1rem;
-            border-top: 2px solid var(--border-medium);
-            margin-top: 1rem;
-        }
-        
-        .cart-summary-label {
-            color: var(--text-secondary);
-        }
-        
-        .cart-summary-value {
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-        
-        .checkout-button {
-            width: 100%;
-            background-color: var(--btn-bg);
-            color: var(--btn-text);
-            padding: 1rem;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 1.25rem;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px var(--shadow-heavy);
-            font-family: 'Cormorant Garamond', Georgia, serif;
-            margin-top: 1.5rem;
-        }
-        
-        .checkout-button:hover {
-            transform: scale(1.02);
-            box-shadow: 0 6px 20px var(--shadow-heavy);
-        }
-        
-        /* Main content */
+        /* Main content - Welcome Section */
         main {
             flex: 1;
-            padding: 2rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem;
+            min-height: calc(100vh - 200px);
+            background: var(--bg-primary);
         }
         
-        .product-container {
+        /* Welcome section - Centered elegant text */
+        .welcome-section {
+            width: 100%;
             max-width: 800px;
             margin: 0 auto;
+            text-align: center;
         }
         
-        /* Image Gallery */
-        .image-gallery {
-            margin-bottom: 2rem;
-        }
-        
-        .main-image {
-            width: 100%;
-            max-height: 500px;
-            object-fit: contain;
-            background: var(--input-bg);
-            border-radius: 20px;
+        .welcome-content {
             padding: 2rem;
-            margin-bottom: 1rem;
         }
         
-        .thumbnail-container {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        
-        .thumbnail {
-            width: 80px;
-            height: 80px;
-            object-fit: contain;
-            background: var(--input-bg);
-            border-radius: 10px;
-            padding: 0.5rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 3px solid transparent;
-        }
-        
-        .thumbnail:hover {
-            transform: scale(1.1);
-        }
-        
-        .thumbnail.active {
-            border-color: var(--btn-bg);
-        }
-        
-        /* Product Info */
-        .product-info {
-            text-align: center;
+        /* Brand name */
+        .brand-name {
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: 8px;
             margin-bottom: 2rem;
+            text-transform: uppercase;
         }
         
-        .product-title {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 1rem;
+        /* Decorative divider */
+        .divider {
+            width: 100px;
+            height: 2px;
+            background: var(--text-primary);
+            margin: 0 auto 2.5rem;
         }
         
-        .product-price {
-            font-size: 1.75rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 1.5rem;
-        }
-        
-        /* Quantity Selector on Product Page */
-        .product-quantity-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .product-quantity-label {
-            font-size: 1.125rem;
-            color: var(--text-secondary);
-        }
-        
-        .product-quantity-control {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-        
-        .product-quantity-btn {
-            width: 40px;
-            height: 40px;
-            background: var(--btn-bg);
-            color: var(--btn-text);
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
+        /* Welcome text */
+        .welcome-text {
             font-size: 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-            font-weight: 700;
-        }
-        
-        .product-quantity-btn:hover {
-            transform: scale(1.1);
-        }
-        
-        .product-quantity-btn:active {
-            transform: scale(0.95);
-        }
-        
-        .product-quantity-value {
-            font-size: 1.5rem;
-            min-width: 40px;
-            text-align: center;
-        }
-        
-        .add-to-cart-btn {
-            background-color: var(--btn-bg);
-            color: var(--btn-text);
-            padding: 1rem 3rem;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 1.25rem;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px var(--shadow-heavy);
-            font-family: 'Cormorant Garamond', Georgia, serif;
-            display: inline-block;
-        }
-        
-        .add-to-cart-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 20px var(--shadow-heavy);
-        }
-        
-        .add-to-cart-btn:active {
-            transform: scale(0.98);
-        }
-        
-        /* Product Description */
-        .product-description {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-        }
-        
-        .description-title {
-            font-size: 1.5rem;
-            font-weight: 700;
+            font-weight: 600;
             color: var(--text-primary);
-            margin-bottom: 1rem;
-            text-align: center;
+            line-height: 2;
+            margin-bottom: 2.5rem;
+            font-style: italic;
         }
         
-        .description-text {
+        /* Brand description */
+        .brand-description {
             font-size: 1.125rem;
             font-weight: 400;
             color: var(--text-secondary);
-            line-height: 1.8;
-            text-align: center;
+            line-height: 2;
+            margin-bottom: 2rem;
+            text-align: justify;
+        }
+        
+        /* Brand philosophy */
+        .brand-philosophy {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 2;
+            margin-top: 2.5rem;
         }
         
         /* Footer */
         footer {
             padding: 1.5rem 0;
             text-align: center;
-            background-color: var(--footer-bg);
+            background-color: var(--bg-primary);
+        }
+        
+        .footer-text {
+            font-size: 0.875rem;
+            color: var(--text-light);
+            letter-spacing: 1px;
+        }
+        
+        .products-container {
+            max-width: 1000px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .product-item {
+            display: flex;
+            gap: 2rem;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            align-items: center;
+        }
+        
+        .product-item:hover {
+            background: var(--card-hover-bg);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px var(--shadow-medium);
+        }
+        
+        .product-image-container {
+            flex-shrink: 0;
+            width: 200px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            border-radius: 15px;
+            padding: 1rem;
+        }
+        
+        .product-image-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .product-details {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .product-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .product-description {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-weight: 400;
+        }
+        
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 0.5rem;
+        }
+        
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .learn-more-btn {
+            padding: 0.75rem 2rem;
+            background: var(--btn-bg);
+            color: var(--btn-text);
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px var(--shadow-medium);
+        }
+        
+        .learn-more-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px var(--shadow-heavy);
+        }
+        
+        .learn-more-btn:active {
+            transform: scale(0.98);
+        }
+        
+        .product-grid {
+            max-width: 20rem;
+            margin: 0 auto;
+        }
+        
+        .product-card {
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .product-card .product-image-container {
+            padding: 2rem;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        
+        .product-card .product-image-container img {
+            height: 12rem;
+            width: auto;
+        }
+        
+        .product-info {
+            text-align: center;
+            padding-bottom: 1rem;
+        }
+        
+        /* Footer */
+        footer {
+            display: none; /* Hide footer on carousel page */
         }
         
         .footer-text {
@@ -612,32 +564,72 @@
             background-color: var(--footer-text-bg);
         }
         
-        /* Success Message */
-        .success-message {
+        /* Cart Summary */
+        .cart-summary {
             position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            background: var(--btn-bg);
-            color: var(--btn-text);
-            padding: 2rem 3rem;
-            border-radius: 20px;
-            font-size: 1.25rem;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem;
+            background-color: var(--bg-primary);
+            box-shadow: 0 -25px 50px -12px var(--shadow-medium);
+            z-index: 50;
+            display: none;
+        }
+        
+        .cart-summary.show {
+            display: block;
+        }
+        
+        .cart-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .cart-total-label {
+            font-size: 0.875rem;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+        
+        .cart-total-amount {
+            font-size: 1.875rem;
             font-weight: 700;
-            z-index: 10000;
-            box-shadow: 0 10px 40px var(--shadow-extra);
-            transition: all 0.3s ease;
+            color: var(--text-primary);
         }
         
-        .success-message.show {
-            transform: translate(-50%, -50%) scale(1);
-        }
-        
-        .empty-cart {
-            text-align: center;
-            padding: 3rem 1rem;
-            color: var(--text-light);
+        .checkout-button {
+            background-color: var(--btn-bg);
+            color: var(--btn-text);
+            padding: 1rem 2rem;
+            border-radius: 9999px;
+            font-weight: 700;
             font-size: 1.125rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.15s;
+            box-shadow: 0 20px 25px -5px var(--shadow-light);
+            font-family: 'Cormorant Garamond', Georgia, serif;
+        }
+        
+        .checkout-button:hover {
+            background-color: var(--btn-hover);
+            transform: scale(1.05);
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes logoStamp {
+            from { transform: scale(0) rotate(-90deg); opacity: 0; }
+            to { transform: scale(1) rotate(0); opacity: 1; }
         }
         
         /* ===================================
@@ -645,145 +637,198 @@
            =================================== */
         
         @media (max-width: 768px) {
-            /* Header elements */
+            /* Logo smaller on mobile */
             .logo-container img {
                 height: 60px;
             }
             
-            .back-button,
-            .cart-icon-button,
+            /* Menu button smaller */
             .menu-button {
                 width: 45px;
                 height: 45px;
                 top: 15px;
-            }
-            
-            .back-button {
-                left: 15px;
-            }
-            
-            .menu-button {
-                left: 70px;
-            }
-            
-            .cart-icon-button {
                 right: 15px;
             }
             
-            /* Side menu on mobile */
+            /* Side menu full width on mobile */
             .side-menu {
-                height: 85vh;
+                height: 85vh; /* Taller on mobile */
                 max-height: none;
                 padding: 20px;
             }
             
-            /* Page container */
+            /* Welcome section mobile */
+            main {
+                padding: 2rem 1.5rem;
+            }
+            
+            .brand-name {
+                font-size: 2.5rem;
+                letter-spacing: 6px;
+            }
+            
+            .divider {
+                width: 80px;
+            }
+            
+            .welcome-text {
+                font-size: 1.125rem;
+            }
+            
+            .brand-description,
+            .brand-philosophy {
+                font-size: 1rem;
+                text-align: center;
+            }
+            
+            /* Footer mobile */
+            footer {
+                padding: 1rem 0;
+            }
+            
+            .footer-text {
+                font-size: 0.75rem;
+            }
+            
+            .side-menu.active {
+                bottom: 0;
+            }
+            
+            /* Menu items larger touch targets */
+            .menu-item {
+                padding: 18px 20px;
+                font-size: 20px;
+            }
+            
+            .menu-section-title {
+                font-size: 16px;
+            }
+            
+            /* Page container more padding */
             .page-container {
                 padding-top: 90px;
             }
             
-            /* Product container - stack vertically */
-            .product-container {
+            /* Products container - single column on mobile */
+            .products-container {
+                gap: 1.5rem;
+                padding: 0 1rem;
+            }
+            
+            .product-item {
                 flex-direction: column;
-                padding: 1rem;
+                padding: 1.5rem;
                 gap: 1.5rem;
             }
             
-            /* Product image full width */
             .product-image-container {
                 width: 100%;
-                max-width: 100%;
-            }
-            
-            .product-image {
-                height: 350px;
-            }
-            
-            /* Product info */
-            .product-info {
-                width: 100%;
-                padding: 1.5rem;
+                height: 250px;
             }
             
             .product-title {
-                font-size: 2rem;
-            }
-            
-            .product-price {
-                font-size: 1.75rem;
-            }
-            
-            /* Quantity controls larger for touch */
-            .product-quantity-btn {
-                width: 50px;
-                height: 50px;
-                font-size: 1.75rem;
-            }
-            
-            .product-quantity-value {
-                font-size: 1.75rem;
-                min-width: 50px;
-            }
-            
-            /* Add to cart button */
-            .add-to-cart-btn {
-                font-size: 1.25rem;
-                padding: 1.125rem;
-            }
-            
-            /* Description */
-            .product-description {
-                padding: 1.5rem;
-            }
-            
-            .description-title {
                 font-size: 1.5rem;
             }
             
-            .description-text {
-                font-size: 1rem;
+            .product-description {
+                font-size: 0.95rem;
             }
             
-            /* Cart panel - better sizing on mobile */
-            .cart-panel {
-                max-width: 85%;
+            .product-footer {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: stretch;
             }
             
-            .cart-item-top {
-                display: flex;
-                flex-direction: row;
+            .product-price {
+                text-align: center;
+                font-size: 1.25rem;
+            }
+            
+            .learn-more-btn {
+                width: 100%;
+            }
+            
+            /* Product cards larger on mobile */
+            .product-card {
+                padding: 1.5rem;
+            }
+            
+            .product-card img {
+                height: 250px;
+            }
+            
+            .product-name {
+                font-size: 1.75rem;
+            }
+            
+            .product-price {
+                font-size: 1.5rem;
+            }
+            
+            .product-cta {
+                font-size: 1.125rem;
+                padding: 0.875rem 1.5rem;
+            }
+            
+            /* Popup adjustments */
+            .popup-document {
+                width: 90%;
+                max-width: 350px;
+                padding: 2rem 1.5rem;
+            }
+            
+            .popup-logo {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .popup-title {
+                font-size: 1.75rem;
+            }
+            
+            .popup-flag {
+                font-size: 3rem;
+            }
+            
+            .popup-text {
+                font-size: 1.125rem;
+            }
+            
+            .popup-close {
+                font-size: 1.25rem;
+                padding: 0.875rem 2rem;
+            }
+            
+            /* Country selection popup */
+            .country-selection-popup {
+                width: 90%;
+                max-width: 320px;
+                padding: 1.5rem;
+            }
+            
+            .country-buttons {
                 gap: 1rem;
             }
             
-            .cart-item-image {
-                width: 60px;
-                height: 60px;
+            .country-button {
+                font-size: 1.25rem;
+                padding: 1rem 1.5rem;
+            }
+        }
+        
+        /* Tablet landscape */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .products-container {
+                grid-template-columns: repeat(2, 1fr) !important;
             }
             
-            .cart-item-details {
-                flex: 1;
-                min-width: 0;
+            .logo-container img {
+                height: 70px;
             }
             
-            .cart-item-name {
-                font-size: 1rem;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-            }
-            
-            /* Side menu - better sizing on mobile */
-            .side-menu {
-                max-width: 85%;
-            }
-            
-            .menu-item {
-                padding: 18px 20px;
-                font-size: 18px;
-            }
-            
-            .menu-section-title {
-                font-size: 13px;
+            .product-card img {
+                height: 300px;
             }
         }
         
@@ -793,82 +838,85 @@
                 height: 50px;
             }
             
-            .back-button,
-            .cart-icon-button,
             .menu-button {
                 width: 40px;
                 height: 40px;
-            }
-            
-            .back-button {
-                left: 10px;
-            }
-            
-            .menu-button {
-                left: 60px;
-            }
-            
-            .cart-icon-button {
+                top: 10px;
                 right: 10px;
             }
             
-            .product-image {
-                height: 280px;
+            /* Welcome section small mobile */
+            main {
+                padding: 1.5rem 1rem;
             }
             
-            .product-title {
-                font-size: 1.75rem;
+            .brand-name {
+                font-size: 2rem;
+                letter-spacing: 4px;
             }
             
-            .product-price {
-                font-size: 1.5rem;
+            .divider {
+                width: 60px;
             }
             
-            .product-info {
+            .welcome-text {
+                font-size: 1rem;
+            }
+            
+            .brand-description,
+            .brand-philosophy {
+                font-size: 0.9375rem;
+            }
+            
+            .product-card {
                 padding: 1rem;
             }
             
-            /* Even smaller cart items on small phones */
-            .cart-item-image {
-                width: 50px;
-                height: 50px;
+            .product-card img {
+                height: 200px;
             }
             
-            .cart-item-name {
-                font-size: 0.9rem;
-            }
-            
-            .cart-item-price {
-                font-size: 0.9rem;
-            }
-            
-            .cart-title {
+            .product-name {
                 font-size: 1.5rem;
             }
             
-            .menu-item {
-                font-size: 16px;
-                padding: 15px 18px;
+            .product-price {
+                font-size: 1.25rem;
+            }
+            
+            .popup-document {
+                width: 95%;
+                padding: 1.5rem 1rem;
+            }
+            
+            .popup-logo {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .popup-title {
+                font-size: 1.5rem;
+            }
+            
+            /* Country selection popup */
+            .country-selection-popup {
+                width: 95%;
+                max-width: 280px;
+                padding: 1.25rem;
+            }
+            
+            .country-buttons {
+                gap: 0.875rem;
+            }
+            
+            .country-button {
+                font-size: 1.125rem;
+                padding: 0.875rem 1.25rem;
             }
         }
     </style>
 </head>
 <body>
-
-    <!-- Back Button -->
-    <div class="back-button" onclick="window.location.href='products.html'">
-        <svg viewBox="0 0 24 24">
-            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
-        </svg>
-    </div>
-
-    <!-- Cart Icon Button -->
-    <div class="cart-icon-button" id="cartIconButton" onclick="toggleCart()">
-        <svg viewBox="0 0 24 24">
-            <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
-        </svg>
-        <div class="cart-badge" id="cartBadge">0</div>
-    </div>
 
     <!-- Menu Button -->
     <div class="menu-button" id="menuButton" onclick="toggleMenu()">
@@ -880,14 +928,14 @@
     </div>
 
     <!-- Menu Overlay -->
-    <div class="menu-overlay" id="menuOverlay" onclick="closeAll()"></div>
+    <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
 
     <!-- Side Menu -->
     <div class="side-menu" id="sideMenu">
         <!-- Collection Section -->
         <div class="menu-section">
             <div class="menu-section-title">Collection</div>
-            <div class="menu-item active">
+            <div class="menu-item" onclick="window.location.href='products.html'">
                 Malgré Collection
             </div>
         </div>
@@ -927,81 +975,46 @@
         </div>
     </div>
 
-    <!-- Cart Panel -->
-    <div class="cart-panel" id="cartPanel">
-        <h2 class="cart-title">Shopping Cart</h2>
-        
-        <div id="cartItems">
-            <!-- Cart items will be inserted here -->
-        </div>
-        
-        <div class="cart-summary" id="cartSummary" style="display: none;">
-            <div class="cart-summary-row">
-                <span class="cart-summary-label">Subtotal:</span>
-                <span class="cart-summary-value" id="subtotal">0 SAR</span>
-            </div>
-            <div class="cart-summary-row">
-                <span class="cart-summary-label">Tax (15%):</span>
-                <span class="cart-summary-value" id="tax">0 SAR</span>
-            </div>
-            <div class="cart-summary-row">
-                <span class="cart-summary-label">Delivery:</span>
-                <span class="cart-summary-value" id="delivery">Free</span>
-            </div>
-            <div class="cart-summary-row total">
-                <span class="cart-summary-label">Total:</span>
-                <span class="cart-summary-value" id="total">0 SAR</span>
+    <!-- Popup -->
+    <div id="popup" class="popup-overlay">
+        <div class="popup-document">
+            <div class="popup-logo">
+                <img src="L2.png" alt="Malgré Logo" data-image="logo-secondary" style="width: 100%; height: 100%; object-fit: contain;">
             </div>
             
-            <button class="checkout-button" onclick="checkout()">Checkout</button>
+            <div class="popup-content">
+                <div id="popupFlag" class="popup-flag">🇸🇦</div>
+                <div class="popup-divider"></div>
+                <div class="popup-title">COUNTRY CHANGED</div>
+                <div id="popupText" class="popup-text">From Saudi Arabia to Kuwait</div>
+            </div>
         </div>
     </div>
 
     <!-- Page Container -->
     <div class="page-container">
         <!-- Logo at Top Center -->
-        <div class="logo-container" onclick="window.location.href='index.html'">
+        <div class="logo-container">
             <img src="L2.png" alt="Malgré Logo" data-image="logo-main">
         </div>
 
         <!-- Main Content -->
         <main>
-            <div class="product-container">
-                <!-- Image Gallery -->
-                <div class="image-gallery">
-                    <img src="I1.png" alt="Malgré Signature" class="main-image" id="mainImage" data-image="product-main">
-                    
-                    <div class="thumbnail-container">
-                        <img src="I1.png" alt="Thumbnail 1" class="thumbnail active" data-image="product-thumbnail-1" onclick="changeImage(STORE_IMAGES.products.signature.thumbnails[0], this)">
-                        <img src="I1.png" alt="Thumbnail 2" class="thumbnail" data-image="product-thumbnail-2" onclick="changeImage(STORE_IMAGES.products.signature.thumbnails[1], this)">
-                        <img src="I1.png" alt="Thumbnail 3" class="thumbnail" data-image="product-thumbnail-3" onclick="changeImage(STORE_IMAGES.products.signature.thumbnails[2], this)">
-                    </div>
-                </div>
-                
-                <!-- Product Info -->
-                <div class="product-info">
-                    <h1 class="product-title">Malgré Signature</h1>
-                    <p class="product-price" id="productPrice">450 SAR</p>
-                    
-                    <!-- Quantity Selector -->
-                    <div class="product-quantity-container">
-                        <div class="product-quantity-control">
-                            <button class="product-quantity-btn" onclick="decreaseQuantity()">-</button>
-                            <span class="product-quantity-value" id="productQuantity">1</span>
-                            <button class="product-quantity-btn" onclick="increaseQuantity()">+</button>
-                        </div>
-                    </div>
-                    
-                    <button class="add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
-                </div>
-                
-                <!-- Product Description -->
-                <div class="product-description">
-                    <h2 class="description-title">Product Information</h2>
-                    <p class="description-text">
-                        Malgré Signature is a luxurious fragrance that embodies elegance and sophistication. 
-                        This exquisite perfume features a harmonious blend of rich, captivating notes that create 
-                        a unique and unforgettable scent experience. Perfect for those who appreciate the finer things in life.
+            <div class="welcome-section">
+                <div class="welcome-content">
+                    <h1 class="brand-name">MALGRÉ</h1>
+                    <div class="divider"></div>
+                    <p class="welcome-text">
+                        Where luxury meets artistry, and every detail whispers elegance.
+                    </p>
+                    <p class="brand-description">
+                        In a world of fleeting trends, Malgré stands as a testament to timeless sophistication. 
+                        We craft experiences that transcend the ordinary, curating moments of refined beauty 
+                        for those who appreciate the exquisite. Each piece in our collection embodies 
+                        the essence of exclusivity, designed for individuals who seek nothing less than perfection.
+                    </p>
+                    <p class="brand-philosophy">
+                        © 2026 All Rights Reserved
                     </p>
                 </div>
             </div>
@@ -1013,147 +1026,35 @@
         </footer>
     </div>
 
-    <!-- Success Message -->
-    <div class="success-message" id="successMessage">
-        ✓ Added to Cart!
+    <!-- Cart Summary -->
+    <div id="cart-summary" class="cart-summary">
+        <div class="cart-content">
+            <div>
+                <p class="cart-total-label">Total</p>
+                <p class="cart-total-amount" id="cart-total">0 SAR</p>
+            </div>
+            <button class="checkout-button">
+                Checkout (<span id="cart-count">0</span> items)
+            </button>
+        </div>
     </div>
 
     <script>
-        // Get product from URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const productId = urlParams.get('product') || 'signature';
-        
-        // Get country from localStorage
         let currentCountry = 'sa'; // Default to Saudi Arabia
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        let productQuantity = 1;
-        
-        // Product data
-        const productsData = {
-            product1: {
-                name: 'MALGRÉ',
-                description: 'Experience luxury and elegance with this exquisite product. This premium item combines sophistication with style, creating a unique and memorable experience.',
-                images: {
-                    main: 'P1.png',
-                    thumbnails: ['P1.png', 'P2.png', 'P3.png']
-                },
-                prices: {
-                    sa: { price: 350, currency: 'SAR' }
-                }
-            }
-        };
-        
-        // Get current product
-        const currentProduct = productsData[productId];
-        
-        // If product not found, redirect to products page
-        if (!currentProduct) {
-            console.error('Product not found:', productId);
-            window.location.href = 'products.html';
-        }
+        let cart = [];
         
         const content = {
             sa: {
                 name: 'Saudi Arabia',
+                flag: '🇸🇦',
                 currency: 'SAR',
-                price: currentProduct.prices.sa.price,
-                deliveryFee: 0  // Free delivery
+                products: {
+                    product1: 350
+                },
+                phone: '+966 55 206 0478'
             }
         };
-        
-        // Initialize product display
-        function initializeProduct() {
-            console.log('Initializing product:', productId);
-            console.log('Product data:', currentProduct);
-            
-            // Update page title
-            document.title = currentProduct.name + ' - Product Details';
-            
-            // Update product name
-            const titleElement = document.querySelector('.product-title');
-            if (titleElement) {
-                titleElement.textContent = currentProduct.name;
-            }
-            
-            // Update product description
-            const descElement = document.querySelector('.description-text');
-            if (descElement) {
-                descElement.textContent = currentProduct.description;
-            }
-            
-            // Update main image
-            const mainImage = document.getElementById('mainImage');
-            if (mainImage && currentProduct.images.main) {
-                mainImage.src = currentProduct.images.main;
-                console.log('Main image set to:', currentProduct.images.main);
-            }
-            
-            // Update thumbnails
-            const thumbnails = document.querySelectorAll('.thumbnail');
-            console.log('Found thumbnails:', thumbnails.length);
-            
-            thumbnails.forEach((thumb, index) => {
-                if (currentProduct.images.thumbnails[index]) {
-                    thumb.src = currentProduct.images.thumbnails[index];
-                    console.log(`Thumbnail ${index + 1} set to:`, currentProduct.images.thumbnails[index]);
-                    
-                    thumb.onclick = function() {
-                        changeImage(currentProduct.images.thumbnails[index], this);
-                    };
-                }
-            });
-            
-            // Update price
-            updatePrice();
-        }
-        
-        // Update price display
-        function updatePrice() {
-            const data = content[currentCountry];
-            document.getElementById('productPrice').textContent = `${data.price} ${data.currency}`;
-        }
-        
-        // Product quantity controls
-        function increaseQuantity() {
-            productQuantity++;
-            document.getElementById('productQuantity').textContent = productQuantity;
-        }
-        
-        function decreaseQuantity() {
-            if (productQuantity > 1) {
-                productQuantity--;
-                document.getElementById('productQuantity').textContent = productQuantity;
-            }
-        }
-        
-        // Cart item quantity controls
-        function increaseCartQuantity(index) {
-            cart[index].quantity++;
-            localStorage.setItem('cart', JSON.stringify(cart));
-            updateCartDisplay();
-        }
-        
-        function decreaseCartQuantity(index) {
-            if (cart[index].quantity > 1) {
-                cart[index].quantity--;
-                localStorage.setItem('cart', JSON.stringify(cart));
-                updateCartDisplay();
-            }
-        }
-        
-        // Delete cart item
-        function deleteCartItem(index) {
-            cart.splice(index, 1);
-            localStorage.setItem('cart', JSON.stringify(cart));
-            
-            // Hide cart icon if cart is empty
-            if (cart.length === 0) {
-                document.getElementById('cartIconButton').classList.remove('show');
-            }
-            
-            updateCartDisplay();
-        }
-        
+
         // Update menu active state
         function updateMenuActiveState() {
             document.getElementById('menu-sa').classList.remove('active');
@@ -1161,9 +1062,25 @@
             
             if (currentCountry === 'sa') {
                 document.getElementById('menu-sa').classList.add('active');
-            } else {
+            } else if (currentCountry === 'kw') {
                 document.getElementById('menu-kw').classList.add('active');
             }
+            // If currentCountry is null, no item will be active
+        }
+        
+        // Update product prices
+        function updateProductPrices() {
+            if (!currentCountry) return;
+            
+            const data = content[currentCountry];
+            const priceElements = document.querySelectorAll('[data-product]');
+            
+            priceElements.forEach(element => {
+                const productKey = element.getAttribute('data-product');
+                if (data.products[productKey]) {
+                    element.textContent = `${data.products[productKey]} ${data.currency}`;
+                }
+            });
         }
 
         // Toggle menu
@@ -1171,37 +1088,10 @@
             const menuButton = document.getElementById('menuButton');
             const sideMenu = document.getElementById('sideMenu');
             const menuOverlay = document.getElementById('menuOverlay');
-            const cartPanel = document.getElementById('cartPanel');
-            
-            // Close cart if open
-            cartPanel.classList.remove('active');
             
             menuButton.classList.toggle('active');
             sideMenu.classList.toggle('active');
             menuOverlay.classList.toggle('active');
-        }
-
-        // Toggle cart
-        function toggleCart() {
-            const cartPanel = document.getElementById('cartPanel');
-            const menuOverlay = document.getElementById('menuOverlay');
-            const sideMenu = document.getElementById('sideMenu');
-            const menuButton = document.getElementById('menuButton');
-            
-            // Close menu if open
-            sideMenu.classList.remove('active');
-            menuButton.classList.remove('active');
-            
-            cartPanel.classList.toggle('active');
-            menuOverlay.classList.toggle('active');
-        }
-
-        // Close all panels
-        function closeAll() {
-            document.getElementById('sideMenu').classList.remove('active');
-            document.getElementById('cartPanel').classList.remove('active');
-            document.getElementById('menuOverlay').classList.remove('active');
-            document.getElementById('menuButton').classList.remove('active');
         }
 
         // Select country from menu
@@ -1211,7 +1101,10 @@
                 return;
             }
             
+            const oldCountry = currentCountry;
             currentCountry = country;
+            
+            // Save to localStorage
             localStorage.setItem('selectedCountry', country);
             
             // Update menu
@@ -1220,172 +1113,80 @@
             // Close menu
             toggleMenu();
             
-            // Update price
-            updatePrice();
-            updateCartDisplay();
+            // Show popup only if there was a previous country
+            if (oldCountry !== null) {
+                const popup = document.getElementById('popup');
+                const popupFlag = document.getElementById('popupFlag');
+                const popupText = document.getElementById('popupText');
+                
+                popupFlag.textContent = content[country].flag;
+                popupText.innerHTML = '<span>From ' + content[oldCountry].name + ' to ' + content[country].name + '</span>';
+                
+                popup.classList.add('show');
+            }
+            
+            // Update prices
+            updateProductPrices();
+            
+            // Update cart if not empty
+            if (cart.length > 0) {
+                updateCartDisplay();
+            }
+            
+            // Hide popup after 3 seconds
+            setTimeout(() => {
+                popup.classList.remove('show');
+            }, 3000);
         }
 
         function goToSection(section) {
             console.log('Going to section:', section);
             toggleMenu();
+            // Add navigation logic here
         }
-        
-        // Update price based on country
-        function updatePrice() {
-            const data = content[currentCountry];
-            document.getElementById('productPrice').textContent = `${data.price} ${data.currency}`;
-        }
-        
-        // Change main image
-        function changeImage(imageSrc, thumbnail) {
-            document.getElementById('mainImage').src = imageSrc;
-            
-            // Remove active class from all thumbnails
-            document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
-            
-            // Add active class to clicked thumbnail
-            thumbnail.classList.add('active');
-        }
-        
-        // Add to cart
+
         function addToCart() {
             const data = content[currentCountry];
-            
-            // Get current displayed image
-            const currentImage = document.getElementById('mainImage').src.split('/').pop();
-            
-            // Check if product already in cart
-            const existingIndex = cart.findIndex(item => item.name === currentProduct.name && item.productId === productId);
-            
-            if (existingIndex !== -1) {
-                // Product exists, increase quantity
-                cart[existingIndex].quantity += productQuantity;
-            } else {
-                // Add new product with current displayed image
-                cart.push({
-                    name: currentProduct.name,
-                    productId: productId,
-                    price: data.price,
-                    currency: data.currency,
-                    image: currentImage,
-                    quantity: productQuantity
-                });
-            }
-            
-            // Save cart to localStorage
-            localStorage.setItem('cart', JSON.stringify(cart));
-            
-            // Reset product quantity to 1
-            productQuantity = 1;
-            document.getElementById('productQuantity').textContent = 1;
-            
-            // Show cart icon
-            document.getElementById('cartIconButton').classList.add('show');
-            
-            // Update cart display
+            cart.push({
+                name: 'Malgré Signature',
+                price: data.price,
+                currency: data.currency
+            });
             updateCartDisplay();
-            
-            // Show success message
-            const successMessage = document.getElementById('successMessage');
-            successMessage.classList.add('show');
-            
-            setTimeout(() => {
-                successMessage.classList.remove('show');
-            }, 2000);
         }
-        
-        // Update cart display
+
         function updateCartDisplay() {
             const data = content[currentCountry];
-            const cartItemsContainer = document.getElementById('cartItems');
-            const cartSummary = document.getElementById('cartSummary');
+            const total = cart.length * data.price;
             
-            // Calculate total items
-            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-            
-            // Update badge
-            document.getElementById('cartBadge').textContent = totalItems;
-            
-            // Clear cart items
-            cartItemsContainer.innerHTML = '';
-            
-            if (cart.length === 0) {
-                cartItemsContainer.innerHTML = '<div class="empty-cart">Your cart is empty</div>';
-                cartSummary.style.display = 'none';
-                return;
-            }
-            
-            // Show summary
-            cartSummary.style.display = 'block';
-            
-            // Add cart items
-            cart.forEach((item, index) => {
-                const cartItemHTML = `
-                    <div class="cart-item">
-                        <div class="cart-item-top">
-                            <img src="${item.image}" alt="${item.name}" class="cart-item-image">
-                            <div class="cart-item-details">
-                                <div class="cart-item-name">${item.name}</div>
-                                <div class="cart-item-price">${item.price} ${item.currency}</div>
-                            </div>
-                        </div>
-                        <div class="cart-item-bottom">
-                            <div class="quantity-control">
-                                <button class="quantity-btn" onclick="decreaseCartQuantity(${index})">-</button>
-                                <span class="quantity-value">${item.quantity}</span>
-                                <button class="quantity-btn" onclick="increaseCartQuantity(${index})">+</button>
-                            </div>
-                            <button class="delete-btn" onclick="deleteCartItem(${index})">Delete</button>
-                        </div>
-                    </div>
-                `;
-                cartItemsContainer.innerHTML += cartItemHTML;
-            });
-            
-            // Calculate totals
-            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            const tax = subtotal * 0.15;  // 15% tax
-            const delivery = data.deliveryFee;
-            const total = subtotal + tax + delivery;
-            
-            // Update summary
-            document.getElementById('subtotal').textContent = `${subtotal.toFixed(2)} ${data.currency}`;
-            document.getElementById('tax').textContent = `${tax.toFixed(2)} ${data.currency}`;
-            document.getElementById('delivery').textContent = delivery === 0 ? 'Free' : `${delivery} ${data.currency}`;
-            document.getElementById('total').textContent = `${total.toFixed(2)} ${data.currency}`;
+            document.getElementById('cart-count').textContent = cart.length;
+            document.getElementById('cart-total').textContent = `${total.toFixed(2)} ${data.currency}`;
+            document.getElementById('cart-summary').classList.add('show');
+        }
+
+        // Initialize
+        updateMenuActiveState();
+        
+        // Show country selection popup if no country is selected
+        if (!currentCountry) {
+            setTimeout(() => {
+                document.getElementById('countrySelectionOverlay').classList.add('show');
+            }, 300);
         }
         
-        // Checkout
-        function checkout() {
-            if (cart.length === 0) {
-                alert('Your cart is empty!');
-                return;
-            }
-            window.location.href = 'checkout.html';
-        }
-        
-        // Initialize when DOM is ready
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', function() {
-                initializeProduct();
-                updateMenuActiveState();
-                
-                // Show cart icon if cart has items
-                if (cart.length > 0) {
-                    document.getElementById('cartIconButton').classList.add('show');
-                    updateCartDisplay();
-                }
-            });
-        } else {
-            // DOM already loaded
-            initializeProduct();
+        // Select country from popup
+        function selectCountryFromPopup(country) {
+            currentCountry = country;
+            localStorage.setItem('selectedCountry', country);
+            
+            // Hide popup
+            document.getElementById('countrySelectionOverlay').classList.remove('show');
+            
+            // Update menu
             updateMenuActiveState();
             
-            // Show cart icon if cart has items
-            if (cart.length > 0) {
-                document.getElementById('cartIconButton').classList.add('show');
-                updateCartDisplay();
-            }
+            // Update prices
+            updateProductPrices();
         }
     </script>
 </body>
